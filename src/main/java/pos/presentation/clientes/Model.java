@@ -47,6 +47,7 @@ public class Model extends AbstractModel
         this.current = new Cliente();
         this.filter = new Cliente();
         this.mode = Application.MODE_CREATE;
+
     }
 
     /*GETTERS AND SETTERS
