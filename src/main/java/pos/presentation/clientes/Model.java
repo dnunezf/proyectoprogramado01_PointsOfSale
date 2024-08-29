@@ -1,5 +1,6 @@
 package pos.presentation.clientes;
 
+import pos.Application;
 import pos.logic.Cliente;
 import pos.presentation.AbstractModel;
 
