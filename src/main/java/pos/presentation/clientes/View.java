@@ -4,6 +4,11 @@ import pos.Application;
 import pos.logic.Cliente;
 
 import javax.swing.*;
+import javax.swing.table.TableColumnModel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -35,7 +40,70 @@ public class View implements PropertyChangeListener
 
     public View()
     {
+        search.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try
+                {
+                    Cliente filter = new Cliente();
 
+                    filter.setNombre(busquedaNombreTxt.getText());
+
+                    controller.search(filter);
+                }
+                catch (Exception ex)
+                {
+                    JOptionPane.showMessageDialog(panel, ex.getMessage(), "Informacion", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+        });
+
+        save.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (validate())
+                {
+                    Cliente n = take();
+
+                    try
+                    {
+                        controller.save(n);
+                        JOptionPane.showMessageDialog(panel,"REGISTRO APLICADO", "", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                    catch (Exception ex)
+                    {
+                        JOptionPane.showMessageDialog(panel, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }
+        });
+
+        list.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int row = list.getSelectedRow();
+                controller.edit(row);
+            }
+        });
+
+        delete.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try
+                {
+                    controller.delete();
+                    JOptionPane.showMessageDialog(panel, "REGISTRO BORRADO", "", JOptionPane.INFORMATION_MESSAGE);
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(panel, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+        clear.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controller.clear();
+            }
+        });
     }
 
     public JPanel getPanel()
@@ -147,7 +215,62 @@ public class View implements PropertyChangeListener
             case Model.LIST:
             {
                 int[] cols = {TableModel.ID, TableModel.NOMBRE, TableModel.TELEFONO, TableModel.EMAIL, TableModel.DESCUENTO};
+
+                list.setModel(new TableModel(cols, model.getList()));
+                list.setRowHeight(30);
+
+                TableColumnModel columnModel = list.getColumnModel();
+
+                columnModel.getColumn(1).setPreferredWidth(150);
+                columnModel.getColumn(3).setPreferredWidth(150);
+
+                break;
+            }
+
+            case Model.CURRENT:
+            {
+                idTxt.setText(model.getCurrent().getId());
+                nombreTxt.setText(model.getCurrent().getNombre());
+                telefonoTxt.setText(model.getCurrent().getTelefono());
+                emailTxt.setText(model.getCurrent().getEmail());
+                descuentoTxt.setText("" + model.getCurrent().getDescuento());
+
+                if(model.getMode() == Application.MODE_EDIT)
+                {
+                    idTxt.setEnabled(false);
+                    delete.setEnabled(true);
+                }
+                else
+                {
+                    idTxt.setEnabled(true);
+                    delete.setEnabled(false);
+                }
+
+                idLabel.setBorder(null);
+                idLabel.setToolTipText(null);
+
+                nombreLabel.setBorder(null);
+                nombreLabel.setToolTipText(null);
+
+                emailLabel.setBorder(null);
+                emailLabel.setToolTipText(null);
+
+                telefonoLabel.setBorder(null);
+                telefonoLabel.setToolTipText(null);
+
+                descuentoLabel.setBorder(null);
+                descuentoLabel.setToolTipText(null);
+
+                break;
+            }
+
+            case Model.FILTER:
+            {
+                busquedaNombreTxt.setText(model.getFilter().getNombre());
+                break;
             }
         }
+
+        this.panel.revalidate();
     }
 }
