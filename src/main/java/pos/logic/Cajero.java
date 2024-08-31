@@ -7,13 +7,16 @@ import jakarta.xml.bind.annotation.XmlID;
 import java.util.Objects;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Cajero {
+public class Cajero
+{
     @XmlID
     String id;
+
     String nombre;
 
 
-    public Cajero() {
+    public Cajero()
+    {
         this("","");
     }
 
@@ -52,7 +55,8 @@ public class Cajero {
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return nombre;
     }
 }

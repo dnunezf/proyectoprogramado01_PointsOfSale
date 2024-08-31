@@ -10,6 +10,15 @@ import java.awt.event.WindowEvent;
 
 public class Application
 {
+    public static pos.presentation.clientes.Controller clientesController;
+
+    public static JFrame window;
+
+    public final static int MODE_CREATE=1;
+    public final static int MODE_EDIT=2;
+
+    public static Border BORDER_ERROR = BorderFactory.createMatteBorder(0, 0, 2, 0, Color.RED);
+
     public static void main(String[] args)
     {
         try {
@@ -32,9 +41,8 @@ public class Application
         pos.presentation.clientes.Model clientesModel= new pos.presentation.clientes.Model();
         pos.presentation.clientes.View clientesView = new pos.presentation.clientes.View();
         clientesController = new pos.presentation.clientes.Controller(clientesView,clientesModel);
-        Icon clientesIcon= new ImageIcon(Application.class.getResource("/pos/presentation/icons/client.png"));
 
-        tabbedPane.addTab("Clientes  ",clientesIcon,clientesView.getPanel());
+        clientesView.initialize(tabbedPane);
 
         window.setSize(900,450);
         window.setResizable(false);
@@ -44,12 +52,5 @@ public class Application
         window.setVisible(true);
     }
 
-    public static pos.presentation.clientes.Controller clientesController;
 
-    public static JFrame window;
-
-    public final static int MODE_CREATE=1;
-    public final static int MODE_EDIT=2;
-
-    public static Border BORDER_ERROR = BorderFactory.createMatteBorder(0, 0, 2, 0, Color.RED);
 }

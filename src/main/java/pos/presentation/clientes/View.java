@@ -38,6 +38,13 @@ public class View implements PropertyChangeListener
     private JPanel listadoPanel;
     private JScrollPane listadoScrollPanel;
 
+    public void initialize(JTabbedPane tabbedPane)
+    {
+        // Configuración del panel y tab
+        Icon clientesIcon = new ImageIcon(Application.class.getResource("/pos/presentation/icons/client.png"));
+        tabbedPane.addTab("Clientes  ", clientesIcon, this.getPanel());
+    }
+
     public View()
     {
         search.addActionListener(new ActionListener() {
