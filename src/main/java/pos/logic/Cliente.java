@@ -14,7 +14,7 @@ public class Cliente
 {
     /*Atributo ID, único. Este campo se utiliza como clave primaria en el XML*/
     @XmlID
-    String id;
+    String id;  //Llave primaria
 
     String nombre;
     String telefono;
