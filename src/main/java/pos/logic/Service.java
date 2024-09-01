@@ -129,4 +129,70 @@ public class Service
                 .sorted(Comparator.comparing(Cliente::getNombre))
                 .collect(Collectors.toList());
     }
+
+    /*Implementación CRUD+S lista de objetos Cajero*/
+
+    /*Crea un nuevo Cajero en la lista de Cajeros*/
+    public void create(Cajero e) throws Exception
+    {
+        Cajero result = data.getCajeros().stream().filter(i->i.getId().equals(e.getId())).findFirst().orElse(null);
+
+        if (result == null)
+        {
+            data.getCajeros().add(e);
+        }
+        else
+        {
+            throw new Exception("Cajero no existe");
+        }
+    }
+
+    /*Lee un Cajero existente en la lista de Cajeros*/
+    public Cajero read(Cajero e) throws Exception
+    {
+        Cajero result = data.getCajeros().stream().filter(i->i.getId().equals(e.getId())).findFirst().orElse(null);
+
+        if (result != null)
+        {
+            return result;
+        }
+        else
+        {
+            throw new Exception("Cajero no existe");
+        }
+    }
+
+    /*Actualiza un Cajero existente en la lista de Cajeros*/
+    public void update(Cajero e) throws Exception
+    {
+        Cajero result;
+
+        try
+        {
+            result = this.read(e);
+
+            data.getCajeros().remove(result);
+            data.getCajeros().add(e);
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("Cajero no existe");
+        }
+    }
+
+    /*Elimina un Cajero de la lista de Cajeros*/
+    public void delete(Cajero e) throws Exception
+    {
+        data.getCajeros().remove(e);
+    }
+
+    /*Busca Cajeros en la lista, cuyo nombre contiene una cadena especifica, y los
+     * ordena alfabeticamente*/
+    public List<Cajero> search(Cajero e)
+    {
+        return data.getCajeros().stream()
+                .filter(i->i.getNombre().contains(e.getNombre()))
+                .sorted(Comparator.comparing(Cajero::getNombre))
+                .collect(Collectors.toList());
+    }
 }

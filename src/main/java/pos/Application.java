@@ -11,6 +11,7 @@ import java.awt.event.WindowEvent;
 public class Application
 {
     public static pos.presentation.clientes.Controller clientesController;
+    public static pos.presentation.cajeros.Controller cajerosController;
 
     public static JFrame window;
 
@@ -38,19 +39,24 @@ public class Application
             }
         });
 
-        pos.presentation.clientes.Model clientesModel= new pos.presentation.clientes.Model();
+        pos.presentation.clientes.Model clientesModel = new pos.presentation.clientes.Model();
         pos.presentation.clientes.View clientesView = new pos.presentation.clientes.View();
-        clientesController = new pos.presentation.clientes.Controller(clientesView,clientesModel);
+        clientesController = new pos.presentation.clientes.Controller(clientesView, clientesModel);
+
+        pos.presentation.cajeros.Model cajerosModel = new pos.presentation.cajeros.Model();
+        pos.presentation.cajeros.View cajerosView = new pos.presentation.cajeros.View();
+        cajerosController = new pos.presentation.cajeros.Controller(cajerosView, cajerosModel);
+
 
         clientesView.initialize(tabbedPane);
+        cajerosView.initialize(tabbedPane);
 
-        window.setSize(900,450);
+        window.setSize(720,460);
         window.setResizable(false);
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         window.setIconImage((new ImageIcon(Application.class.getResource("presentation/icons/icon.png"))).getImage());
         window.setTitle("POS: Point Of Sale");
+        window.setLocationRelativeTo(null);
         window.setVisible(true);
     }
-
-
 }

@@ -126,7 +126,7 @@ public class View implements PropertyChangeListener
         {
             valid = false;
             idLabel.setBorder(Application.BORDER_ERROR);
-            idLabel.setToolTipText("Codigo requerido");
+            idLabel.setToolTipText("Identificacion requerida");
         }
         else
         {

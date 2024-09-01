@@ -6,9 +6,13 @@ import jakarta.xml.bind.annotation.XmlID;
 
 import java.util.Objects;
 
+/*CLASE CAJERO, SE IMPLEMENTA LA LÓGICA DEL OBJETO CLIENTE*/
+
+/*Clase diseñada para utilizarse en el contexto de serialización y deserialización XML*/
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Cajero
 {
+    /*Atributo ID, único. Este campo se utiliza como clave primaria en el XML*/
     @XmlID
     String id;
 
@@ -25,33 +29,40 @@ public class Cajero
         this.nombre = nombre;
     }
 
-    public String getNombre() {
+    public String getNombre()
+    {
         return nombre;
     }
 
-    public String getId() {
+    public String getId()
+    {
         return id;
     }
 
-    public void setNombre(String nombre) {
+    public void setNombre(String nombre)
+    {
         this.nombre = nombre;
     }
 
-    public void setId(String id) {
+    public void setId(String id)
+    {
         this.id = id;
     }
 
+    /*Compara este objeto Cajero con otro, para saber si son iguales*/
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(Object o)
+    {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Cajero cajero = (Cajero) o;
-        return Objects.equals(id, cajero.id) && Objects.equals(nombre, cajero.nombre);
+        return Objects.equals(id, cajero.id);
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(id, nombre);
+    public int hashCode()
+    {
+        return Objects.hashCode(id);
     }
 
     @Override
