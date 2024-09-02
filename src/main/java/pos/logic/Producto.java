@@ -1,8 +1,17 @@
 package pos.logic;
 
-public class Producto {
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlID;
 
+/*Clase diseñada para utilizarse en el contexto de serialización y deserialización XML*/
+@XmlAccessorType(XmlAccessType.FIELD)
+public class Producto
+{
+    /*Atributo codigo, único. Este campo se utiliza como clave primaria en el XML*/
+    @XmlID
     private String codigo;
+
     private String descripcion;
     private String unidadDeMedida;
     private double precioUnitario;
@@ -92,6 +101,4 @@ public class Producto {
 
         return getDescripcion();
     }
-
-
 }

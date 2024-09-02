@@ -1,31 +1,37 @@
 package pos.logic;
 
-public class Linea {
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;/*Clase diseñada para utilizarse en el contexto de serialización y deserialización XML*/
+import jakarta.xml.bind.annotation.XmlID;
+import jakarta.xml.bind.annotation.XmlIDREF;
 
-    private int numeroDeLinea;
-    private int cantidadVendida;
+@XmlAccessorType(XmlAccessType.FIELD)
+public class Linea
+{
+    @XmlID
+    String numeroDeLinea;
+
+    @XmlIDREF
     private Producto productoVendido;
 
-    public Linea(int numeroDeLinea, int cantidadVendida, Producto productoVendido) {
+    @XmlIDREF
+    Factura factura;
 
+    float descuento;
+
+    public Linea(String numeroDeLinea, Producto productoVendido, Factura factura, float descuento) {
         this.numeroDeLinea = numeroDeLinea;
-        this.cantidadVendida = cantidadVendida;
         this.productoVendido = productoVendido;
+        this.factura = factura;
+        this.descuento = descuento;
     }
 
-    public int getNumeroDeLinea() {
+    public String getNumeroDeLinea() {
         return numeroDeLinea;
     }
-    public void setNumeroDeLinea(int numeroDeLinea) {
 
+    public void setNumeroDeLinea(String numeroDeLinea) {
         this.numeroDeLinea = numeroDeLinea;
-    }
-    public int getCantidadVendida() {
-        return cantidadVendida;
-    }
-
-    public void setCantidadVendida(int cantidadVendida) {
-        this.cantidadVendida = cantidadVendida;
     }
 
     public Producto getProductoVendido() {
@@ -34,6 +40,22 @@ public class Linea {
 
     public void setProductoVendido(Producto productoVendido) {
         this.productoVendido = productoVendido;
+    }
+
+    public Factura getFactura() {
+        return factura;
+    }
+
+    public void setFactura(Factura factura) {
+        this.factura = factura;
+    }
+
+    public float getDescuento() {
+        return descuento;
+    }
+
+    public void setDescuento(float descuento) {
+        this.descuento = descuento;
     }
 
     public String toString(){
