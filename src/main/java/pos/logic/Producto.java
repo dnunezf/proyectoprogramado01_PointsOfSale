@@ -9,6 +9,16 @@ public class Producto {
     private int existencias;
     Categoria categoria;
 
+    public Producto(){
+
+        this.codigo = "";
+        this.descripcion = "";
+        this.unidadDeMedida = "";
+        this.precioUnitario = 0;
+        this.existencias = 0;
+        this.categoria = null;
+
+    }
     public Producto(String cod, String desc, String uni, double precio, int exis, Categoria cat){
 
         this.codigo = cod;
@@ -51,6 +61,11 @@ public class Producto {
     public void setPrecioUnitario(double precioUnitario) {
 
         this.precioUnitario = precioUnitario;
+    }
+
+    public void setExistencias(int existencias) {
+
+        this.existencias = existencias;
     }
 
     public int getExistencias() {

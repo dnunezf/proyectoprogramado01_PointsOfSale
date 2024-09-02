@@ -12,6 +12,7 @@ public class Application
 {
     public static pos.presentation.clientes.Controller clientesController;
     public static pos.presentation.cajeros.Controller cajerosController;
+    public static pos.presentation.productos.Model productosModel;
 
     public static JFrame window;
 
@@ -39,17 +40,26 @@ public class Application
             }
         });
 
+        //Clientes
         pos.presentation.clientes.Model clientesModel = new pos.presentation.clientes.Model();
         pos.presentation.clientes.View clientesView = new pos.presentation.clientes.View();
         clientesController = new pos.presentation.clientes.Controller(clientesView, clientesModel);
 
+        //Cajeros
         pos.presentation.cajeros.Model cajerosModel = new pos.presentation.cajeros.Model();
         pos.presentation.cajeros.View cajerosView = new pos.presentation.cajeros.View();
         cajerosController = new pos.presentation.cajeros.Controller(cajerosView, cajerosModel);
 
+        //Productos
+
+        pos.presentation.productos.Model productosModel = new pos.presentation.productos.Model();
+        pos.presentation.productos.View productosView = new pos.presentation.productos.View();
+        productosModel = new pos.presentation.productos.Model();
+
 
         clientesView.initialize(tabbedPane);
         cajerosView.initialize(tabbedPane);
+        productosView.initialize(tabbedPane);
 
         window.setSize(720,460);
         window.setResizable(false);

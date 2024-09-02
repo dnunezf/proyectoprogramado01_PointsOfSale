@@ -6,29 +6,37 @@ import jakarta.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/*Clase Data, la cual posee un contenedor para almacenar y gestionar lista de objetos Cliente.
-* Utilizada en el contexto de serializacion y deserializacion de datos XML*/
+/*Clase Data, la cual posee un contenedor para almacenar y gestionar lista de objetos Cliente, Cajero y Producto.
+ * Utilizada en el contexto de serialización y deserialización de datos XML*/
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Data
 {
-    /*Lista que almacena objetos tipo Cliente. Dicha lista sera serializada a XML
-    * con el nombre "Clientes"*/
+    /*Lista que almacena objetos tipo Cliente. Dicha lista será serializada a XML
+     * con el nombre "Clientes"*/
     @XmlElementWrapper(name = "clientes")
     @XmlElement(name = "cliente")
     private List<Cliente> clientes;
 
-    /*Lista que almacena objetos tipo Cajero. Dicha lista sera serializada a XML
+    /*Lista que almacena objetos tipo Cajero. Dicha lista será serializada a XML
      * con el nombre "Cajeros"*/
     @XmlElementWrapper(name = "cajeros")
     @XmlElement(name = "cajero")
     private List<Cajero> cajeros;
 
+    /*Lista que almacena objetos tipo Producto. Dicha lista será serializada a XML
+     * con el nombre "Productos"*/
+    @XmlElementWrapper(name = "productos")
+    @XmlElement(name = "producto")
+    private List<Producto> productos;
+
+    /*Constructor por defecto que inicializa las listas de Clientes, Cajeros y Productos*/
     public Data()
     {
         clientes = new ArrayList<>();
         cajeros = new ArrayList<>();
+        productos = new ArrayList<>();
     }
 
     public List<Cliente> getClientes()
@@ -39,5 +47,10 @@ public class Data
     public List<Cajero> getCajeros()
     {
         return cajeros;
+    }
+
+    public List<Producto> getProductos()
+    {
+        return productos;
     }
 }

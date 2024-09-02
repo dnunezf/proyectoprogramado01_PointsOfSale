@@ -195,4 +195,64 @@ public class Service
                 .sorted(Comparator.comparing(Cajero::getNombre))
                 .collect(Collectors.toList());
     }
+
+    /* Implementación CRUD+S lista de objetos Producto */
+
+    /* Crea un nuevo Producto en la lista de Productos */
+    public void create(Producto producto) throws Exception {
+        Producto result = data.getProductos().stream()
+                .filter(i -> i.getCodigo().equals(producto.getCodigo()))
+                .findFirst()
+                .orElse(null);
+
+        if (result == null) {
+            data.getProductos().add(producto);
+        } else {
+            throw new Exception("Producto ya existe");
+        }
+    }
+
+    /* Lee un Producto existente en la lista de Productos */
+    public Producto read(Producto producto) throws Exception {
+        Producto result = data.getProductos().stream()
+                .filter(i -> i.getCodigo().equals(producto.getCodigo()))
+                .findFirst()
+                .orElse(null);
+
+        if (result != null) {
+            return result;
+        } else {
+            throw new Exception("Producto no existe");
+        }
+    }
+
+    /* Actualiza un Producto existente en la lista de Productos */
+    public void update(Producto producto) throws Exception {
+        Producto result;
+
+        try {
+            result = this.read(producto);
+
+            data.getProductos().remove(result);
+            data.getProductos().add(producto);
+        } catch (Exception ex) {
+            throw new Exception("Producto no existe");
+        }
+    }
+
+    /* Elimina un Producto de la lista de Productos */
+    public void delete(Producto producto) throws Exception {
+        Producto result = this.read(producto);
+        data.getProductos().remove(result);
+    }
+
+    /* Busca Productos en la lista, cuyo nombre contiene una cadena específica,
+     * y los ordena alfabéticamente */
+    public List<Producto> search(Producto producto) {
+        return data.getProductos().stream()
+                .filter(i -> i.getDescripcion().contains(producto.getDescripcion()))
+                .sorted(Comparator.comparing(Producto::getDescripcion))
+                .collect(Collectors.toList());
+    }
+
 }
