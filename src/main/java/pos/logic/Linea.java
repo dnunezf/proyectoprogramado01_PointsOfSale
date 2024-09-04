@@ -19,6 +19,8 @@ public class Linea
     @XmlIDREF
     private Factura factura;
 
+    private float descuento;
+
 
     public Linea(){
 
@@ -29,6 +31,7 @@ public class Linea
         this.productoVendido = productoVendido;
         this.cantidadVendida = cantidadVendida;
         this.factura = factura;
+        this.descuento = factura.getCliente().getDescuento();
         actualizaExistencia();
     }
 
@@ -73,8 +76,12 @@ public class Linea
         return productoVendido.getPrecioUnitario() - (productoVendido.getPrecioUnitario() * getDescuento());
     }
 
-    public double getDescuento(){
-        return 0;
+    public float getDescuento(){
+        return descuento;
+    }
+
+    public void setDescuento(float descuento) {
+        this.descuento = descuento;
     }
 
     public String toString(){
