@@ -18,6 +18,8 @@ public class View implements PropertyChangeListener {
     private JButton quitarButton;
     private JButton descuentoButton;
     private JButton cancelarButton;
+    private JScrollPane listadoScrollPanel;
+    private JTable list;
 
 
     /*M.V.C*/

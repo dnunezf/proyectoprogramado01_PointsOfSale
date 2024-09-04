@@ -29,6 +29,11 @@ public class Linea
         this.productoVendido = productoVendido;
         this.cantidadVendida = cantidadVendida;
         this.factura = factura;
+        actualizaExistencia();
+    }
+
+    public void actualizaExistencia(){
+        productoVendido.setExistencias(productoVendido.getExistencias() - cantidadVendida);
     }
 
     public int getNumeroDeLinea() {
@@ -58,6 +63,18 @@ public class Linea
     public int getCantidadVendida() {
 
         return cantidadVendida;
+    }
+
+    public double getImporte(){
+        return cantidadVendida * productoVendido.getPrecioUnitario();
+    }
+
+    public double getNeto(){
+        return productoVendido.getPrecioUnitario() - (productoVendido.getPrecioUnitario() * getDescuento());
+    }
+
+    public double getDescuento(){
+        return 0;
     }
 
     public String toString(){
