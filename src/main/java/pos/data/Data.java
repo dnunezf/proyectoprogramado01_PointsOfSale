@@ -31,6 +31,13 @@ public class Data
     @XmlElement(name = "producto")
     private List<Producto> productos;
 
+
+    /*Lista que almacena objetos tipo Factura. Dicha lista será serializada a XML
+     * con el nombre "Productos"*/
+    @XmlElementWrapper(name = "productos")
+    @XmlElement(name = "producto")
+    private List<Factura> facturas;
+
     /*Constructor por defecto que inicializa las listas de Clientes, Cajeros y Productos*/
     public Data()
     {
@@ -53,4 +60,6 @@ public class Data
     {
         return productos;
     }
+
+    public List<Factura> getFacturas(){return facturas;}
 }

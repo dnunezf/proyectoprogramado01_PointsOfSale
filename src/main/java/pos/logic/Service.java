@@ -255,4 +255,60 @@ public class Service
                 .collect(Collectors.toList());
     }
 
+    public void create(Factura factura) throws Exception {
+        Factura result = data.getFacturas().stream()
+                .filter(i -> i.getNumeroDeFactura() == factura.getNumeroDeFactura())
+                .findFirst()
+                .orElse(null);
+
+        if (result == null) {
+            data.getFacturas().add(factura);
+        } else {
+            throw new Exception("Factura ya existe");
+        }
+    }
+
+    /* Lee una Factura existente en la lista de Facturas */
+    public Factura read(Factura factura) throws Exception {
+        Factura result = data.getFacturas().stream()
+                .filter(i -> i.getNumeroDeFactura() == factura.getNumeroDeFactura())
+                .findFirst()
+                .orElse(null);
+
+        if (result != null) {
+            return result;
+        } else {
+            throw new Exception("Factura no existe");
+        }
+    }
+
+    /* Actualiza una Factura existente en la lista de Facturas */
+    public void update(Factura factura) throws Exception {
+        Factura result;
+
+        try {
+            result = this.read(factura);
+
+            data.getFacturas().remove(result);
+            data.getFacturas().add(factura);
+        } catch (Exception ex) {
+            throw new Exception("Factura no existe");
+        }
+    }
+
+    /* Elimina una Factura de la lista de Facturas */
+    public void delete(Factura factura) throws Exception {
+        Factura result = this.read(factura);
+        data.getFacturas().remove(result);
+    }
+
+    /* Busca Facturas en la lista, cuyo número de factura contiene una cadena específica,
+     * y las ordena por fecha */
+    public List<Factura> search(Factura factura) {
+        return data.getFacturas().stream()
+                .filter(i -> String.valueOf(i.getNumeroDeFactura()).contains(String.valueOf(factura.getNumeroDeFactura())))
+                .sorted(Comparator.comparing(Factura::getFecha))
+                .collect(Collectors.toList());
+    }
+
 }
