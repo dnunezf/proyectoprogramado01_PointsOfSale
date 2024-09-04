@@ -13,7 +13,7 @@ public class Producto
     private String codigo;
 
     private String descripcion;
-    private String unidadDeMedida;
+    private String unidad;
     private double precioUnitario;
     private int existencias;
     Categoria categoria;
@@ -22,7 +22,7 @@ public class Producto
 
         this.codigo = "";
         this.descripcion = "";
-        this.unidadDeMedida = "";
+        this.unidad = "";
         this.precioUnitario = 0;
         this.existencias = 0;
         this.categoria = null;
@@ -32,7 +32,7 @@ public class Producto
 
         this.codigo = cod;
         this.descripcion = desc;
-        this.unidadDeMedida = uni;
+        this.unidad = uni;
         this.precioUnitario = precio;
         this.existencias = exis;
         this.categoria = cat;
@@ -53,13 +53,13 @@ public class Producto
         this.descripcion = descripcion;
     }
 
-    public String getUnidadDeMedida() {
-        return unidadDeMedida;
+    public String getUnidad() {
+        return unidad;
     }
 
-    public void setUnidadDeMedida(String unidadDeMedida) {
+    public void setUnidad(String unidad) {
 
-        this.unidadDeMedida = unidadDeMedida;
+        this.unidad = unidad;
     }
 
     public double getPrecioUnitario() {

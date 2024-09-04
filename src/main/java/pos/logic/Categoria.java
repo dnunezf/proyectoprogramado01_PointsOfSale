@@ -12,6 +12,9 @@ public class Categoria
     @XmlID
     private String tipo;
 
+    public Categoria() {
+    }
+
     public Categoria(String tipo) {
 
         this.tipo = tipo;

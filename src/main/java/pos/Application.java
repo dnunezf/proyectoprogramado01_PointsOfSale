@@ -12,7 +12,7 @@ public class Application
 {
     public static pos.presentation.clientes.Controller clientesController;
     public static pos.presentation.cajeros.Controller cajerosController;
-    public static pos.presentation.productos.Model productosModel;
+    public static pos.presentation.productos.Controller productosController;
 
     public static JFrame window;
 
@@ -54,8 +54,7 @@ public class Application
 
         pos.presentation.productos.Model productosModel = new pos.presentation.productos.Model();
         pos.presentation.productos.View productosView = new pos.presentation.productos.View();
-        productosModel = new pos.presentation.productos.Model();
-
+        productosController = new pos.presentation.productos.Controller(productosView, productosModel);
 
         clientesView.initialize(tabbedPane);
         cajerosView.initialize(tabbedPane);

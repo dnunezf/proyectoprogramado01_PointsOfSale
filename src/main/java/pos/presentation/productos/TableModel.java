@@ -14,9 +14,10 @@ public class TableModel extends AbstractTableModel<Producto> implements javax.sw
     /*Constantes que representan las columnas de la tabla*/
     public static final int CODIGO = 0;
     public static final int DESCRIPCION = 1;
-    public static final int PRECIO = 2;
-    public static final int CANTIDAD = 3;
+    public static final int UNIDAD = 2;
+    public static final int PRECIO = 3;
     public static final int CATEGORIA = 4;
+    public static final int EXISTENCIAS = 5;
 
     /*Constructor que inicializa la tabla con columnas y filas especificadas*/
     public TableModel(int[] cols, List<Producto> rows)
@@ -35,11 +36,13 @@ public class TableModel extends AbstractTableModel<Producto> implements javax.sw
 
             case DESCRIPCION: return producto.getDescripcion();
 
+            case UNIDAD: return producto.getUnidad();
+
             case PRECIO: return producto.getPrecioUnitario();
 
-            case CANTIDAD: return producto.getExistencias();
-
             case CATEGORIA: return producto.getCategoria();
+
+            case EXISTENCIAS: return producto.getExistencias();
 
             default: return "";
         }
@@ -50,12 +53,13 @@ public class TableModel extends AbstractTableModel<Producto> implements javax.sw
     @Override
     protected void initColNames()
     {
-        colNames = new String[5];
+        colNames = new String[6];
 
         colNames[CODIGO] = "Codigo";
         colNames[DESCRIPCION] = "Descripcion";
+        colNames[UNIDAD] = "Unidad";
         colNames[PRECIO] = "Precio";
-        colNames[CANTIDAD] = "Cantidad";
         colNames[CATEGORIA] = "Categoría";
+        colNames[EXISTENCIAS] = "Existencias";
     }
 }
