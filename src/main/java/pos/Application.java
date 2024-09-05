@@ -67,7 +67,7 @@ public class Application
         cajerosView.initialize(tabbedPane);
         productosView.initialize(tabbedPane);
 
-        window.setSize(720,500);
+        window.setSize(790,520);
         window.setResizable(false);
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         window.setIconImage((new ImageIcon(Application.class.getResource("presentation/icons/icon.png"))).getImage());
