@@ -13,6 +13,7 @@ public class Application
     public static pos.presentation.clientes.Controller clientesController;
     public static pos.presentation.cajeros.Controller cajerosController;
     public static pos.presentation.productos.Controller productosController;
+    public static pos.presentation.facturar.Controller facturarController;
 
     public static JFrame window;
 
@@ -40,6 +41,11 @@ public class Application
             }
         });
 
+        // Facturar
+        pos.presentation.facturar.Model facturarModel = new pos.presentation.facturar.Model();
+        pos.presentation.facturar.View facturarView = new pos.presentation.facturar.View();
+        facturarController = new pos.presentation.facturar.Controller(facturarView, facturarModel);
+
         //Clientes
         pos.presentation.clientes.Model clientesModel = new pos.presentation.clientes.Model();
         pos.presentation.clientes.View clientesView = new pos.presentation.clientes.View();
@@ -56,11 +62,12 @@ public class Application
         pos.presentation.productos.View productosView = new pos.presentation.productos.View();
         productosController = new pos.presentation.productos.Controller(productosView, productosModel);
 
+        facturarView.initialize(tabbedPane);
         clientesView.initialize(tabbedPane);
         cajerosView.initialize(tabbedPane);
         productosView.initialize(tabbedPane);
 
-        window.setSize(720,460);
+        window.setSize(720,500);
         window.setResizable(false);
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         window.setIconImage((new ImageIcon(Application.class.getResource("presentation/icons/icon.png"))).getImage());

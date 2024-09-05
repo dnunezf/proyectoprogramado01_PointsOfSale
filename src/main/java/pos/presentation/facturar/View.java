@@ -1,5 +1,7 @@
 package pos.presentation.facturar;
 
+import pos.Application;
+
 import javax.swing.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -17,13 +19,23 @@ public class View implements PropertyChangeListener {
     private JPanel datosClientePanel;
     private JLabel idLabel;
     private JComboBox comboBox1;
-    private JPanel datosCajeroPanel;
+    private JPanel datosCajeros;
     private JPanel listadoFacturasPanel;
     private JPanel addProductPanel;
     private JLabel addProductLabel;
     private JTextField addProductTxt;
     private JButton addProduct;
 
+    public void initialize(JTabbedPane tabbedPane)
+    {
+        // Configuración del panel y tab
+        Icon facturaIcon = new ImageIcon(Application.class.getResource("/pos/presentation/icons/bill.png"));
+        tabbedPane.addTab("Facturar  ",  facturaIcon, this.getPanel());
+    }
+
+    public JPanel getPanel() {
+        return panel;
+    }
 
     /*M.V.C*/
     Model model;

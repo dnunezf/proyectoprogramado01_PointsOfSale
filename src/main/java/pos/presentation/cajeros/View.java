@@ -2,9 +2,6 @@ package pos.presentation.cajeros;
 
 import pos.Application;
 import pos.logic.Cajero;
-import pos.presentation.cajeros.Controller;
-import pos.presentation.cajeros.Model;
-import pos.presentation.cajeros.TableModel;
 
 import javax.swing.*;
 import javax.swing.table.TableColumnModel;
@@ -25,7 +22,7 @@ public class View implements PropertyChangeListener {
     private JPanel listadoPanel;
     private JScrollPane listadoScrollPanel;
     private JTable list;
-    private JPanel datosCajeroPanel;
+    private JPanel datosCajero;
     private JLabel idLabel;
     private JTextField idTxt;
     private JLabel nombreLabel;

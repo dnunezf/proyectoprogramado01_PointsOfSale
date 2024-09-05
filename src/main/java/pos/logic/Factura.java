@@ -1,19 +1,39 @@
 package pos.logic;
 
+import jakarta.xml.bind.annotation.*;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.*;
 
+/*Clase diseñada para utilizarse en el contexto de serialización y deserialización XML*/
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Factura
 {
 
-    private int numeroDeFactura;
+    /*Atributo tipo, único. Este campo se utiliza como clave primaria en el XML*/
+    @XmlID
+    private String numeroDeFactura;
+
+    @XmlJavaTypeAdapter(value = LocalDateAdapter.class)
     private LocalDate fecha;
+
+    @XmlIDREF
     private Cliente cliente;
+
+    @XmlIDREF
     private Cajero cajero;
+
+    @XmlIDREF
+    @XmlElementWrapper(name = "lineas")
+    @XmlElement(name = "linea")
     private ArrayList<Linea> lineas;
+
+
     private int metodoDePago;
 
-    public Factura(int numeroDeFactura, Cliente cliente, Cajero cajero, int metodoDePago) {
+    public Factura(String numeroDeFactura, Cliente cliente, Cajero cajero, int metodoDePago) {
 
         this.numeroDeFactura = numeroDeFactura;
         this.fecha = LocalDate.now();
@@ -29,11 +49,11 @@ public class Factura
 
     }
 
-    public int getNumeroDeFactura() {
+    public String getNumeroDeFactura() {
         return numeroDeFactura;
 
     }
-    public void setNumeroDeFactura(int numeroDeFactura) {
+    public void setNumeroDeFactura(String numeroDeFactura) {
         this.numeroDeFactura = numeroDeFactura;
     }
 
@@ -88,7 +108,9 @@ public class Factura
 
     public void agregarProducto(Producto p,int cantidad){
 
-        lineas.add(new Linea(lineas.size(),p,cantidad,this));
+        Integer tam = lineas.size();
+
+        lineas.add(new Linea(tam.toString(),p,cantidad,this));
 
     }
 
@@ -96,8 +118,8 @@ public class Factura
         if (indiceLinea >= 0 && indiceLinea < lineas.size()) {
             lineas.remove(indiceLinea);
             // Recalcular los índices de las líneas restantes
-            for (int i = indiceLinea; i < lineas.size(); i++) {
-                lineas.get(i).setNumeroDeLinea(i);
+            for (Integer i = indiceLinea; i < lineas.size(); i++) {
+                lineas.get(i).setNumeroDeLinea(i.toString());
             }
         }
     }
@@ -127,8 +149,4 @@ public class Factura
         return total;
 
     }
-
-
-
-
 }

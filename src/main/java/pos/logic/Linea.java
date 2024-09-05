@@ -9,7 +9,7 @@ import jakarta.xml.bind.annotation.XmlIDREF;
 public class Linea
 {
     @XmlID
-    private int numeroDeLinea;
+    private String numeroDeLinea;
 
     @XmlIDREF
     private Producto productoVendido;
@@ -19,19 +19,18 @@ public class Linea
     @XmlIDREF
     private Factura factura;
 
-    private float descuento;
+
 
 
     public Linea(){
 
     }
 
-    public Linea(int numeroDeLinea, Producto productoVendido,int cantidadVendida, Factura factura) {
+    public Linea(String numeroDeLinea, Producto productoVendido,int cantidadVendida, Factura factura) {
         this.numeroDeLinea = numeroDeLinea;
         this.productoVendido = productoVendido;
         this.cantidadVendida = cantidadVendida;
         this.factura = factura;
-        this.descuento = factura.getCliente().getDescuento();
         actualizaExistencia();
     }
 
@@ -39,11 +38,11 @@ public class Linea
         productoVendido.setExistencias(productoVendido.getExistencias() - cantidadVendida);
     }
 
-    public int getNumeroDeLinea() {
+    public String getNumeroDeLinea() {
         return numeroDeLinea;
     }
 
-    public void setNumeroDeLinea(int numeroDeLinea) {
+    public void setNumeroDeLinea(String numeroDeLinea) {
         this.numeroDeLinea = numeroDeLinea;
     }
 
@@ -77,11 +76,11 @@ public class Linea
     }
 
     public float getDescuento(){
-        return descuento;
+        return this.factura.getCliente().getDescuento();
     }
 
     public void setDescuento(float descuento) {
-        this.descuento = descuento;
+        this.factura.getCliente().setDescuento(descuento);
     }
 
     public String toString(){

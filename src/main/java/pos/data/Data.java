@@ -34,8 +34,8 @@ public class Data
 
     /*Lista que almacena objetos tipo Factura. Dicha lista será serializada a XML
      * con el nombre "Productos"*/
-    @XmlElementWrapper(name = "productos")
-    @XmlElement(name = "producto")
+    @XmlElementWrapper(name = "facturas")
+    @XmlElement(name = "factura")
     private List<Factura> facturas;
 
     /*Constructor por defecto que inicializa las listas de Clientes, Cajeros y Productos*/
@@ -44,6 +44,7 @@ public class Data
         clientes = new ArrayList<>();
         cajeros = new ArrayList<>();
         productos = new ArrayList<>();
+        facturas = new ArrayList<>();
     }
 
     public List<Cliente> getClientes()
