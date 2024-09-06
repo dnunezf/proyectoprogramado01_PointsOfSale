@@ -1,13 +1,15 @@
 package pos.presentation.facturar;
 
 import pos.Application;
+import pos.logic.Cajero;
 
 import javax.swing.*;
-import javax.swing.table.TableColumnModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+
+
 
 public class View implements PropertyChangeListener {
     private JButton cobrarButton;
@@ -21,20 +23,23 @@ public class View implements PropertyChangeListener {
     private JPanel panel;
     private JPanel datosClientePanel;
     private JLabel idLabel;
-    private JComboBox comboBox1;
+    private JComboBox<String> comboBoxCli;
     private JPanel datosCajeros;
     private JPanel listadoFacturasPanel;
     private JPanel addProductPanel;
     private JLabel addProductLabel;
     private JTextField productCode;
     private JButton addProduct;
+    private JComboBox<Cajero> comboBoxCaj;
 
+
+    
     public View() {
         cobrarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                pos.presentation.facturar.FacturarCobrar cobrar = new pos.presentation.facturar.FacturarCobrar();
+                FacturarCobrar cobrar = new FacturarCobrar();
                 cobrar.setSize(450, 400);
                 cobrar.setLocationRelativeTo(null);
                 cobrar.setVisible(true);
@@ -46,7 +51,7 @@ public class View implements PropertyChangeListener {
         buscarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                pos.presentation.facturar.FacturarBuscar buscar = new pos.presentation.facturar.FacturarBuscar();
+                FacturarBuscar buscar = new FacturarBuscar();
                 buscar.setController(controller);
                 buscar.setSize(400, 400);
                 buscar.setLocationRelativeTo(null);
@@ -57,7 +62,7 @@ public class View implements PropertyChangeListener {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                pos.presentation.facturar.FacturarCantidad cantidad = new pos.presentation.facturar.FacturarCantidad();
+                FacturarCantidad cantidad = new FacturarCantidad();
                 cantidad.setController(controller);
                 cantidad.setSize(400, 400);
                 cantidad.setLocationRelativeTo(null);
@@ -76,7 +81,7 @@ public class View implements PropertyChangeListener {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                pos.presentation.facturar.FacturarDescuento descuento = new pos.presentation.facturar.FacturarDescuento();
+                FacturarDescuento descuento = new FacturarDescuento();
                 descuento.setController(controller);
                 descuento.setSize(400, 400);
                 descuento.setLocationRelativeTo(null);
@@ -96,6 +101,17 @@ public class View implements PropertyChangeListener {
         // Configuración del panel y tab
         Icon facturaIcon = new ImageIcon(Application.class.getResource("/pos/presentation/icons/bill.png"));
         tabbedPane.addTab("Facturar  ", facturaIcon, this.getPanel());
+
+//        DefaultComboBoxModel<Cajero> mode = new DefaultComboBoxModel<>();
+//
+//        pos.presentation.cajeros.Model modelCaj = new pos.presentation.cajeros.Model();
+//        // Añade las categorías al modelo del JComboBox
+//        for (Cajero cajero : modelCaj.getList()) {
+//            mode.addElement(cajero);
+//        }
+//
+//        // Asigna el modelo al JComboBox
+//        comboBoxCaj.setModel(mode);
     }
 
     public JPanel getPanel() {
@@ -105,6 +121,8 @@ public class View implements PropertyChangeListener {
     /*M.V.C*/
     Model model;
     Controller controller;
+
+   // pos.presentation.cajeros.Model modelCaj;
 
     public void setModel(Model model) {
         this.model = model;
@@ -193,4 +211,6 @@ public class View implements PropertyChangeListener {
 ////        this.panel.revalidate();
 ////        }
     }
+
+
 }

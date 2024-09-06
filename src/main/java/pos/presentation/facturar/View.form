@@ -48,13 +48,15 @@
                       <text value=""/>
                     </properties>
                   </component>
-                  <component id="80846" class="javax.swing.JComboBox" binding="comboBox1" default-binding="true">
+                  <component id="80846" class="javax.swing.JComboBox" binding="comboBoxCli">
                     <constraints>
                       <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="4" fill="0" indent="0" use-parent-layout="false">
                         <preferred-size width="150" height="-1"/>
                       </grid>
                     </constraints>
-                    <properties/>
+                    <properties>
+                      <model/>
+                    </properties>
                   </component>
                 </children>
               </grid>
@@ -92,7 +94,7 @@
                       <text value=""/>
                     </properties>
                   </component>
-                  <component id="53aea" class="javax.swing.JComboBox" default-binding="true">
+                  <component id="53aea" class="javax.swing.JComboBox" binding="comboBoxCaj">
                     <constraints>
                       <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="0" fill="1" indent="0" use-parent-layout="false">
                         <preferred-size width="150" height="-1"/>
