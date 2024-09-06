@@ -121,10 +121,10 @@ public class View implements PropertyChangeListener {
 
       @Override
       public void propertyChange(PropertyChangeEvent evt) {
-//                    switch (evt.getPropertyName()) {
-//                        case pos.presentation.facturar.Model.LIST: {
-//                            int[] cols = {pos.presentation.facturar.TableModel.CODIGO, pos.presentation.facturar.TableModel.ARTICULO, TableModel.CATEGORIA,
-//                                    pos.presentation.facturar.TableModel.CANTIDAD, pos.presentation.facturar.TableModel.PRECIO, pos.presentation.facturar.TableModel.DESCUENTO,
+//        switch (evt.getPropertyName()) {
+//            case pos.presentation.facturar.Model.LIST: {
+//                int[] cols = {pos.presentation.facturar.TableModel.CODIGO, pos.presentation.facturar.TableModel.ARTICULO, TableModel.CATEGORIA,
+//                        pos.presentation.facturar.TableModel.CANTIDAD, pos.presentation.facturar.TableModel.PRECIO, pos.presentation.facturar.TableModel.DESCUENTO,
 //                                    pos.presentation.facturar.TableModel.NETO, pos.presentation.facturar.TableModel.IMPORTE};
 //
 //                            list.setModel(new TableModel(cols, model.getList()));
@@ -144,7 +144,7 @@ public class View implements PropertyChangeListener {
 //                            break;
 //                        }
 //
-////                        case Model.CURRENT://                     {
+////                case Model.CURRENT://                     {
 ////                codTxt.setText(model.getCurrent().getCodigo());
 ////                descTxt.setText(model.getCurrent().getDescripcion());
 ////                unidadTxt.setText(model.getCurrent().getUnidad());
@@ -183,14 +183,14 @@ public class View implements PropertyChangeListener {
 ////                break;
 //            }
 //
-//            case pos.presentation.productos.Model.FILTER:
-//            {
-////                busquedaNombreTxt.setText(model.getFilter().getDescripcion());
-////                break;
-//            }
-//        }
-//
-//        this.panel.revalidate();
-//        }
+////            case pos.presentation.productos.Model.FILTER:
+////            {
+//////                busquedaNombreTxt.setText(model.getFilter().getDescripcion());
+//////                break;
+////            }
+////        }
+////
+////        this.panel.revalidate();
+////        }
     }
 }
