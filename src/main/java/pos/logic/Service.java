@@ -311,4 +311,64 @@ public class Service
                 .collect(Collectors.toList());
     }
 
+    // Clase Service
+
+    // Crea una nueva Linea en la lista de Lineas
+    public void create(Linea linea) throws Exception {
+        Linea result = data.getLineas().stream()
+                .filter(i -> i.getNumeroDeLinea().equals(linea.getNumeroDeLinea()))
+                .findFirst()
+                .orElse(null);
+
+        if (result == null) {
+            data.getLineas().add(linea);
+        } else {
+            throw new Exception("Linea ya existe");
+        }
+    }
+
+    // Lee una Linea existente en la lista de Lineas
+    public Linea read(Linea linea) throws Exception {
+        Linea result = data.getLineas().stream()
+                .filter(i -> i.getNumeroDeLinea().equals(linea.getNumeroDeLinea()))
+                .findFirst()
+                .orElse(null);
+
+        if (result != null) {
+            return result;
+        } else {
+            throw new Exception("Linea no existe");
+        }
+    }
+
+    // Actualiza una Linea existente en la lista de Lineas
+    public void update(Linea linea) throws Exception {
+        Linea result;
+
+        try {
+            result = this.read(linea);
+
+            data.getLineas().remove(result);
+            data.getLineas().add(linea);
+        } catch (Exception ex) {
+            throw new Exception("Linea no existe");
+        }
+    }
+
+    // Elimina una Linea de la lista de Lineas
+    public void delete(Linea linea) throws Exception {
+        Linea result = this.read(linea);
+        data.getLineas().remove(result);
+    }
+
+    // Busca Lineas en la lista, cuyo número de línea contiene una cadena específica
+    public List<Linea> search(Linea linea) {
+        return data.getLineas().stream()
+                .filter(i -> i.getNumeroDeLinea().contains(linea.getNumeroDeLinea()))
+                .sorted(Comparator.comparing(Linea::getNumeroDeLinea))
+                .collect(Collectors.toList());
+    }
+
+
+
 }

@@ -20,16 +20,15 @@ public class Linea
     private Factura factura;
 
 
-
-
     public Linea(){
 
     }
 
-    public Linea(String numeroDeLinea, Producto productoVendido,int cantidadVendida, Factura factura) {
-        this.numeroDeLinea = numeroDeLinea;
+    public Linea(Producto productoVendido, Factura factura) {
+        Integer numeroDeLinea = this.factura.getLineas().size();
+        this.numeroDeLinea = numeroDeLinea.toString();
         this.productoVendido = productoVendido;
-        this.cantidadVendida = cantidadVendida;
+        this.cantidadVendida = 1;
         this.factura = factura;
         actualizaExistencia();
     }
@@ -60,6 +59,11 @@ public class Linea
 
     public void setFactura(Factura factura) {
         this.factura = factura;
+    }
+
+    public void setCantidadVendida(int cantidadVendida) {
+
+        this.cantidadVendida = cantidadVendida;
     }
 
     public int getCantidadVendida() {

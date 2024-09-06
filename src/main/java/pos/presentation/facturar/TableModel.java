@@ -1,5 +1,6 @@
 package pos.presentation.facturar;
 
+import pos.logic.Factura;
 import pos.logic.Linea;
 import pos.presentation.AbstractTableModel;
 
@@ -22,6 +23,7 @@ public class TableModel extends AbstractTableModel<Linea> implements javax.swing
     {
         super(cols, rows);
     }
+
 
     /*Obtiene el valor de la propiedad correspondiente a una columna
      * especifica, de un cliente en particular*/
@@ -57,7 +59,7 @@ public class TableModel extends AbstractTableModel<Linea> implements javax.swing
     {
         colNames = new String[8];
 
-        colNames[CODIGO] = "COdigo";
+        colNames[CODIGO] = "Codigo";
         colNames[ARTICULO] = "Articulo";
         colNames[CATEGORIA] = "Categoria";
         colNames[CANTIDAD] = "Cantidad";

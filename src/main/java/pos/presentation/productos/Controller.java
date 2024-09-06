@@ -3,6 +3,7 @@ package pos.presentation.productos;
 import pos.Application;
 import pos.logic.Producto;
 import pos.logic.Service;
+import pos.presentation.facturar.FacturarBuscar;
 
 /*Maneja la lógica de interacción entre la vista (View) y el modelo (Model), respondiendo a
  *las acciones del usuario y actualizando la vista y el modelo en consecuencia.*/
@@ -24,6 +25,7 @@ public class Controller
         view.setController(this);
         view.setModel(model);
     }
+
 
     /*Método para buscar productos que coincidan con los criterios del filtro especificado.
      * Actualiza el modelo con los resultados de la búsqueda*/

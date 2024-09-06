@@ -10,6 +10,7 @@ public class FacturarCantidad extends JDialog {
     private JPanel pagosPanel;
     private JLabel cantLabel;
     private JTextField cantTxt;
+    private pos.presentation.facturar.Controller controller;
 
     public FacturarCantidad() {
         setContentPane(contentPane);
@@ -42,6 +43,21 @@ public class FacturarCantidad extends JDialog {
                 onCancel();
             }
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+
+
+
+        cantTxt.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                controller.setCantidad(Integer.parseInt(cantTxt.getText()));
+
+            }
+        });
+    }
+
+    public void setController(pos.presentation.facturar.Controller controller) {
+        this.controller = controller;
     }
 
     private void onOK() {

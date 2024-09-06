@@ -57,10 +57,11 @@ public class Application
         cajerosController = new pos.presentation.cajeros.Controller(cajerosView, cajerosModel);
 
         //Productos
-
         pos.presentation.productos.Model productosModel = new pos.presentation.productos.Model();
         pos.presentation.productos.View productosView = new pos.presentation.productos.View();
         productosController = new pos.presentation.productos.Controller(productosView, productosModel);
+
+
 
         facturarView.initialize(tabbedPane);
         clientesView.initialize(tabbedPane);

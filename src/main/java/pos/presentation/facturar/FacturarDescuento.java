@@ -10,6 +10,7 @@ public class FacturarDescuento extends JDialog {
     private JPanel pagosPanel;
     private JTextField descTxt;
     private JLabel descLabel;
+    private Controller controller;
 
     public FacturarDescuento() {
         setContentPane(contentPane);
@@ -42,11 +43,23 @@ public class FacturarDescuento extends JDialog {
                 onCancel();
             }
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+        descTxt.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                controller.setDescuento(Float.parseFloat(descTxt.getText()));
+
+            }
+        });
     }
 
     private void onOK() {
         // add your code here
         dispose();
+    }
+
+    public void setController(pos.presentation.facturar.Controller controller) {
+        this.controller = controller;
     }
 
     private void onCancel() {

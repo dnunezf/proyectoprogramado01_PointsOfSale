@@ -17,8 +17,8 @@ public class Model extends AbstractModel {
 
     /*Producto que se utiliza como filtro para la busqueda en la lista para ingresarlo a la factura*/
     Producto filter;
-    /*Lista de cajeros que contiene los datos actuales*/
-    List<Factura> list;
+    /*Lista de Lineas que contiene los datos actuales*/
+    List<Linea> list;
     /*Linea actualmente seleccionado o en edicion*/
     Linea current;
     /*Modo de operacion del modelo, ya sea modificar, ingresar, eliminar...*/
@@ -45,7 +45,7 @@ public class Model extends AbstractModel {
     }
 
     /*Inicializa la vista con una lista de Facturas, un cajero actual vacio y un filtro vacio*/
-    public void init(List<Factura> list) {
+    public void init(List<Linea> list) {
         this.list = list;
         this.current = new Linea();
         this.filter = new Producto();
@@ -56,12 +56,12 @@ public class Model extends AbstractModel {
     /*GETTERS AND SETTERS
      * En los setters notifica el cambio a los listeners registrados*/
 
-    public List<Factura> getList()
+    public List<Linea> getList()
     {
         return list;
     }
 
-    public void setList(List<Factura> list)
+    public void setList(List<Linea> list)
     {
         this.list = list;
         firePropertyChange(LIST);

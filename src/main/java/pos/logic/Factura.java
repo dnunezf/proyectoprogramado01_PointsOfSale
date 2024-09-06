@@ -30,8 +30,12 @@ public class Factura
     @XmlElement(name = "linea")
     private ArrayList<Linea> lineas;
 
-
     private int metodoDePago;
+
+    int EFECTIVO = 0;
+    int TARJETA = 1;
+    int CHEQUE = 2;
+    int SINPE = 3;
 
     public Factura(String numeroDeFactura, Cliente cliente, Cajero cajero, int metodoDePago) {
 
@@ -110,7 +114,13 @@ public class Factura
 
         Integer tam = lineas.size();
 
-        lineas.add(new Linea(tam.toString(),p,cantidad,this));
+        lineas.add(new Linea(p,this){
+
+            @Override
+            public void setCantidadVendida(int cantidadVendida) {
+                super.setCantidadVendida(cantidadVendida);
+            }
+        });
 
     }
 

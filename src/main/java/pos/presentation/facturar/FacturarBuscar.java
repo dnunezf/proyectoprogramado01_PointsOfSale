@@ -13,6 +13,8 @@ public class FacturarBuscar extends JDialog {
     private JPanel listadoPanel;
     private JScrollPane listadoScrollPanel;
     private JTable list;
+    private pos.presentation.facturar.Controller controller;
+
 
     public FacturarBuscar() {
         setContentPane(contentPane);
@@ -45,11 +47,35 @@ public class FacturarBuscar extends JDialog {
                 onCancel();
             }
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+
+        descTxt.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                try
+                {
+                    Producto filter = new Producto();
+
+                    filter.setDescripcion(descTxt.getText());
+
+                    controller.searchProducto(filter);
+                }
+                catch (Exception ex)
+                {
+                    JOptionPane.showMessageDialog(contentPane, ex.getMessage(), "Informacion", JOptionPane.INFORMATION_MESSAGE);
+                }
+
+            }
+        });
     }
 
     private void onOK() {
         // add your code here
         dispose();
+    }
+
+    public void setController(pos.presentation.facturar.Controller controller) {
+        this.controller = controller;
     }
 
     private void onCancel() {
