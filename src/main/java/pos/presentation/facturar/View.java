@@ -95,7 +95,7 @@ public class View implements PropertyChangeListener {
     public void initialize(JTabbedPane tabbedPane) {
         // Configuración del panel y tab
         Icon facturaIcon = new ImageIcon(Application.class.getResource("/pos/presentation/icons/bill.png"));
-        tabbedPane.addTab("Facturar  ",  facturaIcon, this.getPanel());
+        tabbedPane.addTab("Facturar  ", facturaIcon, this.getPanel());
     }
 
     public JPanel getPanel() {
@@ -106,8 +106,7 @@ public class View implements PropertyChangeListener {
     Model model;
     Controller controller;
 
-    public void setModel(Model model)
-    {
+    public void setModel(Model model) {
         this.model = model;
         model.addPropertyChangeListener(this);
     }
@@ -116,8 +115,7 @@ public class View implements PropertyChangeListener {
         return this.controller;
     }
 
-    public void setController(Controller controller)
-    {
+    public void setController(Controller controller) {
         this.controller = controller;
     }
 

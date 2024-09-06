@@ -1,5 +1,7 @@
 package pos.presentation.facturar;
 
+import pos.logic.Producto;
+import pos.presentation.productos.Controller;
 import javax.swing.*;
 import java.awt.event.*;
 
