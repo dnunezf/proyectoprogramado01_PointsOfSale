@@ -5,6 +5,7 @@ import pos.logic.Cajero;
 
 import javax.swing.*;
 import javax.swing.table.TableColumnModel;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -125,6 +126,7 @@ public class View implements PropertyChangeListener {
         Icon facturaIcon = new ImageIcon(Application.class.getResource("/pos/presentation/icons/bill.png"));
         tabbedPane.addTab("Facturar  ", facturaIcon, this.getPanel());
 
+
         DefaultComboBoxModel<Cajero> comboBoxCajeros = new DefaultComboBoxModel<>();
 
         // Añade las categorías al modelo del JComboBox
@@ -172,20 +174,25 @@ public class View implements PropertyChangeListener {
                         pos.presentation.facturar.TableModel.CANTIDAD, pos.presentation.facturar.TableModel.PRECIO, pos.presentation.facturar.TableModel.DESCUENTO,
                         pos.presentation.facturar.TableModel.NETO, pos.presentation.facturar.TableModel.IMPORTE};
 
-                list.setModel(new TableModel(cols, model.getList()));
-                list.setRowHeight(30);
+                if(model.getList() != null) {
+                    TableModel tablaLineas = new TableModel(cols, model.getList());
 
-                TableColumnModel columnModel = list.getColumnModel();
+                    list.setModel(tablaLineas);
+                    list.setRowHeight(30);
 
-                columnModel.getColumn(0).setPreferredWidth(150);
-                columnModel.getColumn(1).setPreferredWidth(150);
-                columnModel.getColumn(2).setPreferredWidth(150);
-                columnModel.getColumn(3).setPreferredWidth(170);
-                columnModel.getColumn(4).setPreferredWidth(150);
-                columnModel.getColumn(5).setPreferredWidth(170);
-                columnModel.getColumn(6).setPreferredWidth(150);
-                columnModel.getColumn(7).setPreferredWidth(150);
+                    TableColumnModel columnModel = list.getColumnModel();
 
+                    columnModel.getColumn(0).setPreferredWidth(150);
+                    columnModel.getColumn(1).setPreferredWidth(150);
+                    columnModel.getColumn(2).setPreferredWidth(150);
+                    columnModel.getColumn(3).setPreferredWidth(170);
+                    columnModel.getColumn(4).setPreferredWidth(150);
+                    columnModel.getColumn(5).setPreferredWidth(170);
+                    columnModel.getColumn(6).setPreferredWidth(150);
+                    columnModel.getColumn(7).setPreferredWidth(150);
+
+                    tablaLineas.fireTableDataChanged();
+                }
                 break;
             }
 
@@ -207,6 +214,7 @@ public class View implements PropertyChangeListener {
         }
 
         this.panel.revalidate();
+        this.panel.repaint();
     }
 }
 

@@ -61,33 +61,35 @@ public class Model extends AbstractModel {
         return list;
     }
 
-    public void setList(List<Linea> list)
-    {
+    public void setList(List<Linea> list) {
         this.list = list;
-        firePropertyChange(LIST);
+        firePropertyChange(LIST, null, list);  // Ensure the listeners are properly notified
     }
+
 
     public Linea getCurrent()
     {
         return current;
     }
 
-    public void setCurrent(Linea current)
-    {
+    public void setCurrent(Linea current) {
+        Linea oldCurrent = this.current;
         this.current = current;
-        firePropertyChange(CURRENT);
+        firePropertyChange(CURRENT, oldCurrent, current);
     }
+
 
     public Producto getFilter()
     {
         return filter;
     }
 
-    public void setFilter(Producto filter)
-    {
+    public void setFilter(Producto filter) {
+        Producto oldFilter = this.filter;
         this.filter = filter;
-        firePropertyChange(FILTER);
+        firePropertyChange(FILTER, oldFilter, filter);
     }
+
 
     public int getMode()
     {
