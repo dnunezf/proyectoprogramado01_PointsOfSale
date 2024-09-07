@@ -14,6 +14,7 @@ public class Application
     public static pos.presentation.cajeros.Controller cajerosController;
     public static pos.presentation.productos.Controller productosController;
     public static pos.presentation.facturar.Controller facturarController;
+    public static pos.presentation.historico.Controller historicoController;
 
     public static JFrame window;
 
@@ -61,11 +62,16 @@ public class Application
         pos.presentation.productos.View productosView = new pos.presentation.productos.View();
         productosController = new pos.presentation.productos.Controller(productosView, productosModel);
 
+        //Historico
+        pos.presentation.historico.Model historicoModel = new pos.presentation.historico.Model();
+        pos.presentation.historico.View historicoView = new pos.presentation.historico.View();
+        historicoController = new pos.presentation.historico.Controller(historicoView, historicoModel);
 
         facturarView.initialize(tabbedPane,cajerosModel,clientesModel);
         clientesView.initialize(tabbedPane);
         cajerosView.initialize(tabbedPane);
-        productosView.initialize(tabbedPane);/**/
+        productosView.initialize(tabbedPane);
+        historicoView.initialize(tabbedPane);
 
         window.setSize(790,520);
         window.setResizable(false);

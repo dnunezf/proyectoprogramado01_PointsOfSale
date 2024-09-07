@@ -266,6 +266,8 @@ public class Service
                 .collect(Collectors.toList());
     }
 
+    /* Implementación CRUD+S lista de objetos Factura */
+
     public void create(Factura factura) throws Exception {
         Factura result = data.getFacturas().stream()
                 .filter(i -> i.getNumeroDeFactura() == factura.getNumeroDeFactura())
@@ -318,6 +320,14 @@ public class Service
     public List<Factura> search(Factura factura) {
         return data.getFacturas().stream()
                 .filter(i -> String.valueOf(i.getNumeroDeFactura()).contains(String.valueOf(factura.getNumeroDeFactura())))
+                .sorted(Comparator.comparing(Factura::getFecha))
+                .collect(Collectors.toList());
+    }
+
+    /*Search Bills by Name*/
+    public List<Factura> searchBillsByName(Cliente cliente) {
+        return data.getFacturas().stream()
+                .filter(i -> i.getCliente().getNombre().toLowerCase().contains(cliente.getNombre().toLowerCase()))
                 .sorted(Comparator.comparing(Factura::getFecha))
                 .collect(Collectors.toList());
     }
