@@ -17,7 +17,7 @@ public class Controller {
     private pos.presentation.productos.Controller controllerProd;
 
     /*Inicializa el modelo con una lista de Lineas obtenida de Servicio*/
-    public Controller(View view, Model model)
+    public Controller(View view, Model model, pos.presentation.productos.Controller controllerProd )
     {
         model.init(Service.getInstance().search(new Linea())); // Inicializa el modelo con todas las Facturas
 
@@ -26,7 +26,25 @@ public class Controller {
 
         this.view.setController(this);
         view.setModel(model);
+        this.controllerProd = controllerProd;
 
+    }
+
+    public void add(Producto filter) {
+        try {
+            Producto prod = Service.getInstance().searchOne(filter);
+            if (prod != null) {
+                Linea line = new Linea(prod, model.getList().size() + 1);
+                if(model.getList().add(line)){
+                    JOptionPane.showMessageDialog(view.getPanel(), "Producto Ingresado", "Exito", JOptionPane.INFORMATION_MESSAGE);
+
+                }
+            } else {
+                JOptionPane.showMessageDialog(view.getPanel(), "Producto no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(view.getPanel(), "Error al agregar producto: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     public void searchProducto(Producto producto) throws Exception{

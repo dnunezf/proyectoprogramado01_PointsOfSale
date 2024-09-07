@@ -44,7 +44,7 @@ public class Application
         // Facturar
         pos.presentation.facturar.Model facturarModel = new pos.presentation.facturar.Model();
         pos.presentation.facturar.View facturarView = new pos.presentation.facturar.View();
-        facturarController = new pos.presentation.facturar.Controller(facturarView, facturarModel);
+        facturarController = new pos.presentation.facturar.Controller(facturarView, facturarModel,productosController);
 
         //Clientes
         pos.presentation.clientes.Model clientesModel = new pos.presentation.clientes.Model();
@@ -65,7 +65,7 @@ public class Application
         facturarView.initialize(tabbedPane,cajerosModel,clientesModel);
         clientesView.initialize(tabbedPane);
         cajerosView.initialize(tabbedPane);
-        productosView.initialize(tabbedPane);
+        productosView.initialize(tabbedPane);/**/
 
         window.setSize(790,520);
         window.setResizable(false);

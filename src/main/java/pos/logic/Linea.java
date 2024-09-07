@@ -23,6 +23,15 @@ public class Linea
     public Linea(){
 
     }
+    public Linea (Producto productoVendido, Integer numeroLinea){
+
+        this.numeroDeLinea = numeroLinea.toString();
+        this.productoVendido = productoVendido;
+        this.cantidadVendida = 1;
+        this.factura = null;
+       // numeroDeLinea = "0";
+        actualizaExistencia();
+    }
 
     public Linea(Producto productoVendido, Factura factura) {
         Integer numeroDeLinea = this.factura.getLineas().size();

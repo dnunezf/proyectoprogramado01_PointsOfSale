@@ -2,6 +2,8 @@ package pos.presentation.facturar;
 
 import pos.Application;
 import pos.logic.Cajero;
+import pos.logic.Cliente;
+import pos.logic.Producto;
 
 import javax.swing.*;
 import javax.swing.table.TableColumnModel;
