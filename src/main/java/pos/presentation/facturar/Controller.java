@@ -6,6 +6,8 @@ import pos.logic.*;
 import pos.presentation.facturar.Model;
 import pos.presentation.facturar.View;
 
+import javax.swing.*;
+
 
 public class Controller {
 

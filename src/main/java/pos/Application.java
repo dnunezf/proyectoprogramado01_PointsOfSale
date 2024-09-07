@@ -62,8 +62,7 @@ public class Application
         productosController = new pos.presentation.productos.Controller(productosView, productosModel);
 
 
-
-        facturarView.initialize(tabbedPane);
+        facturarView.initialize(tabbedPane,cajerosModel,clientesModel);
         clientesView.initialize(tabbedPane);
         cajerosView.initialize(tabbedPane);
         productosView.initialize(tabbedPane);
@@ -75,5 +74,7 @@ public class Application
         window.setTitle("POS: Point Of Sale");
         window.setLocationRelativeTo(null);
         window.setVisible(true);
+
+
     }
 }

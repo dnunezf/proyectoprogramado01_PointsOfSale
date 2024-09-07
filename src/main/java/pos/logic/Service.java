@@ -245,6 +245,17 @@ public class Service
         Producto result = this.read(producto);
         data.getProductos().remove(result);
     }
+    public Producto searchOne(Producto filter){
+
+        for (Producto producto : data.getProductos()) {
+
+            if(producto.getCodigo().equals(filter.getCodigo())){
+
+                return producto;
+            }
+        }
+        return null;
+    }
 
     /* Busca Productos en la lista, cuyo nombre contiene una cadena específica,
      * y los ordena alfabéticamente */
@@ -368,7 +379,6 @@ public class Service
                 .sorted(Comparator.comparing(Linea::getNumeroDeLinea))
                 .collect(Collectors.toList());
     }
-
 
 
 }

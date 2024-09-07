@@ -4,6 +4,7 @@ import pos.Application;
 import pos.logic.Cajero;
 
 import javax.swing.*;
+import javax.swing.table.TableColumnModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -23,7 +24,7 @@ public class View implements PropertyChangeListener {
     private JPanel panel;
     private JPanel datosClientePanel;
     private JLabel idLabel;
-    private JComboBox<String> comboBoxCli;
+    private JComboBox<Cliente> comboBoxCli;
     private JPanel datosCajeros;
     private JPanel listadoFacturasPanel;
     private JPanel addProductPanel;
@@ -33,7 +34,13 @@ public class View implements PropertyChangeListener {
     private JComboBox<Cajero> comboBoxCaj;
 
 
-    
+
+    /*M.V.C*/
+    Model model;
+    Controller controller;
+
+
+
     public View() {
         cobrarButton.addActionListener(new ActionListener() {
             @Override
@@ -95,34 +102,54 @@ public class View implements PropertyChangeListener {
 
             }
         });
+
+        // En View.java, maneja mejor las excepciones.
+        addProduct.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    Producto filter = new Producto();
+                    filter.setCodigo(productCode.getText());
+                    controller.add(filter); // Asegúrate de que 'controller' está correctamente inicializado
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(panel, "Error al agregar producto: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
+
     }
 
-    public void initialize(JTabbedPane tabbedPane) {
+    public void initialize(JTabbedPane tabbedPane, pos.presentation.cajeros.Model modelCajeros, pos.presentation.clientes.Model modelClientes) {
         // Configuración del panel y tab
         Icon facturaIcon = new ImageIcon(Application.class.getResource("/pos/presentation/icons/bill.png"));
         tabbedPane.addTab("Facturar  ", facturaIcon, this.getPanel());
 
-//        DefaultComboBoxModel<Cajero> mode = new DefaultComboBoxModel<>();
-//
-//        pos.presentation.cajeros.Model modelCaj = new pos.presentation.cajeros.Model();
-//        // Añade las categorías al modelo del JComboBox
-//        for (Cajero cajero : modelCaj.getList()) {
-//            mode.addElement(cajero);
-//        }
-//
-//        // Asigna el modelo al JComboBox
-//        comboBoxCaj.setModel(mode);
+        DefaultComboBoxModel<Cajero> comboBoxCajeros = new DefaultComboBoxModel<>();
+
+        // Añade las categorías al modelo del JComboBox
+        for (Cajero cajero : modelCajeros.getList()) {
+            comboBoxCajeros.addElement(cajero);
+        }
+
+
+        DefaultComboBoxModel<Cliente> comboBoxClientes = new DefaultComboBoxModel<>();
+
+        for (Cliente cliente : modelClientes.getList()) {
+            comboBoxClientes.addElement(cliente);
+        }
+
+
+        // Asigna el modelo al JComboBox
+        comboBoxCaj.setModel(comboBoxCajeros);
+        comboBoxCli.setModel(comboBoxClientes);
     }
 
     public JPanel getPanel() {
         return panel;
     }
 
-    /*M.V.C*/
-    Model model;
-    Controller controller;
 
-   // pos.presentation.cajeros.Model modelCaj;
 
     public void setModel(Model model) {
         this.model = model;
@@ -137,80 +164,50 @@ public class View implements PropertyChangeListener {
         this.controller = controller;
     }
 
-      @Override
-      public void propertyChange(PropertyChangeEvent evt) {
-//        switch (evt.getPropertyName()) {
-//            case pos.presentation.facturar.Model.LIST: {
-//                int[] cols = {pos.presentation.facturar.TableModel.CODIGO, pos.presentation.facturar.TableModel.ARTICULO, TableModel.CATEGORIA,
-//                        pos.presentation.facturar.TableModel.CANTIDAD, pos.presentation.facturar.TableModel.PRECIO, pos.presentation.facturar.TableModel.DESCUENTO,
-//                                    pos.presentation.facturar.TableModel.NETO, pos.presentation.facturar.TableModel.IMPORTE};
-//
-//                            list.setModel(new TableModel(cols, model.getList()));
-//                            list.setRowHeight(30);
-//
-//                            TableColumnModel columnModel = list.getColumnModel();
-//
-//                            columnModel.getColumn(1).setPreferredWidth(150);
-//                            columnModel.getColumn(2).setPreferredWidth(100);
-//                            columnModel.getColumn(3).setPreferredWidth(100);
-//                            columnModel.getColumn(4).setPreferredWidth(100);
-//                            columnModel.getColumn(5).setPreferredWidth(150);
-//                            columnModel.getColumn(6).setPreferredWidth(100);
-//                            columnModel.getColumn(7).setPreferredWidth(100);
-//                            columnModel.getColumn(8).setPreferredWidth(150);
-//
-//                            break;
-//                        }
-//
-////                case Model.CURRENT://                     {
-////                codTxt.setText(model.getCurrent().getCodigo());
-////                descTxt.setText(model.getCurrent().getDescripcion());
-////                unidadTxt.setText(model.getCurrent().getUnidad());
-////                precioTxt.setText("" + model.getCurrent().getPrecioUnitario());
-////                existTxt.setText("" + model.getCurrent().getExistencias());
-////                catComboBox.setSelectedItem(model.getCurrent().getCategoria());
-////
-////                if(model.getMode() == Application.MODE_EDIT)
-////                {
-////                    codTxt.setEnabled(false);
-////                    delete.setEnabled(true);
-////                } else {
-////                    codTxt.setEnabled(true);
-////                    delete.setEnabled(false);
-////                }
-////
-////                // Limpiar los bordes y tooltips
-////                codLabel.setBorder(null);
-////                codLabel.setToolTipText(null);
-////
-////                descLabel.setBorder(null);
-////                descLabel.setToolTipText(null);
-////
-////                unidadLabel.setBorder(null);
-////                unidadLabel.setToolTipText(null);
-////
-////                precioLabel.setBorder(null);
-////                precioLabel.setToolTipText(null);
-////
-////                existLabel.setBorder(null);
-////                existLabel.setToolTipText(null);
-////
-////                catLabel.setBorder(null);
-////                catLabel.setToolTipText(null);
-////
-////                break;
-//            }
-//
-////            case pos.presentation.productos.Model.FILTER:
-////            {
-//////                busquedaNombreTxt.setText(model.getFilter().getDescripcion());
-//////                break;
-////            }
-////        }
-////
-////        this.panel.revalidate();
-////        }
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        switch (evt.getPropertyName()) {
+            case pos.presentation.facturar.Model.LIST: {
+                int[] cols = {pos.presentation.facturar.TableModel.CODIGO, pos.presentation.facturar.TableModel.ARTICULO, TableModel.CATEGORIA,
+                        pos.presentation.facturar.TableModel.CANTIDAD, pos.presentation.facturar.TableModel.PRECIO, pos.presentation.facturar.TableModel.DESCUENTO,
+                        pos.presentation.facturar.TableModel.NETO, pos.presentation.facturar.TableModel.IMPORTE};
+
+                list.setModel(new TableModel(cols, model.getList()));
+                list.setRowHeight(30);
+
+                TableColumnModel columnModel = list.getColumnModel();
+
+                columnModel.getColumn(0).setPreferredWidth(150);
+                columnModel.getColumn(1).setPreferredWidth(150);
+                columnModel.getColumn(2).setPreferredWidth(150);
+                columnModel.getColumn(3).setPreferredWidth(170);
+                columnModel.getColumn(4).setPreferredWidth(150);
+                columnModel.getColumn(5).setPreferredWidth(170);
+                columnModel.getColumn(6).setPreferredWidth(150);
+                columnModel.getColumn(7).setPreferredWidth(150);
+
+                break;
+            }
+
+            case Model.CURRENT: {
+
+
+                break;
+            }
+
+            case pos.presentation.productos.Model.FILTER: {
+
+
+                break;
+            }
+
+
+
+
+        }
+
+        this.panel.revalidate();
     }
-
-
 }
+
+
