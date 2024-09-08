@@ -32,9 +32,8 @@ public class Controller
     {
         model.setFilter(filter); // Establece el filtro
 
-
         model.setMode(Application.MODE_CREATE); //Establece modo de operacion en CREAR
-        model.setCurrentBill(new Factura()); // Resetea el cliente actual
+        model.setCurrentBill(new Factura()); // Resetea factura actual
         model.setListBills(Service.getInstance().searchBillsByName(model.getFilter())); // Busca y actualiza la lista en el modelo
     }
 }

@@ -34,11 +34,11 @@ public class Linea
     }
 
     public Linea(Producto productoVendido, Factura factura) {
+        this.factura = factura;
         Integer numeroDeLinea = this.factura.getLineas().size();
         this.numeroDeLinea = numeroDeLinea.toString();
         this.productoVendido = productoVendido;
         this.cantidadVendida = 1;
-        this.factura = factura;
         actualizaExistencia();
     }
 
@@ -89,7 +89,10 @@ public class Linea
     }
 
     public float getDescuento(){
-        return this.factura.getCliente().getDescuento();
+        if (this.factura != null && this.factura.getCliente() != null) {
+            return this.factura.getCliente().getDescuento();
+        }
+        return 0; // O algún valor por defecto
     }
 
     public void setDescuento(float descuento) {

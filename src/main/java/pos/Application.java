@@ -78,18 +78,16 @@ public class Application
         clientesView.initialize(tabbedPane);
         cajerosView.initialize(tabbedPane);
         productosView.initialize(tabbedPane);
-        historicoView.initialize(tabbedPane);
         estadisticaView.initialize(tabbedPane);
+        historicoView.initialize(tabbedPane);
 
 
-        window.setSize(790,520);
+        window.setSize(790,700);
         window.setResizable(false);
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         window.setIconImage((new ImageIcon(Application.class.getResource("presentation/icons/icon.png"))).getImage());
         window.setTitle("POS: Point Of Sale");
         window.setLocationRelativeTo(null);
         window.setVisible(true);
-
-
     }
 }

@@ -245,15 +245,17 @@ public class Service
         Producto result = this.read(producto);
         data.getProductos().remove(result);
     }
-    public Producto searchOne(Producto filter){
 
-        for (Producto producto : data.getProductos()) {
-
-            if(producto.getCodigo().equals(filter.getCodigo())){
-
+    public Producto searchOne(Producto filter)
+    {
+        for (Producto producto : data.getProductos())
+        {
+            if(producto.getCodigo().equals(filter.getCodigo()))
+            {
                 return producto;
             }
         }
+
         return null;
     }
 
@@ -270,7 +272,7 @@ public class Service
 
     public void create(Factura factura) throws Exception {
         Factura result = data.getFacturas().stream()
-                .filter(i -> i.getNumeroDeFactura() == factura.getNumeroDeFactura())
+                .filter(i -> i.getNumeroDeFactura().equals(factura.getNumeroDeFactura()))
                 .findFirst()
                 .orElse(null);
 
@@ -284,7 +286,7 @@ public class Service
     /* Lee una Factura existente en la lista de Facturas */
     public Factura read(Factura factura) throws Exception {
         Factura result = data.getFacturas().stream()
-                .filter(i -> i.getNumeroDeFactura() == factura.getNumeroDeFactura())
+                .filter(i -> i.getNumeroDeFactura().equals(factura.getNumeroDeFactura()))
                 .findFirst()
                 .orElse(null);
 
@@ -400,7 +402,7 @@ public class Service
 
     public void create(Categoria categoria) throws Exception{
         Categoria result = data.getCategorias().stream()
-                .filter(i -> i.getTipo() == categoria.getTipo())
+                .filter(i -> i.getTipo().equals(categoria.getTipo()))
                 .findFirst()
                 .orElse(null);
 

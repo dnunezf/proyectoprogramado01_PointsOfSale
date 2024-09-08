@@ -30,15 +30,20 @@ public class Controller {
 
     }
 
-    public void add(Producto filter) {
-        try {
+    public void add(Producto filter)
+    {
+        try
+        {
             Producto prod = Service.getInstance().searchOne(filter);
-            if (prod != null) {
-                Linea line = new Linea(prod, model.getList().size() + 1);
-                if(model.getList().add(line)){
-                    JOptionPane.showMessageDialog(view.getPanel(), "Producto Ingresado", "Exito", JOptionPane.INFORMATION_MESSAGE);
 
-                }
+            if (prod != null)
+            {
+                Linea line = new Linea(prod, model.getList().size() + 1);
+
+                model.getList().add(line);
+                model.setList(model.getList()); // Notifica el cambio a la vista
+
+                JOptionPane.showMessageDialog(view.getPanel(), "Producto Ingresado", "Exito", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(view.getPanel(), "Producto no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
             }

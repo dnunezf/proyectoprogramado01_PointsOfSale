@@ -33,7 +33,7 @@ public class View implements PropertyChangeListener {
     {
         // Configuración del panel y tab
         Icon historicoIcon = new ImageIcon(Application.class.getResource("/pos/presentation/icons/list_historic.png"));
-        tabbedPane.addTab("Historico ", historicoIcon, this.getPanel());
+        tabbedPane.addTab(" Historico ", historicoIcon, this.getPanel());
     }
 
     public View()

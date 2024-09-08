@@ -32,10 +32,10 @@ public class Factura
 
     private int metodoDePago;
 
-    int EFECTIVO = 0;
-    int TARJETA = 1;
-    int CHEQUE = 2;
-    int SINPE = 3;
+    public static final int EFECTIVO = 0;
+    public static final int TARJETA = 1;
+    public static final int CHEQUE = 2;
+    public static final int SINPE = 3;
 
     public Factura(String numeroDeFactura, Cliente cliente, Cajero cajero, int metodoDePago) {
 
@@ -48,15 +48,15 @@ public class Factura
 
     }
 
-    public Factura(){
-
+    public Factura()
+    {
 
     }
 
     public String getNumeroDeFactura() {
         return numeroDeFactura;
-
     }
+
     public void setNumeroDeFactura(String numeroDeFactura) {
         this.numeroDeFactura = numeroDeFactura;
     }
@@ -69,7 +69,8 @@ public class Factura
         this.fecha = fecha;
     }
 
-    public Cliente getCliente() {
+    public Cliente getCliente()
+    {
         return cliente;
     }
 
@@ -146,17 +147,15 @@ public class Factura
         lineas.clear();
     }
 
-    public double calcularTotal(){
-
+    public double calcularTotal()
+    {
         double total = 0;
 
-        for(Linea linea : lineas){
-
+        for(Linea linea : lineas)
+        {
             total += linea.getProductoVendido().getPrecioUnitario() * linea.getCantidadVendida();
-
         }
 
         return total;
-
     }
 }

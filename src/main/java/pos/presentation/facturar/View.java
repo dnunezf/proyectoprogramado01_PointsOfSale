@@ -109,25 +109,24 @@ public class View implements PropertyChangeListener {
         // En View.java, maneja mejor las excepciones.
         addProduct.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
+            public void actionPerformed(ActionEvent e)
+            {
+                try
+                {
                     Producto filter = new Producto();
                     filter.setCodigo(productCode.getText());
-                    controller.add(filter); // Asegúrate de que 'controller' está correctamente inicializado
+                    controller.add(filter); // Asegúrate de que 'controller' esté correctamente inicializado
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(panel, "Error al agregar producto: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
-
-
     }
 
     public void initialize(JTabbedPane tabbedPane, pos.presentation.cajeros.Model modelCajeros, pos.presentation.clientes.Model modelClientes) {
         // Configuración del panel y tab
         Icon facturaIcon = new ImageIcon(Application.class.getResource("/pos/presentation/icons/bill.png"));
-        tabbedPane.addTab("Facturar  ", facturaIcon, this.getPanel());
-
+        tabbedPane.addTab("Facturar ", facturaIcon, this.getPanel());
 
         DefaultComboBoxModel<Cajero> comboBoxCajeros = new DefaultComboBoxModel<>();
 
@@ -136,13 +135,11 @@ public class View implements PropertyChangeListener {
             comboBoxCajeros.addElement(cajero);
         }
 
-
         DefaultComboBoxModel<Cliente> comboBoxClientes = new DefaultComboBoxModel<>();
 
         for (Cliente cliente : modelClientes.getList()) {
             comboBoxClientes.addElement(cliente);
         }
-
 
         // Asigna el modelo al JComboBox
         comboBoxCaj.setModel(comboBoxCajeros);
@@ -171,52 +168,29 @@ public class View implements PropertyChangeListener {
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         switch (evt.getPropertyName()) {
-            case pos.presentation.facturar.Model.LIST: {
-                int[] cols = {pos.presentation.facturar.TableModel.CODIGO, pos.presentation.facturar.TableModel.ARTICULO, TableModel.CATEGORIA,
-                        pos.presentation.facturar.TableModel.CANTIDAD, pos.presentation.facturar.TableModel.PRECIO, pos.presentation.facturar.TableModel.DESCUENTO,
-                        pos.presentation.facturar.TableModel.NETO, pos.presentation.facturar.TableModel.IMPORTE};
-
-                if(model.getList() != null) {
+            case Model.LIST: {
+                int[] cols = {TableModel.CODIGO, TableModel.ARTICULO, TableModel.CATEGORIA, TableModel.CANTIDAD, TableModel.PRECIO, TableModel.DESCUENTO, TableModel.NETO, TableModel.IMPORTE};
+                if (model.getList() != null) {
                     TableModel tablaLineas = new TableModel(cols, model.getList());
-
                     list.setModel(tablaLineas);
                     list.setRowHeight(30);
 
                     TableColumnModel columnModel = list.getColumnModel();
-
-                    columnModel.getColumn(0).setPreferredWidth(150);
-                    columnModel.getColumn(1).setPreferredWidth(150);
-                    columnModel.getColumn(2).setPreferredWidth(150);
-                    columnModel.getColumn(3).setPreferredWidth(170);
-                    columnModel.getColumn(4).setPreferredWidth(150);
-                    columnModel.getColumn(5).setPreferredWidth(170);
-                    columnModel.getColumn(6).setPreferredWidth(150);
-                    columnModel.getColumn(7).setPreferredWidth(150);
+                    columnModel.getColumn(0).setPreferredWidth(300);
+                    columnModel.getColumn(1).setPreferredWidth(300);
+                    columnModel.getColumn(2).setPreferredWidth(300);
+                    columnModel.getColumn(3).setPreferredWidth(300);
+                    columnModel.getColumn(4).setPreferredWidth(300);
+                    columnModel.getColumn(5).setPreferredWidth(300);
+                    columnModel.getColumn(6).setPreferredWidth(300);
+                    columnModel.getColumn(7).setPreferredWidth(300);
 
                     tablaLineas.fireTableDataChanged();
                 }
                 break;
             }
-
-            case Model.CURRENT: {
-
-
-                break;
-            }
-
-            case pos.presentation.productos.Model.FILTER: {
-
-
-                break;
-            }
-
-
-
-
         }
-
         this.panel.revalidate();
-        this.panel.repaint();
     }
 }
 

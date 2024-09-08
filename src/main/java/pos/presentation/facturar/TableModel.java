@@ -19,8 +19,7 @@ public class TableModel extends AbstractTableModel<Linea> implements javax.swing
     public static final int IMPORTE = 7;
 
     /*Constructor que inicializa la tabla con columnas y filas especificadas*/
-    public TableModel(int[] cols, List<Linea> rows)
-    {
+    public TableModel(int[] cols, List<Linea> rows) {
         super(cols, rows);
     }
 
