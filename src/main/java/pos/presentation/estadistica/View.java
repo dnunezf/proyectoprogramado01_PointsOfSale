@@ -19,7 +19,8 @@
      private JButton button2;
      private JTable list;
      private JPanel panel;
-
+     private JLabel stat;
+     private JPanel panelStat;
 
 
      public View(){
@@ -28,12 +29,30 @@
 
      }
 
-     public void initialize(JTabbedPane tabbedPane)
-     {
+     public void initialize(JTabbedPane tabbedPane) {
          // Configuración del panel y tab
          Icon estadisticasIcon = new ImageIcon(Application.class.getResource("/pos/presentation/icons/stadistic.png"));
          tabbedPane.addTab("Estadisticas  ", estadisticasIcon, this.getPanel());
+
+         // Crear un ImageIcon con la ruta de la imagen
+         ImageIcon imageIcon = new ImageIcon(Application.class.getResource("/pos/presentation/icons/stadistic.png"));
+
+         //Ingresar una imagen en el Label
+
+
+//         // Crear un JLabel y establecer la imagen como su icono
+//         stat = new JLabel(imageIcon);
+//         stat.setSize(300, 300); // Ajusta el tamaño según sea necesario
+//
+//         // Crear un JPanel y añadir el JLabel con la imagen
+//         panelStat = new JPanel();
+//         panelStat.add(stat);
+//
+//         panel = new JPanel();
+//         // Agregar el panelStat al panel principal si es necesario
+//          this.getPanel().add(panelStat);
      }
+
 
      public JPanel getPanel(){
 
