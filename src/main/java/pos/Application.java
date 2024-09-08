@@ -15,6 +15,7 @@ public class Application
     public static pos.presentation.productos.Controller productosController;
     public static pos.presentation.facturar.Controller facturarController;
     public static pos.presentation.historico.Controller historicoController;
+    public static pos.presentation.estadistica.Controller estadisticaController;
 
     public static JFrame window;
 
@@ -67,6 +68,11 @@ public class Application
         pos.presentation.historico.Model historicoModel = new pos.presentation.historico.Model();
         pos.presentation.historico.View historicoView = new pos.presentation.historico.View();
         historicoController = new pos.presentation.historico.Controller(historicoView, historicoModel);
+
+        //Estadisticas
+        pos.presentation.estadistica.Model estadisticaModel = new pos.presentation.estadistica.Model();
+        pos.presentation.estadistica.View estadisticaView = new pos.presentation.estadistica.View();
+        estadisticaController = new pos.presentation.estadistica.Controller(estadisticaView, estadisticaModel);
 
         facturarView.initialize(tabbedPane,cajerosModel,clientesModel);
         clientesView.initialize(tabbedPane);

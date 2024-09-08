@@ -391,4 +391,54 @@ public class Service
     }
 
 
+    public List<Categoria> search(Categoria categoria) {
+        return data.getCategorias().stream()
+                .filter(i -> i.getTipo().contains(categoria.getTipo()))
+                .sorted(Comparator.comparing(Categoria::getTipo))
+                .collect(Collectors.toList());
+    }
+
+    public void create(Categoria categoria) throws Exception{
+        Categoria result = data.getCategorias().stream()
+                .filter(i -> i.getTipo() == categoria.getTipo())
+                .findFirst()
+                .orElse(null);
+
+        if (result == null) {
+            data.getCategorias().add(categoria);
+        } else {
+            throw new Exception("Factura ya existe");
+        }
+    }
+
+    public void update(Categoria categoria) throws Exception{
+        Categoria result;
+
+        try {
+            result = this.read(categoria);
+
+            data.getCategorias().remove(result);
+            data.getCategorias().add(categoria);
+        } catch (Exception ex) {
+            throw new Exception("Categoria no existe");
+        }
+    }
+
+    public Categoria read(Categoria categoria) throws Exception{
+        Categoria result = data.getCategorias().stream()
+                .filter(i -> i.getTipo().equals(categoria.getTipo()))
+                .findFirst()
+                .orElse(null);
+
+        if (result != null) {
+            return result;
+        } else {
+            throw new Exception("Categoria no existe");
+        }
+    }
+
+    public void delete(Categoria current) throws Exception {
+        Categoria result = this.read(new Categoria());
+        data.getCategorias().remove(result);
+    }
 }

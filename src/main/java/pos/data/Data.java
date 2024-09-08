@@ -45,6 +45,10 @@ public class Data
     @XmlElement(name = "linea")
     private List<Linea> lineas;
 
+    @XmlElementWrapper(name = "lineas")
+    @XmlElement(name = "linea")
+    private List<Categoria> categorias;
+
     /*Constructor por defecto que inicializa las listas de Clientes, Cajeros y Productos*/
     public Data()
     {
@@ -53,6 +57,7 @@ public class Data
         productos = new ArrayList<>();
         facturas = new ArrayList<>();
         lineas = new ArrayList<>();
+        categorias = new ArrayList<>();
     }
 
     public List<Cliente> getClientes()
@@ -73,4 +78,6 @@ public class Data
     public List<Factura> getFacturas(){return facturas;}
 
     public List<Linea> getLineas(){return lineas;}
+
+    public List<Categoria> getCategorias(){return categorias;}
 }
