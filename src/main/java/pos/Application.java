@@ -42,6 +42,7 @@ public class Application
             }
         });
 
+
         // Facturar
         pos.presentation.facturar.Model facturarModel = new pos.presentation.facturar.Model();
         pos.presentation.facturar.View facturarView = new pos.presentation.facturar.View();
@@ -72,6 +73,8 @@ public class Application
         cajerosView.initialize(tabbedPane);
         productosView.initialize(tabbedPane);
         historicoView.initialize(tabbedPane);
+        estadisticaView.initialize(tabbedPane);
+
 
         window.setSize(790,520);
         window.setResizable(false);
