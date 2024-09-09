@@ -44,14 +44,10 @@ public class Controller {
             // Crea una nueva línea de producto
             Linea nuevaLinea = new Linea(prod, model.getList().size() + 1);
 
-            // Asigna el descuento del cliente a la nueva línea de producto
-            nuevaLinea.setDescuentoCliente(descuentoCliente);
-
             // Añade la nueva línea de producto a la lista en el modelo
             model.getList().add(nuevaLinea);
             model.setList(model.getList()); // Notifica a la vista sobre el cambio
 
-            JOptionPane.showMessageDialog(view.getPanel(), "Producto Ingresado", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(view.getPanel(), "Producto no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -72,5 +68,63 @@ public class Controller {
         model.getCurrent().setDescuento(descuento);
     }
 
+    public int getCantidadArticulos(){
+
+        int cant = 0;
+
+        if(!model.getList().isEmpty()){
+
+            for(int i = 0; i < model.getList().size(); i++){
+
+                cant += model.getList().get(i).getCantidadVendida();
+
+            }
+
+        }
+
+        return cant;
+
+    }
+
+    public float getDescuentos() {
+
+        Cliente clienteActual = (Cliente) view.getComboBoxCli().getSelectedItem();
+        float descuento = clienteActual != null ? clienteActual.getDescuento() : 0;
+        float totalConDescuento = 0;
+
+        if(!model.getList().isEmpty()){
+
+            for(Linea linea : model.getList()){
+
+                totalConDescuento += ((linea.getDescuento() + descuento)/100 * linea.getProductoVendido().getPrecioUnitario()) * linea.getCantidadVendida();
+            }
+
+        }
+
+        return totalConDescuento;
+    }
+
+    public float getSubtotal(){
+
+        float subtotal = 0;
+
+        if(!model.getList().isEmpty()){
+
+            for(Linea linea : model.getList()){
+
+                subtotal += linea.getProductoVendido().getPrecioUnitario() * linea.getCantidadVendida();
+
+            }
+
+        }
+
+        return subtotal;
+
+    }
+
+    public float getTotal(){
+
+        return getSubtotal() - getDescuentos();
+    }
 
 }

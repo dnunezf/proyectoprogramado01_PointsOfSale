@@ -96,8 +96,10 @@ public class Linea
         return descuentoCliente;
     }
 
+    public float getDescuento(){return descuento;}
+
     public float getDescuentoTotal() {
-        return descuento + descuentoCliente; // Usa el descuento del cliente almacenado
+        return descuento+descuentoCliente;
     }
 
     public void setDescuento(float descuento) {

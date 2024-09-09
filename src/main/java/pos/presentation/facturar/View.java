@@ -11,6 +11,8 @@ import javax.swing.table.TableColumnModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -36,14 +38,23 @@ public class View implements PropertyChangeListener {
     private JTextField productCode;
     private JButton addProduct;
     private JComboBox<Cajero> comboBoxCaj;
-
+    private JLabel cantidadArticulos;
+    private JLabel subTotal;
+    private JLabel descuentos;
+    private JLabel total;
 
 
     /*M.V.C*/
     Model model;
     Controller controller;
 
+    public void actualizarLabels(){
 
+        cantidadArticulos.setText(Integer.toString(controller.getCantidadArticulos()));
+        subTotal.setText(Float.toString(controller.getSubtotal()));
+        descuentos.setText(Float.toString(controller.getDescuentos()));
+        total.setText(Float.toString(controller.getTotal()));
+    }
 
     public View() {
         cobrarButton.addActionListener(new ActionListener() {
@@ -99,8 +110,6 @@ public class View implements PropertyChangeListener {
                             // Actualizar el modelo
                             model.setList(model.getList());
 
-                            // Confirmar al usuario que la cantidad ha sido actualizada
-                            JOptionPane.showMessageDialog(getPanel(), "Cantidad actualizada con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
                         } catch (NumberFormatException ex) {
                             // Manejar el caso en el que la entrada no es un número válido
                             JOptionPane.showMessageDialog(getPanel(), "Cantidad inválida. Por favor ingrese un número entero.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -110,6 +119,8 @@ public class View implements PropertyChangeListener {
                     // Mostrar un mensaje si no se ha seleccionado ninguna línea
                     JOptionPane.showMessageDialog(getPanel(), "Por favor, seleccione una línea de producto para actualizar la cantidad.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
+
+                actualizarLabels();
             }
         });
         quitarButton.addActionListener(new ActionListener() {
@@ -122,6 +133,8 @@ public class View implements PropertyChangeListener {
             model.getList().remove(lineaActual);
 
             model.setList(model.getList());
+
+                actualizarLabels();
 
             }
 
@@ -156,8 +169,6 @@ public class View implements PropertyChangeListener {
                             // Actualizar el modelo
                             model.setList(model.getList());
 
-                            // Confirmar al usuario que el descuento ha sido actualizada
-                            JOptionPane.showMessageDialog(getPanel(), "Descuento actualizado con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
                         } catch (NumberFormatException ex) {
                             // Manejar el caso en el que la entrada no es un número válido
                             JOptionPane.showMessageDialog(getPanel(), "Descuento inválido. Por favor ingrese un número correcto.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -167,6 +178,8 @@ public class View implements PropertyChangeListener {
                     // Mostrar un mensaje si no se ha seleccionado ninguna línea
                     JOptionPane.showMessageDialog(getPanel(), "Por favor, seleccione una línea de producto para actualizar el descuento.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
+
+                actualizarLabels();
             }
         });
 
@@ -190,8 +203,10 @@ public class View implements PropertyChangeListener {
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(panel, "Error al agregar producto: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
+                actualizarLabels();
             }
         });
+
     }
 
     public void initialize(JTabbedPane tabbedPane, pos.presentation.cajeros.Model modelCajeros, pos.presentation.clientes.Model modelClientes) {
