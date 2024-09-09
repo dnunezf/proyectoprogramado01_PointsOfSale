@@ -128,6 +128,7 @@ public class View implements PropertyChangeListener {
 
             }
         });
+
         cancelarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
