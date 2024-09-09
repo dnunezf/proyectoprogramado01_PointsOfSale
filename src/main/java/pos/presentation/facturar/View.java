@@ -72,7 +72,11 @@ public class View implements PropertyChangeListener {
 
         cantidadButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e)
+            {
+                //Cambios
+                Icon descIcon = new ImageIcon(getClass().getResource("/pos/presentation/icons/list.png"));
+
                 // Verifica si hay una línea seleccionada en la vista
                 int selectedRow = list.getSelectedRow();
 
@@ -121,14 +125,14 @@ public class View implements PropertyChangeListener {
             public void actionPerformed(ActionEvent e)
             {
                 //Cambios
-                Icon cantIcon = new ImageIcon(Application.class.getResource("/pos/presentation/icons/list.png"));
+                Icon descIcon = new ImageIcon(getClass().getResource("/pos/presentation/icons/discount.png"));
 
                 // Verifica si hay una línea seleccionada en la vista
                 int selectedRow = list.getSelectedRow();
 
                 if (selectedRow >= 0)
                 {
-                    // Mostrar un cuadro de diálogo para que el usuario ingrese la nueva cantidad
+                    // Mostrar un cuadro de diálogo para que el usuario ingrese nuevo descento
                     String input = JOptionPane.showInputDialog(getPanel(), "Ingrese el descuento:", "Actualizar Descuento", JOptionPane.PLAIN_MESSAGE);
 
                     if (input != null && !input.trim().isEmpty()) {
@@ -139,13 +143,13 @@ public class View implements PropertyChangeListener {
                             // Obtener la línea de producto actual
                             Linea lineaActual = model.getList().get(selectedRow);
 
-                            // Actualizar la cantidad en la línea de producto
+                            // Actualizar el descuento en la línea de producto
                             lineaActual.setDescuento(descuento);
 
                             // Actualizar el modelo
                             model.setList(model.getList());
 
-                            // Confirmar al usuario que la cantidad ha sido actualizada
+                            // Confirmar al usuario que el descuento ha sido actualizada
                             JOptionPane.showMessageDialog(getPanel(), "Descuento actualizado con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
                         } catch (NumberFormatException ex) {
                             // Manejar el caso en el que la entrada no es un número válido
