@@ -20,18 +20,21 @@ public class Linea
     private Factura factura;
 
 
+    private float descuento;
+    private float descuentoCliente; // Nuevo atributo para el descuento del cliente
 
-    public Linea(){
-
+    public Linea() {
     }
-    public Linea (Producto productoVendido, Integer numeroLinea){
 
+    public Linea(Producto productoVendido, Integer numeroLinea) {
         this.numeroDeLinea = numeroLinea.toString();
         this.productoVendido = productoVendido;
         this.cantidadVendida = 1;
         this.factura = null;
-       // numeroDeLinea = "0";
+        this.descuento = 0;
+        this.descuentoCliente = 0; // Inicializa el descuento del cliente
         actualizaExistencia();
+        //Cambio
     }
 
     public Linea(Producto productoVendido, Factura factura) {
@@ -40,10 +43,12 @@ public class Linea
         this.numeroDeLinea = numeroDeLinea.toString();
         this.productoVendido = productoVendido;
         this.cantidadVendida = 1;
+        this.descuento = 0;
+        this.descuentoCliente = 0; // Inicializa el descuento del cliente
         actualizaExistencia();
     }
 
-    public void actualizaExistencia(){
+    public void actualizaExistencia() {
         productoVendido.setExistencias(productoVendido.getExistencias() - cantidadVendida);
     }
 
@@ -72,41 +77,38 @@ public class Linea
     }
 
     public void setCantidadVendida(int cantidadVendida) {
-
         this.cantidadVendida = cantidadVendida;
     }
 
     public int getCantidadVendida() {
-
         return cantidadVendida;
     }
 
-    public double getImporte(){
-        return cantidadVendida * productoVendido.getPrecioUnitario();
+    public double getImporte() {
+        return cantidadVendida * getNeto();
     }
 
-    public double getNeto(){
-        return productoVendido.getPrecioUnitario() - (productoVendido.getPrecioUnitario() * getDescuento());
+    public double getNeto() {
+        return getProductoVendido().getPrecioUnitario() - (getProductoVendido().getPrecioUnitario() * getDescuentoTotal()/100);
     }
 
-    public float getDescuento(){
-        if (this.factura != null && this.factura.getCliente() != null) {
-            return this.factura.getCliente().getDescuento();
-        }
-        return 0; // O algún valor por defecto
+    public float getDescuentoCliente() {
+        return descuentoCliente;
+    }
+
+    public float getDescuentoTotal() {
+        return descuento + descuentoCliente; // Usa el descuento del cliente almacenado
     }
 
     public void setDescuento(float descuento) {
-        this.factura.getCliente().setDescuento(descuento);
+        this.descuento = descuento;
     }
 
-    public String toString(){
+    public void setDescuentoCliente(float descuentoCliente) {
+        this.descuentoCliente = descuentoCliente;
+    }
 
-        String s = "";
-
-        s+= numeroDeLinea+"..........."+productoVendido.toString()+"............"+cantidadVendida;
-
-        return s;
-
+    public String toString() {
+        return numeroDeLinea + "..........." + productoVendido.toString() + "............" + cantidadVendida;
     }
 }

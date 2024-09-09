@@ -118,14 +118,44 @@ public class View implements PropertyChangeListener {
 
         descuentoButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e)
+            {
+                //Cambios
+                Icon cantIcon = new ImageIcon(Application.class.getResource("/pos/presentation/icons/list.png"));
 
-                FacturarDescuento descuento = new FacturarDescuento();
-                descuento.setController(controller);
-                descuento.setSize(400, 400);
-                descuento.setLocationRelativeTo(null);
-                descuento.setVisible(true);
+                // Verifica si hay una línea seleccionada en la vista
+                int selectedRow = list.getSelectedRow();
 
+                if (selectedRow >= 0)
+                {
+                    // Mostrar un cuadro de diálogo para que el usuario ingrese la nueva cantidad
+                    String input = JOptionPane.showInputDialog(getPanel(), "Ingrese el descuento:", "Actualizar Descuento", JOptionPane.PLAIN_MESSAGE);
+
+                    if (input != null && !input.trim().isEmpty()) {
+                        try {
+                            // Convertir la entrada a un float
+                            float descuento = Float.parseFloat(input.trim());
+
+                            // Obtener la línea de producto actual
+                            Linea lineaActual = model.getList().get(selectedRow);
+
+                            // Actualizar la cantidad en la línea de producto
+                            lineaActual.setDescuento(descuento);
+
+                            // Actualizar el modelo
+                            model.setList(model.getList());
+
+                            // Confirmar al usuario que la cantidad ha sido actualizada
+                            JOptionPane.showMessageDialog(getPanel(), "Descuento actualizado con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                        } catch (NumberFormatException ex) {
+                            // Manejar el caso en el que la entrada no es un número válido
+                            JOptionPane.showMessageDialog(getPanel(), "Descuento inválido. Por favor ingrese un número correcto.", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                } else {
+                    // Mostrar un mensaje si no se ha seleccionado ninguna línea
+                    JOptionPane.showMessageDialog(getPanel(), "Por favor, seleccione una línea de producto para actualizar el descuento.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
 
