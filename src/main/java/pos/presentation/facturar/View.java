@@ -115,6 +115,7 @@ public class View implements PropertyChangeListener {
 
             }
         });
+
         descuentoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
