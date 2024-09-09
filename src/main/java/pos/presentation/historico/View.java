@@ -100,6 +100,28 @@ public class View implements PropertyChangeListener {
                 break;
             }
 
+            case Model.LIST_LINES:
+            {
+                int[] cols = {pos.presentation.facturar.TableModel.CODIGO, pos.presentation.facturar.TableModel.ARTICULO, pos.presentation.facturar.TableModel.CATEGORIA, pos.presentation.facturar.TableModel.CANTIDAD, pos.presentation.facturar.TableModel.PRECIO, pos.presentation.facturar.TableModel.DESCUENTO, pos.presentation.facturar.TableModel.NETO, pos.presentation.facturar.TableModel.IMPORTE};
+                if (model.getListLines() != null) {
+                    pos.presentation.facturar.TableModel tablaLineas = new pos.presentation.facturar.TableModel(cols, model.getListLines());
+                    listLineas.setModel(tablaLineas);
+                    listLineas.setRowHeight(30);
+
+                    TableColumnModel columnModel = listLineas.getColumnModel();
+                    columnModel.getColumn(0).setPreferredWidth(300);
+                    columnModel.getColumn(1).setPreferredWidth(300);
+                    columnModel.getColumn(2).setPreferredWidth(300);
+                    columnModel.getColumn(3).setPreferredWidth(300);
+                    columnModel.getColumn(4).setPreferredWidth(300);
+                    columnModel.getColumn(5).setPreferredWidth(300);
+                    columnModel.getColumn(6).setPreferredWidth(300);
+                    columnModel.getColumn(7).setPreferredWidth(300);
+
+                    tablaLineas.fireTableDataChanged();
+                }
+                break;
+            }
 
             case Model.FILTER:
             {

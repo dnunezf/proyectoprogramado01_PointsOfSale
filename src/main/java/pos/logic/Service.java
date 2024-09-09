@@ -4,6 +4,8 @@ import java.lang.ref.Cleaner;
 import java.util.ArrayList;
 import pos.data.Data;
 import pos.data.XmlPersister;
+
+import javax.sound.sampled.Line;
 import java.text.DecimalFormat;
 import java.util.Comparator;
 import java.util.List;
@@ -389,6 +391,15 @@ public class Service
         return data.getLineas().stream()
                 .filter(i -> i.getNumeroDeLinea().contains(linea.getNumeroDeLinea()))
                 .sorted(Comparator.comparing(Linea::getNumeroDeLinea))
+                .collect(Collectors.toList());
+    }
+
+    /*Search Lines by Name*/
+    public List<Linea> searchLinesByName(Cliente cliente) {
+        return data.getFacturas().stream()
+                .filter(f -> f.getCliente().getNombre().toLowerCase().contains(cliente.getNombre().toLowerCase())) // Filtra facturas por cliente
+                .flatMap(f -> f.getLineas().stream()) // Descompone cada factura en sus líneas de productos
+                .sorted(Comparator.comparing(Linea::getNumeroDeLinea)) // Ordena las líneas por número de línea
                 .collect(Collectors.toList());
     }
 

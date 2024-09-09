@@ -4,6 +4,7 @@ import pos.Application;
 import pos.logic.*;
 import pos.presentation.AbstractModel;
 
+import javax.sound.sampled.Line;
 import java.beans.PropertyChangeListener;
 import java.util.List;
 
@@ -18,6 +19,8 @@ public class Model extends AbstractModel
     List<Factura> listBills;
     /*Factura actualmente seleccionado o en edicion*/
     Factura currentBill;
+    /*Lista de lineas que contienen los datos actuales*/
+    List<Linea> listLines;
     /*Modo de operacion del modelo, ya sea modificar, ingresar, eliminar...*/
     int mode;
 
@@ -25,6 +28,7 @@ public class Model extends AbstractModel
     public static final String LIST_BILLS = "listBills";
     public static final String CURRENT_BILL = "currentBill";
     public static final String FILTER = "filter";
+    public static final String LIST_LINES = "listLines";
 
     /*Añade un listener para recibir notificaciones cuando una propiedad cambia*/
     @Override
@@ -34,6 +38,7 @@ public class Model extends AbstractModel
         firePropertyChange(LIST_BILLS);
         firePropertyChange(CURRENT_BILL);
         firePropertyChange(FILTER);
+        firePropertyChange(LIST_LINES);
     }
 
     public Model()
@@ -41,14 +46,14 @@ public class Model extends AbstractModel
 
     }
 
-    /*Inicializa la vista con una lista de facturas, factura actual vacio y un filtro vacio*/
-    public void init(List<Factura> listBills)
+    /*Inicializa la vista con una lista de facturas, lista de lineas, factura actual vacio y un filtro vacio*/
+    public void init(List<Factura> listBills, List<Linea> listLines)
     {
         this.listBills = listBills;
+        this.listLines = listLines;
         this.currentBill = new Factura();
         this.filter = new Cliente();
         this.mode = Application.MODE_CREATE;
-
     }
 
     /*GETTERS AND SETTERS
@@ -95,5 +100,15 @@ public class Model extends AbstractModel
     public void setMode(int mode)
     {
         this.mode = mode;
+    }
+
+    // Métodos GET y SET
+    public List<Linea> getListLines() {
+        return listLines;
+    }
+
+    public void setListLines(List<Linea> listLines) {
+        this.listLines = listLines;
+        firePropertyChange(LIST_LINES);
     }
 }
