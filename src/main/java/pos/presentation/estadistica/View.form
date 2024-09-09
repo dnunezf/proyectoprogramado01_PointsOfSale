@@ -33,13 +33,56 @@
             <constraints>
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
-            <properties/>
+            <properties>
+              <model>
+                <item value="2000"/>
+                <item value="2001"/>
+                <item value="2002"/>
+                <item value="2003"/>
+                <item value="2004"/>
+                <item value="2005"/>
+                <item value="2006"/>
+                <item value="2007"/>
+                <item value="2008"/>
+                <item value="2009"/>
+                <item value="2010"/>
+                <item value="2011"/>
+                <item value="2012"/>
+                <item value="2013"/>
+                <item value="2014"/>
+                <item value="2015"/>
+                <item value="2016"/>
+                <item value="2017"/>
+                <item value="2018"/>
+                <item value="2019"/>
+                <item value="2020"/>
+                <item value="2021"/>
+                <item value="2022"/>
+                <item value="2023"/>
+                <item value="2024"/>
+              </model>
+            </properties>
           </component>
           <component id="3045f" class="javax.swing.JComboBox" binding="comboBox2" default-binding="true">
             <constraints>
               <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
-            <properties/>
+            <properties>
+              <model>
+                <item value="1 - Enero"/>
+                <item value="2 - Febrero"/>
+                <item value="3 - Marzo"/>
+                <item value="4 - Abril"/>
+                <item value="5 - Mayo"/>
+                <item value="6 - Junio"/>
+                <item value="7 - Julio"/>
+                <item value="8 - Agosto"/>
+                <item value="9 - Septiembre"/>
+                <item value="10 - Octubre"/>
+                <item value="11 - Noviembre"/>
+                <item value="12 - Diciembre"/>
+              </model>
+            </properties>
           </component>
           <component id="d6f40" class="javax.swing.JLabel">
             <constraints>
@@ -54,14 +97,55 @@
               <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <model/>
+              <model>
+                <item value="2000"/>
+                <item value="2001"/>
+                <item value="2002"/>
+                <item value="2003"/>
+                <item value="2004"/>
+                <item value="2005"/>
+                <item value="2006"/>
+                <item value="2007"/>
+                <item value="2008"/>
+                <item value="2009"/>
+                <item value="2010"/>
+                <item value="2011"/>
+                <item value="2012"/>
+                <item value="2013"/>
+                <item value="2014"/>
+                <item value="2015"/>
+                <item value="2016"/>
+                <item value="2017"/>
+                <item value="2018"/>
+                <item value="2019"/>
+                <item value="2020"/>
+                <item value="2021"/>
+                <item value="2022"/>
+                <item value="2023"/>
+                <item value="2024"/>
+              </model>
             </properties>
           </component>
           <component id="71caf" class="javax.swing.JComboBox" binding="comboBox4" default-binding="true">
             <constraints>
               <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
-            <properties/>
+            <properties>
+              <model>
+                <item value="1 - Enero"/>
+                <item value="2 - Febrero"/>
+                <item value="3 - Marzo"/>
+                <item value="4 - Abril"/>
+                <item value="5 - Mayo"/>
+                <item value="6 - Junio"/>
+                <item value="7 - Julio"/>
+                <item value="8 - Agosto"/>
+                <item value="9 - Septiembre"/>
+                <item value="10 - Octubre"/>
+                <item value="11 - Noviembre"/>
+                <item value="12 - Diciembre"/>
+              </model>
+            </properties>
           </component>
           <component id="f3b5d" class="javax.swing.JLabel">
             <constraints>

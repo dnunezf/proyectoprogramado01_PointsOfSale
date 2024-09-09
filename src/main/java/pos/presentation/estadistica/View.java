@@ -93,8 +93,8 @@
 
                  TableColumnModel columnModel = list.getColumnModel();
 
-                 columnModel.getColumn(1).setPreferredWidth(150);
-                 columnModel.getColumn(3).setPreferredWidth(150);
+                 columnModel.getColumn(1).setPreferredWidth(250);
+                 columnModel.getColumn(3).setPreferredWidth(250);
 
                  break;
              }
