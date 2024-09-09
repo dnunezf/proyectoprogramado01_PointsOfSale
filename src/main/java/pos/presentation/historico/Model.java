@@ -6,6 +6,7 @@ import pos.presentation.AbstractModel;
 
 import javax.sound.sampled.Line;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 import java.util.List;
 
 /*Clase Model de Historico, representa el modelo de datos para gestionar datos de factura.
@@ -47,10 +48,10 @@ public class Model extends AbstractModel
     }
 
     /*Inicializa la vista con una lista de facturas, lista de lineas, factura actual vacio y un filtro vacio*/
-    public void init(List<Factura> listBills, List<Linea> listLines)
+    public void init(List<Factura> listBills)
     {
         this.listBills = listBills;
-        this.listLines = listLines;
+        this.listLines = new ArrayList<Linea>();
         this.currentBill = new Factura();
         this.filter = new Cliente();
         this.mode = Application.MODE_CREATE;
