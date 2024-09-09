@@ -116,8 +116,15 @@ public class View implements PropertyChangeListener {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+            int selectedRow = list.getSelectedRow();
+            Linea lineaActual = model.getList().get(selectedRow);
+
+            model.getList().remove(lineaActual);
+
+            model.setList(model.getList());
 
             }
+
         });
 
         descuentoButton.addActionListener(new ActionListener() {
