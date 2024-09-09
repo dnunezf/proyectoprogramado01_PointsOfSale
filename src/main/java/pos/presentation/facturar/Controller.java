@@ -32,24 +32,32 @@ public class Controller {
 
     public void add(Producto filter)
     {
-        try
+        try {
+        Producto prod = Service.getInstance().searchOne(filter);
+
+        if (prod != null)
         {
-            Producto prod = Service.getInstance().searchOne(filter);
+            // Obtén el cliente actual y su descuento
+            Cliente clienteActual = (Cliente) view.getComboBoxCli().getSelectedItem();
+            float descuentoCliente = clienteActual != null ? clienteActual.getDescuento() : 0;
 
-            if (prod != null)
-            {
-                Linea line = new Linea(prod, model.getList().size() + 1);
+            // Crea una nueva línea de producto
+            Linea nuevaLinea = new Linea(prod, model.getList().size() + 1);
 
-                model.getList().add(line);
-                model.setList(model.getList()); // Notifica el cambio a la vista
+            // Asigna el descuento del cliente a la nueva línea de producto
+            nuevaLinea.setDescuentoCliente(descuentoCliente);
 
-                JOptionPane.showMessageDialog(view.getPanel(), "Producto Ingresado", "Exito", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(view.getPanel(), "Producto no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(view.getPanel(), "Error al agregar producto: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            // Añade la nueva línea de producto a la lista en el modelo
+            model.getList().add(nuevaLinea);
+            model.setList(model.getList()); // Notifica a la vista sobre el cambio
+
+            JOptionPane.showMessageDialog(view.getPanel(), "Producto Ingresado", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(view.getPanel(), "Producto no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
         }
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(view.getPanel(), "Error al agregar producto: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
     }
 
     public void searchProducto(Producto producto) throws Exception{

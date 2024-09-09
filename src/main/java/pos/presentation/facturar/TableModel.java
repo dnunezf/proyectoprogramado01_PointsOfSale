@@ -41,7 +41,7 @@ public class TableModel extends AbstractTableModel<Linea> implements javax.swing
 
             case PRECIO: return linea.getProductoVendido().getPrecioUnitario();
 
-            case DESCUENTO: return linea.getDescuento();
+            case DESCUENTO: return linea.getDescuentoTotal(); // Muestra el descuento aplicado
 
             case NETO: return linea.getNeto();
 

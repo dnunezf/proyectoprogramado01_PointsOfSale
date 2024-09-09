@@ -3,6 +3,7 @@ package pos.presentation.facturar;
 import pos.Application;
 import pos.logic.Cajero;
 import pos.logic.Cliente;
+import pos.logic.Linea;
 import pos.logic.Producto;
 
 import javax.swing.*;
@@ -68,16 +69,43 @@ public class View implements PropertyChangeListener {
                 buscar.setVisible(true);
             }
         });
+
         cantidadButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Verifica si hay una línea seleccionada en la vista
+                int selectedRow = list.getSelectedRow();
 
-                FacturarCantidad cantidad = new FacturarCantidad();
-                cantidad.setController(controller);
-                cantidad.setSize(400, 400);
-                cantidad.setLocationRelativeTo(null);
-                cantidad.setVisible(true);
+                if (selectedRow >= 0)
+                {
+                    // Mostrar un cuadro de diálogo para que el usuario ingrese la nueva cantidad
+                    String input = JOptionPane.showInputDialog(getPanel(), "Ingrese la cantidad deseada:", "Actualizar Cantidad", JOptionPane.PLAIN_MESSAGE);
 
+                    if (input != null && !input.trim().isEmpty()) {
+                        try {
+                            // Convertir la entrada a un entero
+                            int cantidad = Integer.parseInt(input.trim());
+
+                            // Obtener la línea de producto actual
+                            Linea lineaActual = model.getList().get(selectedRow);
+
+                            // Actualizar la cantidad en la línea de producto
+                            lineaActual.setCantidadVendida(cantidad);
+
+                            // Actualizar el modelo
+                            model.setList(model.getList());
+
+                            // Confirmar al usuario que la cantidad ha sido actualizada
+                            JOptionPane.showMessageDialog(getPanel(), "Cantidad actualizada con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                        } catch (NumberFormatException ex) {
+                            // Manejar el caso en el que la entrada no es un número válido
+                            JOptionPane.showMessageDialog(getPanel(), "Cantidad inválida. Por favor ingrese un número entero.", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                } else {
+                    // Mostrar un mensaje si no se ha seleccionado ninguna línea
+                    JOptionPane.showMessageDialog(getPanel(), "Por favor, seleccione una línea de producto para actualizar la cantidad.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
         quitarButton.addActionListener(new ActionListener() {
@@ -191,6 +219,10 @@ public class View implements PropertyChangeListener {
             }
         }
         this.panel.revalidate();
+    }
+
+    public JComboBox<Cliente> getComboBoxCli() {
+        return comboBoxCli;
     }
 }
 
