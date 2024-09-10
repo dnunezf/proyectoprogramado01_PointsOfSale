@@ -1,6 +1,7 @@
 package pos;
 
 import pos.logic.Service;
+import pos.presentation.facturar.FacturarBuscar;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -47,7 +48,9 @@ public class Application
         // Facturar
         pos.presentation.facturar.Model facturarModel = new pos.presentation.facturar.Model();
         pos.presentation.facturar.View facturarView = new pos.presentation.facturar.View();
-        facturarController = new pos.presentation.facturar.Controller(facturarView, facturarModel,productosController);
+        facturarView.setProductosController(productosController);
+        facturarController = new pos.presentation.facturar.Controller(facturarView, facturarModel);
+
 
         //Clientes
         pos.presentation.clientes.Model clientesModel = new pos.presentation.clientes.Model();
@@ -62,7 +65,9 @@ public class Application
         //Productos
         pos.presentation.productos.Model productosModel = new pos.presentation.productos.Model();
         pos.presentation.productos.View productosView = new pos.presentation.productos.View();
-        productosController = new pos.presentation.productos.Controller(productosView, productosModel);
+        pos.presentation.facturar.FacturarBuscar subVentanaBusqueda = new FacturarBuscar();
+        productosController = new pos.presentation.productos.Controller(productosView,subVentanaBusqueda, productosModel);
+
 
         //Historico
         pos.presentation.historico.Model historicoModel = new pos.presentation.historico.Model();

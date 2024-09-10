@@ -13,15 +13,18 @@ public class Controller
     /*Referencias a la vista y modelo*/
     View view;
     Model model;
+    pos.presentation.facturar.FacturarBuscar facturarBuscarView;
 
     /*Inicializa el modelo con una lista de productos obtenida de Servicio*/
-    public Controller(View view, Model model)
+    public Controller(View view,pos.presentation.facturar.FacturarBuscar facturarBuscarView, Model model)
     {
         model.init(Service.getInstance().search(new Producto())); // Inicializa el modelo con todos los productos
 
+        this.facturarBuscarView = facturarBuscarView;
         this.view = view;
         this.model = model;
 
+        facturarBuscarView.setController(this);
         view.setController(this);
         view.setModel(model);
     }
@@ -35,6 +38,10 @@ public class Controller
         model.setMode(Application.MODE_CREATE); //Establece modo de operación en CREAR
         model.setCurrent(new Producto()); // Resetea el producto actual
         model.setList(Service.getInstance().search(model.getFilter())); // Busca y actualiza la lista en el modelo
+
+        if (facturarBuscarView != null) {
+            facturarBuscarView.updateProductList(model.getList());
+        }
     }
 
     /*Método para guardar un producto. Dependiendo del modo de operación, crea o actualiza el producto*/
@@ -83,4 +90,5 @@ public class Controller
         model.setMode(Application.MODE_CREATE);
         model.setCurrent(new Producto());
     }
+
 }

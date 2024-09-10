@@ -48,6 +48,12 @@ public class Linea
         actualizaExistencia();
     }
 
+    public float getMontoPendiente(){
+
+        return (float)this.productoVendido.getPrecioUnitario() * this.cantidadVendida;
+    }
+
+
     public void actualizaExistencia() {
         productoVendido.setExistencias(productoVendido.getExistencias() - cantidadVendida);
     }

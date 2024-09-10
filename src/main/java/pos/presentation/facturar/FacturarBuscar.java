@@ -1,9 +1,10 @@
 package pos.presentation.facturar;
 
 import pos.logic.Producto;
-import pos.presentation.productos.Controller;
+import pos.presentation.productos.TableModel;
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.List;
 
 public class FacturarBuscar extends JDialog {
     private JPanel contentPane;
@@ -15,7 +16,9 @@ public class FacturarBuscar extends JDialog {
     private JPanel listadoPanel;
     private JScrollPane listadoScrollPanel;
     private JTable list;
-    private pos.presentation.facturar.Controller controller;
+    private JButton search;
+    private pos.presentation.productos.TableModel tableModel;
+    private pos.presentation.productos.Controller controller;
 
 
     public FacturarBuscar() {
@@ -49,26 +52,29 @@ public class FacturarBuscar extends JDialog {
                 onCancel();
             }
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
-
-        descTxt.addActionListener(new ActionListener() {
+        search.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                try
-                {
+                try {
                     Producto filter = new Producto();
-
                     filter.setDescripcion(descTxt.getText());
-
-                    controller.searchProducto(filter);
-                }
-                catch (Exception ex)
-                {
+                    controller.search(filter);
+                } catch (Exception ex) {
                     JOptionPane.showMessageDialog(contentPane, ex.getMessage(), "Informacion", JOptionPane.INFORMATION_MESSAGE);
                 }
-
             }
         });
+
+        // Inicializamos el TableModel con columnas específicas
+        int[] cols = {pos.presentation.productos.TableModel.CODIGO, pos.presentation.productos.TableModel.DESCRIPCION,pos.presentation.productos.TableModel.UNIDAD,pos.presentation.productos.TableModel.PRECIO,pos.presentation.productos.TableModel.CATEGORIA,pos.presentation.productos.TableModel.EXISTENCIAS};
+        tableModel = new TableModel(cols, List.of() );  // Lista vacía al inicio
+        list.setModel(tableModel);  // Asociamos el TableModel a la JTable
+    }
+
+    public void updateProductList(List<Producto> productos) {
+        int[] cols = {TableModel.CODIGO, TableModel.DESCRIPCION, TableModel.UNIDAD, TableModel.PRECIO, TableModel.CATEGORIA, TableModel.EXISTENCIAS};
+        tableModel = new TableModel(cols, productos);  // Actualiza el TableModel con la lista de productos
+        list.setModel(tableModel);  // Actualiza el JTable con el nuevo TableModel
     }
 
     private void onOK() {
@@ -76,7 +82,7 @@ public class FacturarBuscar extends JDialog {
         dispose();
     }
 
-    public void setController(pos.presentation.facturar.Controller controller) {
+    public void setController(pos.presentation.productos.Controller controller) {
         this.controller = controller;
     }
 

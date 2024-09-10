@@ -5,6 +5,7 @@ import pos.logic.Cajero;
 import pos.logic.Cliente;
 import pos.logic.Linea;
 import pos.logic.Producto;
+import pos.presentation.productos.Controller;
 
 import javax.swing.*;
 import javax.swing.table.TableColumnModel;
@@ -46,7 +47,8 @@ public class View implements PropertyChangeListener {
 
     /*M.V.C*/
     Model model;
-    Controller controller;
+    pos.presentation.facturar.Controller controller;
+    pos.presentation.productos.Controller productosController;
 
     public void actualizarLabels(){
 
@@ -60,9 +62,9 @@ public class View implements PropertyChangeListener {
         cobrarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 FacturarCobrar cobrar = new FacturarCobrar();
-                cobrar.setSize(450, 400);
+                cobrar.setController(controller);
+                cobrar.setSize(400, 400);
                 cobrar.setLocationRelativeTo(null);
                 cobrar.setVisible(true);
 
@@ -70,11 +72,13 @@ public class View implements PropertyChangeListener {
         });
 
 
+
+
         buscarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 FacturarBuscar buscar = new FacturarBuscar();
-                buscar.setController(controller);
+                buscar.setController(productosController);
                 buscar.setSize(400, 400);
                 buscar.setLocationRelativeTo(null);
                 buscar.setVisible(true);
@@ -125,16 +129,25 @@ public class View implements PropertyChangeListener {
         });
         quitarButton.addActionListener(new ActionListener() {
             @Override
+
             public void actionPerformed(ActionEvent e) {
 
-            int selectedRow = list.getSelectedRow();
-            Linea lineaActual = model.getList().get(selectedRow);
+                try {
 
-            model.getList().remove(lineaActual);
+                    int selectedRow = list.getSelectedRow();
+                    Linea lineaActual = model.getList().get(selectedRow);
 
-            model.setList(model.getList());
+                    model.getList().remove(lineaActual);
 
-                actualizarLabels();
+                    model.setList(model.getList());
+
+                    actualizarLabels();
+
+                }
+                catch (Exception ex)
+                {
+                    JOptionPane.showMessageDialog(panel, "Por favor, seleccione una línea de producto para eliminarla.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
 
             }
 
@@ -187,6 +200,11 @@ public class View implements PropertyChangeListener {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                controller.reset();
+
+                model.setList(model.getList());
+
+                actualizarLabels();
             }
         });
 
@@ -237,18 +255,29 @@ public class View implements PropertyChangeListener {
     }
 
 
-
     public void setModel(Model model) {
         this.model = model;
         model.addPropertyChangeListener(this);
     }
 
-    public Controller getController() {
+    public pos.presentation.facturar.Controller getController() {
         return this.controller;
     }
 
-    public void setController(Controller controller) {
+    public void setMainController(pos.presentation.facturar.Controller controller) {
         this.controller = controller;
+    }
+
+    public void setProductosController(pos.presentation.productos.Controller controller) {
+
+        this.productosController = controller;
+
+    }
+
+    public pos.presentation.productos.Controller getProductosController() {
+
+        return this.productosController;
+
     }
 
     @Override
@@ -281,6 +310,11 @@ public class View implements PropertyChangeListener {
 
     public JComboBox<Cliente> getComboBoxCli() {
         return comboBoxCli;
+    }
+
+    public void setController(pos.presentation.facturar.Controller controller) {
+
+        this.controller = controller;
     }
 }
 

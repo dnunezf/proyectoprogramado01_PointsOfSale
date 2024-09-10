@@ -7,6 +7,7 @@ import pos.presentation.facturar.Model;
 import pos.presentation.facturar.View;
 
 import javax.swing.*;
+import java.util.ArrayList;
 
 
 public class Controller {
@@ -14,10 +15,9 @@ public class Controller {
     /*Referencias a la vista y modelo*/
     View view;
     Model model;
-    private pos.presentation.productos.Controller controllerProd;
 
     /*Inicializa el modelo con una lista de Lineas obtenida de Servicio*/
-    public Controller(View view, Model model, pos.presentation.productos.Controller controllerProd )
+    public Controller(View view, Model model )
     {
         model.init(Service.getInstance().search(new Linea())); // Inicializa el modelo con todas las Facturas
 
@@ -26,7 +26,7 @@ public class Controller {
 
         this.view.setController(this);
         view.setModel(model);
-        this.controllerProd = controllerProd;
+
 
     }
 
@@ -56,9 +56,6 @@ public class Controller {
     }
     }
 
-    public void searchProducto(Producto producto) throws Exception{
-        controllerProd.search(producto);
-    }
 
     public void setCantidad(int cantidad){
         model.getCurrent().setCantidadVendida(cantidad);
@@ -66,6 +63,12 @@ public class Controller {
 
     public void setDescuento(float descuento){
         model.getCurrent().setDescuento(descuento);
+    }
+
+    public void reset(){
+
+        this.model.getList().clear();
+
     }
 
     public int getCantidadArticulos(){

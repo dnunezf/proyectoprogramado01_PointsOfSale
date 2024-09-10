@@ -154,6 +154,7 @@ public class View implements PropertyChangeListener {
                 controller.clear();
             }
         });
+
     }
 
     public JPanel getPanel()
