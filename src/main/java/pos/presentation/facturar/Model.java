@@ -8,6 +8,7 @@ import pos.logic.Linea;
 import pos.presentation.AbstractModel;
 
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 import java.util.List;
 
 /*Clase Model de Factura, representa el modelo de datos para gestionar clientes.
@@ -46,11 +47,14 @@ public class Model extends AbstractModel {
 
     /*Inicializa la vista con una lista de Facturas, un cajero actual vacio y un filtro vacio*/
     public void init(List<Linea> list) {
-        this.list = list;
+        if (list == null) {
+            this.list = new ArrayList<>();  // Inicializa la lista si es nula
+        } else {
+            this.list = list;
+        }
         this.current = new Linea();
         this.filter = new Producto();
         this.mode = Application.MODE_CREATE;
-
     }
 
     /*GETTERS AND SETTERS

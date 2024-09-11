@@ -12,41 +12,36 @@ public class FacturarCobrar extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
-    private JPanel pagosPanel;
-    private JPanel importePanel;
     private JLabel importeLabel;
     private JTextField textFieldEfectivo;
     private JTextField textFieldTarjeta;
     private JTextField textFieldCheque;
     private JTextField textFieldSinpe;
-    private JPanel ImportePanel;
-    private JButton efectivoButton;
-    private JButton tarjetaButton;
-    private JButton chequeButton;
-    private JButton sinpeButton;
-    private JLabel MetodoDePago;
+
     private pos.presentation.facturar.Controller facturarController;
     private pos.presentation.historico.Controller historicoController;
     View view;
     Model model;
 
-
-    public FacturarCobrar(pos.presentation.facturar.Controller facturarController, pos.presentation.historico.Controller historicoController) {
-
+    public FacturarCobrar(pos.presentation.facturar.Controller facturarController,
+                          pos.presentation.historico.Controller historicoController,
+                          View view) {  // Asegúrate de recibir 'view'
         this.facturarController = facturarController;
         this.historicoController = historicoController;
+        this.view = view;  // Inicializa 'view'
         importeLabel.setText("0");
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
 
+        // Evento del botón COBRAR
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
-                Factura factura = new Factura("01", view.getSelectedCliente(),view.getSelectedCajero(),model.getList());
-                historicoController.addFactura(factura);
-
-                onOK();
+                try {
+                    realizarPago();
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null, "Por favor, ingrese valores numéricos válidos en los campos de pago.");
+                }
             }
         });
 
@@ -56,7 +51,7 @@ public class FacturarCobrar extends JDialog {
             }
         });
 
-        // call onCancel() when cross is clicked
+        // Manejo del cierre de la ventana
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
@@ -64,102 +59,59 @@ public class FacturarCobrar extends JDialog {
             }
         });
 
-        // call onCancel() on ESCAPE
+        // Teclas de escape para cancelar
         contentPane.registerKeyboardAction(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 onCancel();
             }
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 
-        textFieldEfectivo.addKeyListener(new KeyAdapter() {
+        // Validación para solo permitir números
+        agregarValidacionNumerica(textFieldEfectivo);
+        agregarValidacionNumerica(textFieldTarjeta);
+        agregarValidacionNumerica(textFieldCheque);
+        agregarValidacionNumerica(textFieldSinpe);
+    }
+
+    private void agregarValidacionNumerica(JTextField textField) {
+        textField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
                 char c = e.getKeyChar();
-                // Only allow digits (0-9) and backspace (for deleting characters)
                 if (!Character.isDigit(c) && c != '\b') {
-                    e.consume();  // Ignore the event if it's not a digit or backspace
+                    e.consume();
                 }
-            }
-        });
-
-        textFieldTarjeta.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                char c = e.getKeyChar();
-                // Only allow digits (0-9) and backspace (for deleting characters)
-                if (!Character.isDigit(c) && c != '\b') {
-                    e.consume();  // Ignore the event if it's not a digit or backspace
-                }
-            }
-        });
-
-        textFieldCheque.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                char c = e.getKeyChar();
-                // Only allow digits (0-9) and backspace (for deleting characters)
-                if (!Character.isDigit(c) && c != '\b') {
-                    e.consume();  // Ignore the event if it's not a digit or backspace
-                }
-            }
-        });
-
-        textFieldSinpe.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                char c = e.getKeyChar();
-                // Only allow digits (0-9) and backspace (for deleting characters)
-                if (!Character.isDigit(c) && c != '\b') {
-                    e.consume();  // Ignore the event if it's not a digit or backspace
-                }
-            }
-        });
-
-        textFieldEfectivo.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e){
-
-                Integer pago = Integer.valueOf(textFieldEfectivo.getText()) + Integer.parseInt(importeLabel.getText());
-                importeLabel.setText(pago.toString());
-
-            }
-        });
-
-        textFieldTarjeta.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                Integer pago = Integer.valueOf(textFieldTarjeta.getText()) + Integer.parseInt(importeLabel.getText());
-                importeLabel.setText(pago.toString());
-
-            }
-        });
-        textFieldCheque.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                Integer pago = Integer.valueOf(textFieldCheque.getText()) + Integer.parseInt(importeLabel.getText());
-                importeLabel.setText(pago.toString());
-
-            }
-        });
-        textFieldSinpe.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                Integer pago = Integer.valueOf(textFieldSinpe.getText()) + Integer.parseInt(importeLabel.getText());
-                importeLabel.setText(pago.toString());
             }
         });
     }
 
-    private void onOK() {
-        //onCobrar();
-        dispose();
+    private void realizarPago() {
+        double totalFactura = Double.parseDouble(importeLabel.getText());
+        double pagoEfectivo = obtenerValorDeCampo(textFieldEfectivo);
+        double pagoTarjeta = obtenerValorDeCampo(textFieldTarjeta);
+        double pagoCheque = obtenerValorDeCampo(textFieldCheque);
+        double pagoSinpe = obtenerValorDeCampo(textFieldSinpe);
+
+        double totalPagado = pagoEfectivo + pagoTarjeta + pagoCheque + pagoSinpe;
+
+        if (totalPagado >= totalFactura) {
+            // Crear la factura y agregarla al histórico
+            Factura factura = new Factura("01", view.getSelectedCliente(), view.getSelectedCajero(), model.getList());
+            historicoController.addFactura(factura);
+            JOptionPane.showMessageDialog(null, "Pago realizado con éxito. Factura creada.");
+            dispose();
+        } else {
+            double falta = totalFactura - totalPagado;
+            JOptionPane.showMessageDialog(null, "El monto pagado es insuficiente. Faltan: " + falta + " colones.");
+        }
+    }
+
+    private double obtenerValorDeCampo(JTextField textField) {
+        String text = textField.getText().trim();
+        return text.isEmpty() ? 0 : Double.parseDouble(text);
     }
 
     private void onCancel() {
-        // add your code here if necessary
         dispose();
     }
 
@@ -167,9 +119,7 @@ public class FacturarCobrar extends JDialog {
         this.facturarController = controller;
     }
 
-    public void setHistoricoController(pos.presentation.historico.Controller controller){
-
+    public void setHistoricoController(pos.presentation.historico.Controller controller) {
         this.historicoController = controller;
     }
-
 }

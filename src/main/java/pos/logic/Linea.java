@@ -55,7 +55,12 @@ public class Linea
 
 
     public void actualizaExistencia() {
-        productoVendido.setExistencias(productoVendido.getExistencias() - cantidadVendida);
+        int nuevasExistencias = productoVendido.getExistencias() - cantidadVendida;
+        if (nuevasExistencias >= 0) {
+            productoVendido.setExistencias(nuevasExistencias);
+        } else {
+            throw new IllegalArgumentException("No hay suficientes existencias para la cantidad vendida");
+        }
     }
 
     public String getNumeroDeLinea() {
@@ -83,7 +88,11 @@ public class Linea
     }
 
     public void setCantidadVendida(int cantidadVendida) {
+        if (cantidadVendida <= 0) {
+            throw new IllegalArgumentException("La cantidad vendida debe ser mayor que 0");
+        }
         this.cantidadVendida = cantidadVendida;
+        actualizaExistencia();
     }
 
     public int getCantidadVendida() {

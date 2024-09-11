@@ -12,22 +12,13 @@ import java.util.ArrayList;
 
 public class Controller {
 
-    /*Referencias a la vista y modelo*/
     View view;
     Model model;
 
-    /*Inicializa el modelo con una lista de Lineas obtenida de Servicio*/
-    public Controller(View view, Model model )
-    {
-        model.init(Service.getInstance().search(new Linea())); // Inicializa el modelo con todas las Facturas
-
+    public Controller(View view, Model model) {
         this.view = view;
         this.model = model;
-
         this.view.setController(this);
-        view.setModel(model);
-
-
     }
 
     public void add(Producto filter)
@@ -58,7 +49,11 @@ public class Controller {
 
 
     public void setCantidad(int cantidad){
-        model.getCurrent().setCantidadVendida(cantidad);
+        if (cantidad >= 0) {
+            model.getCurrent().setCantidadVendida(cantidad);
+        } else {
+            JOptionPane.showMessageDialog(view.getPanel(), "La cantidad debe ser mayor o igual a 0", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     public void setDescuento(float descuento){
@@ -66,9 +61,7 @@ public class Controller {
     }
 
     public void reset(){
-
-        this.model.getList().clear();
-
+        model.setList(new ArrayList<>()); // Vacía la lista y notifica a los listeners
     }
 
     public int getCantidadArticulos(){
@@ -98,8 +91,7 @@ public class Controller {
         if(!model.getList().isEmpty()){
 
             for(Linea linea : model.getList()){
-
-                totalConDescuento += ((linea.getDescuento() + descuento)/100 * linea.getProductoVendido().getPrecioUnitario()) * linea.getCantidadVendida();
+                totalConDescuento += (float) (((descuento > 0 ? descuento : linea.getDescuento()) / 100) * linea.getProductoVendido().getPrecioUnitario() * linea.getCantidadVendida());
             }
 
         }

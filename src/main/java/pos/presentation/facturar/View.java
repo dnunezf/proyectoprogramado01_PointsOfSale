@@ -18,8 +18,6 @@ import java.awt.event.ComponentEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-
-
 public class View implements PropertyChangeListener {
     private JButton cobrarButton;
     private JButton buscarButton;
@@ -47,43 +45,27 @@ public class View implements PropertyChangeListener {
     private FacturarBuscar buscar;
     private FacturarCobrar cobrar;
 
-
     /*M.V.C*/
     Model model;
     pos.presentation.historico.Controller historicoController;
     pos.presentation.facturar.Controller controller;
     pos.presentation.productos.Controller productosController;
 
-    public Cliente getSelectedCliente(){
-        return (Cliente) comboBoxCli.getSelectedItem();
-    }
-
-    public Cajero getSelectedCajero(){
-        return (Cajero) comboBoxCaj.getSelectedItem();
-    }
-
-    public void actualizarLabels(){
-
-        cantidadArticulos.setText(Integer.toString(controller.getCantidadArticulos()));
-        subTotal.setText(Float.toString(controller.getSubtotal()));
-        descuentos.setText(Float.toString(controller.getDescuentos()));
-        total.setText(Float.toString(controller.getTotal()));
-    }
-
-    public View() {
+    public View()
+    {
 
         cobrarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                cobrar.setSize(550, 400);
-                cobrar.setLocationRelativeTo(null);
-                cobrar.setVisible(true);
-
+                if (cobrar != null) {  // Asegúrate de que 'cobrar' no sea nulo
+                    cobrar.setSize(550, 400);
+                    cobrar.setLocationRelativeTo(null);
+                    cobrar.setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error: no se puede abrir la ventana de cobro.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
-
-
 
         buscarButton.addActionListener(new ActionListener() {
             @Override
@@ -239,11 +221,30 @@ public class View implements PropertyChangeListener {
 
     }
 
-    public void subPanels(pos.presentation.historico.Controller historicoController, pos.presentation.facturar.Controller facturarController){
+    public Cliente getSelectedCliente(){
+        return (Cliente) comboBoxCli.getSelectedItem();
+    }
 
-        cobrar = new FacturarCobrar(facturarController,historicoController);
+    public Cajero getSelectedCajero(){
+        return (Cajero) comboBoxCaj.getSelectedItem();
+    }
+
+    public void actualizarLabels(){
+
+        cantidadArticulos.setText(Integer.toString(controller.getCantidadArticulos()));
+        subTotal.setText(Float.toString(controller.getSubtotal()));
+        descuentos.setText(Float.toString(controller.getDescuentos()));
+        total.setText(Float.toString(controller.getTotal()));
+    }
+
+
+
+    public void subPanels(pos.presentation.historico.Controller historicoController,
+                          pos.presentation.facturar.Controller facturarController) {
+
+        // Pasa la instancia actual de 'View' (es decir, 'this') al constructor de FacturarCobrar
+        cobrar = new FacturarCobrar(facturarController, historicoController, this);
         buscar = new FacturarBuscar();
-
     }
 
     public void initialize(JTabbedPane tabbedPane, pos.presentation.cajeros.Model modelCajeros, pos.presentation.clientes.Model modelClientes) {
