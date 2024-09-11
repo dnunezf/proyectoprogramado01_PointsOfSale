@@ -27,6 +27,8 @@ public class FacturarCobrar extends JDialog {
     private JLabel MetodoDePago;
     private pos.presentation.facturar.Controller facturarController;
     private pos.presentation.historico.Controller historicoController;
+    View view;
+    Model model;
 
 
     public FacturarCobrar(pos.presentation.facturar.Controller facturarController, pos.presentation.historico.Controller historicoController) {
@@ -41,7 +43,8 @@ public class FacturarCobrar extends JDialog {
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
-                historicoController.addFactura(new Factura());
+                Factura factura = new Factura("01", view.getSelectedCliente(),view.getSelectedCajero(),model.getList());
+                historicoController.addFactura(factura);
 
                 onOK();
             }

@@ -54,6 +54,14 @@ public class View implements PropertyChangeListener {
     pos.presentation.facturar.Controller controller;
     pos.presentation.productos.Controller productosController;
 
+    public Cliente getSelectedCliente(){
+        return (Cliente) comboBoxCli.getSelectedItem();
+    }
+
+    public Cajero getSelectedCajero(){
+        return (Cajero) comboBoxCaj.getSelectedItem();
+    }
+
     public void actualizarLabels(){
 
         cantidadArticulos.setText(Integer.toString(controller.getCantidadArticulos()));
