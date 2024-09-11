@@ -151,7 +151,7 @@ public class FacturarCobrar extends JDialog {
     }
 
     private void onOK() {
-        onCobrar();
+        //onCobrar();
         dispose();
     }
 
@@ -169,10 +169,4 @@ public class FacturarCobrar extends JDialog {
         this.historicoController = controller;
     }
 
-    public static void main(String[] args) {
-        FacturarCobrar dialog = new FacturarCobrar();
-        dialog.pack();
-        dialog.setVisible(true);
-        System.exit(0);
-    }
 }
