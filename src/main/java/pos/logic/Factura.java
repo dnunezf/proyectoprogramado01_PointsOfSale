@@ -28,7 +28,7 @@ public class Factura
     @XmlIDREF
     @XmlElementWrapper(name = "lineas")
     @XmlElement(name = "linea")
-    private ArrayList<Linea> lineas;
+    private List<Linea> lineas;
 
     private int metodoDePago;
 
@@ -36,15 +36,16 @@ public class Factura
     public static final int TARJETA = 1;
     public static final int CHEQUE = 2;
     public static final int SINPE = 3;
+    public static final int VARIADO = 4;
 
-    public Factura(String numeroDeFactura, Cliente cliente, Cajero cajero, int metodoDePago) {
+    public Factura(String numeroDeFactura, Cliente cliente, Cajero cajero, List<Linea> lineas ) {
 
         this.numeroDeFactura = numeroDeFactura;
         this.fecha = LocalDate.now();
         this.cliente = cliente;
         this.cajero = cajero;
-        this.lineas = new ArrayList<Linea>();
-        this.metodoDePago = metodoDePago;
+        this.lineas = lineas;
+        this.metodoDePago = 4;
 
     }
 
@@ -89,7 +90,7 @@ public class Factura
         this.cajero = cajero;
     }
 
-    public ArrayList<Linea> getLineas() {
+    public List<Linea> getLineas() {
 
         return lineas;
     }

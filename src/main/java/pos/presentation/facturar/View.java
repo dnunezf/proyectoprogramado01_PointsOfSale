@@ -5,7 +5,8 @@ import pos.logic.Cajero;
 import pos.logic.Cliente;
 import pos.logic.Linea;
 import pos.logic.Producto;
-import pos.presentation.productos.Controller;
+import pos.presentation.historico.*;
+import pos.presentation.productos.*;
 
 import javax.swing.*;
 import javax.swing.table.TableColumnModel;
@@ -43,10 +44,13 @@ public class View implements PropertyChangeListener {
     private JLabel subTotal;
     private JLabel descuentos;
     private JLabel total;
+    private FacturarBuscar buscar;
+    private FacturarCobrar cobrar;
 
 
     /*M.V.C*/
     Model model;
+    pos.presentation.historico.Controller historicoController;
     pos.presentation.facturar.Controller controller;
     pos.presentation.productos.Controller productosController;
 
@@ -59,11 +63,15 @@ public class View implements PropertyChangeListener {
     }
 
     public View() {
+
+        buscar = new FacturarBuscar();
+        cobrar = new FacturarCobrar();
+
         cobrarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                FacturarCobrar cobrar = new FacturarCobrar();
-                cobrar.setController(controller);
+
+                cobrar.setHistoricoController(historicoController);
                 cobrar.setSize(400, 400);
                 cobrar.setLocationRelativeTo(null);
                 cobrar.setVisible(true);
@@ -73,11 +81,10 @@ public class View implements PropertyChangeListener {
 
 
 
-
         buscarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                FacturarBuscar buscar = new FacturarBuscar();
+
                 buscar.setController(productosController);
                 buscar.setSize(400, 400);
                 buscar.setLocationRelativeTo(null);
@@ -280,6 +287,17 @@ public class View implements PropertyChangeListener {
 
     }
 
+    public void setHistoricoController(pos.presentation.historico.Controller historicoController){
+
+        this.historicoController = historicoController;
+    }
+
+    public FacturarBuscar getFacturarBuscar() {
+
+        return this.buscar;
+
+    }
+
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         switch (evt.getPropertyName()) {
@@ -315,6 +333,16 @@ public class View implements PropertyChangeListener {
     public void setController(pos.presentation.facturar.Controller controller) {
 
         this.controller = controller;
+    }
+
+    public FacturarCobrar getFacturarCobrar() {
+
+        return this.cobrar;
+    }
+
+    public JComboBox<Cajero> getComboBoxCaj() {
+
+        return comboBoxCaj;
     }
 }
 

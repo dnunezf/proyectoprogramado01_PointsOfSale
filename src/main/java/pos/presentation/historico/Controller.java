@@ -44,4 +44,16 @@ public class Controller
         model.setListBills(facturas); // Actualiza la lista de facturas en el modelo
         model.setListLines(lineas); // Actualiza la lista de líneas en el modelo
     }
+
+    public void addFactura(Factura factura) {
+
+        List<Factura> facturas = model.getListBills();
+        facturas.add(factura);
+        model.setListBills(facturas);
+    }
+
+    public Model getModel() {
+
+        return model;
+    }
 }

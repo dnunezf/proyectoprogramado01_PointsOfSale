@@ -1,5 +1,10 @@
 package pos.presentation.facturar;
 
+import pos.logic.Cajero;
+import pos.logic.Cliente;
+import pos.logic.Factura;
+import pos.presentation.historico.*;
+import pos.presentation.facturar.*;
 import javax.swing.*;
 import java.awt.event.*;
 
@@ -20,7 +25,8 @@ public class FacturarCobrar extends JDialog {
     private JButton chequeButton;
     private JButton sinpeButton;
     private JLabel MetodoDePago;
-    private Controller controller;
+    private pos.presentation.facturar.Controller facturarController;
+    private pos.presentation.historico.Controller historicoController;
 
 
     public FacturarCobrar() {
@@ -30,6 +36,9 @@ public class FacturarCobrar extends JDialog {
 
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+
+                historicoController.addFactura(new Factura());
+
                 onOK();
             }
         });
@@ -147,9 +156,13 @@ public class FacturarCobrar extends JDialog {
         dispose();
     }
 
-    public void setController(pos.presentation.facturar.Controller controller){
+    public void setFacturarController(pos.presentation.facturar.Controller controller) {
+        this.facturarController = controller;
+    }
 
-        this.controller = controller;
+    public void setHistoricoController(pos.presentation.historico.Controller controller){
+
+        this.historicoController = controller;
     }
 
     public static void main(String[] args) {

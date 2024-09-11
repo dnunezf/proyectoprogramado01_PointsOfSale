@@ -48,7 +48,7 @@ public class Application
         // Facturar
         pos.presentation.facturar.Model facturarModel = new pos.presentation.facturar.Model();
         pos.presentation.facturar.View facturarView = new pos.presentation.facturar.View();
-        facturarView.setProductosController(productosController);
+
         facturarController = new pos.presentation.facturar.Controller(facturarView, facturarModel);
 
 
@@ -78,6 +78,10 @@ public class Application
         pos.presentation.estadistica.Model estadisticaModel = new pos.presentation.estadistica.Model();
         pos.presentation.estadistica.View estadisticaView = new pos.presentation.estadistica.View();
         estadisticaController = new pos.presentation.estadistica.Controller(estadisticaView, estadisticaModel);
+
+
+        facturarView.getFacturarCobrar().setHistoricoController(historicoController);
+        facturarView.getFacturarCobrar().setFacturarController(facturarController);
 
         facturarView.initialize(tabbedPane,cajerosModel,clientesModel);
         clientesView.initialize(tabbedPane);
