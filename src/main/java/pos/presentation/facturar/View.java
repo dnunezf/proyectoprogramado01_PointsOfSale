@@ -64,15 +64,11 @@ public class View implements PropertyChangeListener {
 
     public View() {
 
-        buscar = new FacturarBuscar();
-        cobrar = new FacturarCobrar();
-
         cobrarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                cobrar.setHistoricoController(historicoController);
-                cobrar.setSize(400, 400);
+                cobrar.setSize(550, 400);
                 cobrar.setLocationRelativeTo(null);
                 cobrar.setVisible(true);
 
@@ -84,6 +80,7 @@ public class View implements PropertyChangeListener {
         buscarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
 
                 buscar.setController(productosController);
                 buscar.setSize(400, 400);
@@ -234,6 +231,13 @@ public class View implements PropertyChangeListener {
 
     }
 
+    public void subPanels(pos.presentation.historico.Controller historicoController, pos.presentation.facturar.Controller facturarController){
+
+        cobrar = new FacturarCobrar(facturarController,historicoController);
+        buscar = new FacturarBuscar();
+
+    }
+
     public void initialize(JTabbedPane tabbedPane, pos.presentation.cajeros.Model modelCajeros, pos.presentation.clientes.Model modelClientes) {
         // Configuración del panel y tab
         Icon facturaIcon = new ImageIcon(Application.class.getResource("/pos/presentation/icons/bill.png"));
@@ -292,7 +296,7 @@ public class View implements PropertyChangeListener {
         this.historicoController = historicoController;
     }
 
-    public FacturarBuscar getFacturarBuscar() {
+    public pos.presentation.facturar.FacturarBuscar getFacturarBuscar() {
 
         return this.buscar;
 
@@ -335,7 +339,7 @@ public class View implements PropertyChangeListener {
         this.controller = controller;
     }
 
-    public FacturarCobrar getFacturarCobrar() {
+    public pos.presentation.facturar.FacturarCobrar getFacturarCobrar() {
 
         return this.cobrar;
     }

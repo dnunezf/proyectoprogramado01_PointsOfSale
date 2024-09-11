@@ -29,7 +29,11 @@ public class FacturarCobrar extends JDialog {
     private pos.presentation.historico.Controller historicoController;
 
 
-    public FacturarCobrar() {
+    public FacturarCobrar(pos.presentation.facturar.Controller facturarController, pos.presentation.historico.Controller historicoController) {
+
+        this.facturarController = facturarController;
+        this.historicoController = historicoController;
+        importeLabel.setText("0");
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
@@ -147,7 +151,7 @@ public class FacturarCobrar extends JDialog {
     }
 
     private void onOK() {
-        // add your code here
+        onCobrar();
         dispose();
     }
 
