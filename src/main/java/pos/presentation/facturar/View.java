@@ -240,7 +240,7 @@ public class View implements PropertyChangeListener {
                           pos.presentation.facturar.Controller facturarController) {
 
         // Pasa la instancia actual de 'View' (es decir, 'this') al constructor de FacturarCobrar
-        cobrar = new FacturarCobrar(facturarController, historicoController, this);
+        cobrar = new FacturarCobrar(facturarController, historicoController, this, model);
         buscar = new FacturarBuscar();
     }
 

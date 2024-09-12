@@ -25,10 +25,11 @@ public class FacturarCobrar extends JDialog {
 
     public FacturarCobrar(pos.presentation.facturar.Controller facturarController,
                           pos.presentation.historico.Controller historicoController,
-                          View view) {
+                          View view, Model model) {
         this.facturarController = facturarController;
         this.historicoController = historicoController;
         this.view = view;
+        this.model = model;
         importeLabel.setText("0");  // Asegúrate de setear el importe correcto antes de mostrar el diálogo
         setContentPane(contentPane);
         setModal(true);
