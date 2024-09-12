@@ -8,6 +8,7 @@ import pos.presentation.facturar.View;
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class Controller {
@@ -15,7 +16,10 @@ public class Controller {
     View view;
     Model model;
 
-    public Controller(View view, Model model) {
+
+
+    public Controller(View view, Model model)
+    {
         this.view = view;
         this.model = model;
         this.view.setController(this);
@@ -68,14 +72,11 @@ public class Controller {
 
         int cant = 0;
 
-        if(!model.getList().isEmpty()){
-
-            for(int i = 0; i < model.getList().size(); i++){
-
-                cant += model.getList().get(i).getCantidadVendida();
-
+        List<Linea> lineas = model.getList();
+        if (lineas != null && !lineas.isEmpty()) {
+            for (Linea linea : lineas) {
+                cant += linea.getCantidadVendida();
             }
-
         }
 
         return cant;

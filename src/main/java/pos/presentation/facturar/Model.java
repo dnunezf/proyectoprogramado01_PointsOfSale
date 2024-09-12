@@ -19,7 +19,7 @@ public class Model extends AbstractModel {
     /*Producto que se utiliza como filtro para la busqueda en la lista para ingresarlo a la factura*/
     Producto filter;
     /*Lista de Lineas que contiene los datos actuales*/
-    List<Linea> list;
+    List<Linea> list = new ArrayList<>();
     /*Linea actualmente seleccionado o en edicion*/
     Linea current;
     /*Modo de operacion del modelo, ya sea modificar, ingresar, eliminar...*/
@@ -66,8 +66,9 @@ public class Model extends AbstractModel {
     }
 
     public void setList(List<Linea> list) {
+        List<Linea> oldList = this.list;
         this.list = list;
-        firePropertyChange(LIST, null, list);  // Ensure the listeners are properly notified
+        firePropertyChange(LIST, oldList, list);
     }
 
 
