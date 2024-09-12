@@ -27,8 +27,7 @@ public class Producto
         this.unidad = "";
         this.precioUnitario = 0;
         this.existencias = 0;
-        this.categoria = null;
-
+        this.categoria = new Categoria();
     }
     public Producto(String cod, String desc, String uni, double precio, int exis, Categoria cat){
 
@@ -38,7 +37,6 @@ public class Producto
         this.precioUnitario = precio;
         this.existencias = exis;
         this.categoria = cat;
-
     }
 
     public String getCodigo() {

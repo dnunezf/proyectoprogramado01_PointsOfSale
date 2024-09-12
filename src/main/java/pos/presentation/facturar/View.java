@@ -72,10 +72,10 @@ public class View implements PropertyChangeListener {
             public void actionPerformed(ActionEvent e) {
 
 
-                buscar.setController(productosController);
-                buscar.setSize(400, 400);
-                buscar.setLocationRelativeTo(null);
-                buscar.setVisible(true);
+//                buscar.setController(productosController);
+//                buscar.setSize(400, 400);
+//                buscar.setLocationRelativeTo(null);
+//                buscar.setVisible(true);
             }
         });
 
@@ -207,8 +207,7 @@ public class View implements PropertyChangeListener {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                try
-                {
+                try {
                     Producto filter = new Producto();
                     filter.setCodigo(productCode.getText());
                     controller.add(filter); // Asegúrate de que 'controller' esté correctamente inicializado
@@ -236,8 +235,6 @@ public class View implements PropertyChangeListener {
         descuentos.setText(Float.toString(controller.getDescuentos()));
         total.setText(Float.toString(controller.getTotal()));
     }
-
-
 
     public void subPanels(pos.presentation.historico.Controller historicoController,
                           pos.presentation.facturar.Controller facturarController) {

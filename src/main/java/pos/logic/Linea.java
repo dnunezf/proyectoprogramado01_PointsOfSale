@@ -23,18 +23,25 @@ public class Linea
     private float descuento;
     private float descuentoCliente; // Nuevo atributo para el descuento del cliente
 
-    public Linea() {
+    public Linea()
+    {
+        // Inicialización por defecto
+        this.numeroDeLinea = "";
+        this.productoVendido = null;
+        this.cantidadVendida = 1;
+        this.factura = null;
+        this.descuento = 0;
+        this.descuentoCliente = 0;
     }
 
     public Linea(Producto productoVendido, Integer numeroLinea) {
-        this.numeroDeLinea = numeroLinea.toString();
+        this.numeroDeLinea = numeroLinea != null ? numeroLinea.toString() : "0";
         this.productoVendido = productoVendido;
         this.cantidadVendida = 1;
         this.factura = null;
         this.descuento = 0;
-        this.descuentoCliente = 0; // Inicializa el descuento del cliente
+        this.descuentoCliente = 0;
         actualizaExistencia();
-        //Cambio
     }
 
     public Linea(Producto productoVendido, Factura factura) {

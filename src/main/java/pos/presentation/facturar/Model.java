@@ -42,7 +42,8 @@ public class Model extends AbstractModel {
 
     public Model()
     {
-
+        this.current = new Linea();  // Inicializa la línea actual en el constructor
+        this.filter = new Producto(); // Inicializa el filtro
     }
 
     /*Inicializa la vista con una lista de Facturas, un cajero actual vacio y un filtro vacio*/
@@ -55,6 +56,8 @@ public class Model extends AbstractModel {
         this.current = new Linea();
         this.filter = new Producto();
         this.mode = Application.MODE_CREATE;
+        firePropertyChange(LIST, null, this.list);
+        firePropertyChange(CURRENT, null, this.current);
     }
 
     /*GETTERS AND SETTERS
@@ -66,9 +69,8 @@ public class Model extends AbstractModel {
     }
 
     public void setList(List<Linea> list) {
-        List<Linea> oldList = this.list;
         this.list = list;
-        firePropertyChange(LIST, oldList, list);
+        firePropertyChange(LIST, null, list); // Disparar evento para actualizar la vista
     }
 
 

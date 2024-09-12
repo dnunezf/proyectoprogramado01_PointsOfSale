@@ -8,6 +8,8 @@ import java.util.List;
 
 public class TableModel extends AbstractTableModel<Linea> implements javax.swing.table.TableModel
 {
+    List<Linea> lineas;
+
     /*Constantes que representan las columnas de la tabla*/
     public static final int CODIGO = 0;
     public static final int ARTICULO = 1;
@@ -21,6 +23,7 @@ public class TableModel extends AbstractTableModel<Linea> implements javax.swing
     /*Constructor que inicializa la tabla con columnas y filas especificadas*/
     public TableModel(int[] cols, List<Linea> rows) {
         super(cols, rows);
+        this.lineas = lineas;
     }
 
 
