@@ -30,7 +30,8 @@ public class FacturarCobrar extends JDialog {
         this.historicoController = historicoController;
         this.view = view;
         this.model = model;
-        // Setear el importe correcto basado en el modelo de la factura actual
+
+        // Setear el importe correcto de la factura actual
         double totalFactura = calcularTotalFactura();
         importeLabel.setText(String.valueOf(totalFactura));
 
@@ -68,7 +69,8 @@ public class FacturarCobrar extends JDialog {
         agregarValidacionNumerica(textFieldSinpe);
     }
 
-    private double calcularTotalFactura() {
+    private double calcularTotalFactura()
+    {
         // Sumar el total de los productos en la lista del modelo
         return model.getList().stream().mapToDouble(linea -> linea.getImporte()).sum();
     }
@@ -107,12 +109,13 @@ public class FacturarCobrar extends JDialog {
         }
     }
 
-    private String generarNumeroFactura() {
-        // Implementa tu lógica para generar números de factura únicos aquí
+    private String generarNumeroFactura()
+    {
         return String.valueOf(System.currentTimeMillis());  // Ejemplo simple de generación de número único
     }
 
-    private boolean validarPago(double totalPagado, double totalFactura) {
+    private boolean validarPago(double totalPagado, double totalFactura)
+    {
         if (totalPagado >= totalFactura) {
             return true;
         } else {
