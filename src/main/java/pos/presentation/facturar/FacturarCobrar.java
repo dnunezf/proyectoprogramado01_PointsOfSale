@@ -30,7 +30,10 @@ public class FacturarCobrar extends JDialog {
         this.historicoController = historicoController;
         this.view = view;
         this.model = model;
-        importeLabel.setText("0");  // Asegúrate de setear el importe correcto antes de mostrar el diálogo
+        // Setear el importe correcto basado en el modelo de la factura actual
+        double totalFactura = calcularTotalFactura();
+        importeLabel.setText(String.valueOf(totalFactura));
+
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
@@ -65,6 +68,11 @@ public class FacturarCobrar extends JDialog {
         agregarValidacionNumerica(textFieldSinpe);
     }
 
+    private double calcularTotalFactura() {
+        // Sumar el total de los productos en la lista del modelo
+        return model.getList().stream().mapToDouble(linea -> linea.getImporte()).sum();
+    }
+
     private void agregarValidacionNumerica(JTextField textField) {
         textField.addKeyListener(new KeyAdapter() {
             @Override
@@ -79,7 +87,7 @@ public class FacturarCobrar extends JDialog {
 
     private void realizarPago() {
         try {
-            double totalFactura = Double.parseDouble(importeLabel.getText());
+            double totalFactura = calcularTotalFactura();  // Asegurar que estamos trabajando con el total correcto
             double pagoEfectivo = obtenerValorDeCampo(textFieldEfectivo);
             double pagoTarjeta = obtenerValorDeCampo(textFieldTarjeta);
             double pagoCheque = obtenerValorDeCampo(textFieldCheque);
@@ -101,7 +109,7 @@ public class FacturarCobrar extends JDialog {
 
     private String generarNumeroFactura() {
         // Implementa tu lógica para generar números de factura únicos aquí
-        return "01";  // Número fijo solo como ejemplo
+        return String.valueOf(System.currentTimeMillis());  // Ejemplo simple de generación de número único
     }
 
     private boolean validarPago(double totalPagado, double totalFactura) {
