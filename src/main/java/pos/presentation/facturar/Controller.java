@@ -38,6 +38,7 @@ public class Controller {
 
             // Crea una nueva línea de producto
             Linea nuevaLinea = new Linea(prod, model.getList().size() + 1);
+            nuevaLinea.setDescuentoCliente(descuentoCliente);
 
             // Añade la nueva línea de producto a la lista en el modelo
             model.getList().add(nuevaLinea);
