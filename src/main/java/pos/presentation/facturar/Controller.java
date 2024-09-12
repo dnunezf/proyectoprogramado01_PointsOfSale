@@ -18,9 +18,13 @@ public class Controller {
 
     public Controller(View view, Model model)
     {
+        model.init(Service.getInstance().search(new Linea())); // Inicializa el modelo con todas las Facturas
+
         this.view = view;
         this.model = model;
+
         this.view.setController(this);
+        view.setModel(model);
     }
 
     public void add(Producto filter)
