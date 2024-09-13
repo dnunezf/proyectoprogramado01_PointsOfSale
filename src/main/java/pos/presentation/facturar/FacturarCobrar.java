@@ -48,6 +48,8 @@ public class FacturarCobrar extends JDialog {
             }
         });
 
+
+
         buttonCancel.addActionListener(e -> onCancel());
 
         // Manejo del cierre de la ventana

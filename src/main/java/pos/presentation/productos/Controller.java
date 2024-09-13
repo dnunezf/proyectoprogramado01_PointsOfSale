@@ -16,11 +16,10 @@ import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.properties.HorizontalAlignment;
 import com.itextpdf.layout.properties.TextAlignment;
 import pos.Application;
-import pos.logic.Cajero;
-import pos.logic.Cliente;
 import pos.logic.Producto;
 import pos.logic.Service;
-import pos.presentation.facturar.FacturarBuscar;
+
+import java.util.List;
 
 /*Maneja la lógica de interacción entre la vista (View) y el modelo (Model), respondiendo a
  *las acciones del usuario y actualizando la vista y el modelo en consecuencia.*/
@@ -49,7 +48,7 @@ public class Controller
 
     /*Método para buscar productos que coincidan con los criterios del filtro especificado.
      * Actualiza el modelo con los resultados de la búsqueda*/
-    public void search(Producto filter) throws Exception
+    public List<Producto> search(Producto filter) throws Exception
     {
         model.setFilter(filter); // Establece el filtro
         model.setMode(Application.MODE_CREATE); //Establece modo de operación en CREAR
@@ -59,6 +58,7 @@ public class Controller
 //        if (facturarBuscarView != null) {
 //            facturarBuscarView.updateProductList(model.getList());
 //        }
+        return null;
     }
 
     /*Método para guardar un producto. Dependiendo del modo de operación, crea o actualiza el producto*/
@@ -166,5 +166,9 @@ public class Controller
         cell.setPadding(0);
         if(!hasBorder) cell.setBorder(Border.NO_BORDER);
         return cell;
+    }
+
+    public Model getModel(){
+        return this.model;
     }
 }

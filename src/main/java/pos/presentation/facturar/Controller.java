@@ -15,8 +15,10 @@ public class Controller {
 
     View view;
     Model model;
+    pos.presentation.productos.Controller controllerProd;
+    pos.presentation.productos.TableModel tableModelProd;
 
-    public Controller(View view, Model model)
+    public Controller(View view, Model model, pos.presentation.productos.Controller controllerProd)
     {
         model.init(Service.getInstance().search(new Linea())); // Inicializa el modelo con todas las Facturas
 
@@ -25,6 +27,9 @@ public class Controller {
 
         this.view.setController(this);
         view.setModel(model);
+        this.controllerProd = controllerProd;
+        view.setProductosController(controllerProd);
+        //this.tableModelProd = tableModel;
     }
 
     public void add(Producto filter)

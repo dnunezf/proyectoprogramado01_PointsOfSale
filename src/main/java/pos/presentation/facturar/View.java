@@ -50,6 +50,7 @@ public class View implements PropertyChangeListener {
     pos.presentation.historico.Controller historicoController;
     pos.presentation.facturar.Controller controller;
     pos.presentation.productos.Controller productosController;
+    pos.presentation.productos.TableModel tableModelProd;
 
     public View()
     {
@@ -71,11 +72,11 @@ public class View implements PropertyChangeListener {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-
-//                buscar.setController(productosController);
-//                buscar.setSize(400, 400);
-//                buscar.setLocationRelativeTo(null);
-//                buscar.setVisible(true);
+                buscar.setController(productosController);
+                buscar.setTableModel(tableModelProd);
+                buscar.setSize(400, 400);
+                buscar.setLocationRelativeTo(null);
+                buscar.setVisible(true);
             }
         });
 
@@ -310,6 +311,7 @@ public class View implements PropertyChangeListener {
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+
         switch (evt.getPropertyName()) {
             case Model.LIST: {
                 int[] cols = {TableModel.CODIGO, TableModel.ARTICULO, TableModel.CATEGORIA, TableModel.CANTIDAD, TableModel.PRECIO, TableModel.DESCUENTO, TableModel.NETO, TableModel.IMPORTE};
