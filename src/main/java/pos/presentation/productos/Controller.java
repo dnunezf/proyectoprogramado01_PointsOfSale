@@ -36,7 +36,6 @@ public class Controller
     {
         model.init(Service.getInstance().search(new Producto())); // Inicializa el modelo con todos los productos
 
-        this.facturarBuscarView = facturarBuscarView;
         this.view = view;
         this.model = model;
 

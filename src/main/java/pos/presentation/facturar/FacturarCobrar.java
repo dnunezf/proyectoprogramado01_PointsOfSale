@@ -3,6 +3,7 @@ package pos.presentation.facturar;
 import pos.logic.Cajero;
 import pos.logic.Cliente;
 import pos.logic.Factura;
+import pos.logic.Service;
 import pos.presentation.historico.*;
 import pos.presentation.facturar.*;
 import javax.swing.*;
@@ -24,10 +25,8 @@ public class FacturarCobrar extends JDialog {
     private Model model;
 
     public FacturarCobrar(pos.presentation.facturar.Controller facturarController,
-                          pos.presentation.historico.Controller historicoController,
                           View view, Model model) {
         this.facturarController = facturarController;
-        this.historicoController = historicoController;
         this.view = view;
         this.model = model;
 
@@ -102,18 +101,22 @@ public class FacturarCobrar extends JDialog {
             if (validarPago(totalPagado, totalFactura)) {
                 // Crear la factura
                 Factura factura = new Factura(generarNumeroFactura(), view.getSelectedCliente(), view.getSelectedCajero(), model.getList());
-                historicoController.addFactura(factura);
+
+                Service.getInstance().create(factura);
+
                 JOptionPane.showMessageDialog(null, "Pago realizado con éxito. Factura creada.");
                 dispose();
             }
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Error en los campos de pago. Asegúrate de que todos los valores sean numéricos.");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
     private String generarNumeroFactura()
     {
-        return String.valueOf(System.currentTimeMillis());  // Ejemplo simple de generación de número único
+        return "FAC-" + System.currentTimeMillis();
     }
 
     private boolean validarPago(double totalPagado, double totalFactura)
@@ -133,7 +136,13 @@ public class FacturarCobrar extends JDialog {
     }
 
     private void onCancel() {
-        dispose();
+        int confirm = JOptionPane.showConfirmDialog(this,
+                "¿Estás seguro de que deseas cancelar el pago?",
+                "Confirmar Cancelación", JOptionPane.YES_NO_OPTION);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            dispose();
+        }
     }
 
     public void setFacturarController(pos.presentation.facturar.Controller controller) {

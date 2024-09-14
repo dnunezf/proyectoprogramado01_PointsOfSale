@@ -28,8 +28,8 @@ public class Controller {
         this.view.setController(this);
         view.setModel(model);
         this.controllerProd = controllerProd;
+
         view.setProductosController(controllerProd);
-        //this.tableModelProd = tableModel;
     }
 
     public void add(Producto filter)
@@ -39,7 +39,7 @@ public class Controller {
 
         if (prod != null)
         {
-            // Obtén el cliente actual y su descuento
+            // Obtiene cliente actual y descuento
             Cliente clienteActual = (Cliente) view.getComboBoxCli().getSelectedItem();
             float descuentoCliente = clienteActual != null ? clienteActual.getDescuento() : 0;
 
@@ -54,13 +54,13 @@ public class Controller {
         } else {
             JOptionPane.showMessageDialog(view.getPanel(), "Producto no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
         }
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(view.getPanel(), "Error al agregar producto: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-    }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(view.getPanel(), "Error al agregar producto: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
-
-    public void setCantidad(int cantidad){
+    public void setCantidad(int cantidad)
+    {
         if (cantidad >= 0) {
             model.getCurrent().setCantidadVendida(cantidad);
         } else {
@@ -76,13 +76,16 @@ public class Controller {
         model.setList(new ArrayList<>()); // Vacía la lista y notifica a los listeners
     }
 
-    public int getCantidadArticulos(){
-
+    public int getCantidadArticulos()
+    {
         int cant = 0;
 
         List<Linea> lineas = model.getList();
-        if (lineas != null && !lineas.isEmpty()) {
-            for (Linea linea : lineas) {
+
+        if (lineas != null && !lineas.isEmpty())
+        {
+            for (Linea linea : lineas)
+            {
                 cant += linea.getCantidadVendida();
             }
         }
@@ -91,14 +94,15 @@ public class Controller {
 
     }
 
-    public float getDescuentos() {
-
+    public float getDescuentos()
+    {
         Cliente clienteActual = (Cliente) view.getComboBoxCli().getSelectedItem();
         float descuento = clienteActual != null ? clienteActual.getDescuento() : 0;
+
         float totalConDescuento = 0;
 
-        if(!model.getList().isEmpty()){
-
+        if(!model.getList().isEmpty())
+        {
             for(Linea linea : model.getList()){
                 totalConDescuento += (float) (((descuento > 0 ? descuento : linea.getDescuento()) / 100) * linea.getProductoVendido().getPrecioUnitario() * linea.getCantidadVendida());
             }
@@ -108,26 +112,24 @@ public class Controller {
         return totalConDescuento;
     }
 
-    public float getSubtotal(){
-
+    public float getSubtotal()
+    {
         float subtotal = 0;
 
-        if(!model.getList().isEmpty()){
-
-            for(Linea linea : model.getList()){
-
+        if(!model.getList().isEmpty())
+        {
+            for(Linea linea : model.getList())
+            {
                 subtotal += linea.getProductoVendido().getPrecioUnitario() * linea.getCantidadVendida();
-
             }
 
         }
 
         return subtotal;
-
     }
 
-    public float getTotal(){
-
+    public float getTotal()
+    {
         return getSubtotal() - getDescuentos();
     }
 

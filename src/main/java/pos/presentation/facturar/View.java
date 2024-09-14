@@ -54,7 +54,6 @@ public class View implements PropertyChangeListener {
 
     public View()
     {
-
         cobrarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -62,6 +61,15 @@ public class View implements PropertyChangeListener {
                     cobrar.setSize(550, 400);
                     cobrar.setLocationRelativeTo(null);
                     cobrar.setVisible(true);
+
+                    // Limpiar la lista de productos
+                    model.getList().clear();
+
+                    // Actualizar el modelo para reflejar los cambios
+                    model.setList(model.getList());
+
+                    // Actualizar las etiquetas
+                    actualizarLabels();
                 } else {
                     JOptionPane.showMessageDialog(null, "Error: no se puede abrir la ventana de cobro.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -122,6 +130,7 @@ public class View implements PropertyChangeListener {
                 actualizarLabels();
             }
         });
+
         quitarButton.addActionListener(new ActionListener() {
             @Override
 
@@ -211,7 +220,7 @@ public class View implements PropertyChangeListener {
                 try {
                     Producto filter = new Producto();
                     filter.setCodigo(productCode.getText());
-                    controller.add(filter); // Asegúrate de que 'controller' esté correctamente inicializado
+                    controller.add(filter);
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(panel, "Error al agregar producto: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -219,30 +228,6 @@ public class View implements PropertyChangeListener {
             }
         });
 
-    }
-
-    public Cliente getSelectedCliente(){
-        return (Cliente) comboBoxCli.getSelectedItem();
-    }
-
-    public Cajero getSelectedCajero(){
-        return (Cajero) comboBoxCaj.getSelectedItem();
-    }
-
-    public void actualizarLabels(){
-
-        cantidadArticulos.setText(Integer.toString(controller.getCantidadArticulos()));
-        subTotal.setText(Float.toString(controller.getSubtotal()));
-        descuentos.setText(Float.toString(controller.getDescuentos()));
-        total.setText(Float.toString(controller.getTotal()));
-    }
-
-    public void subPanels(pos.presentation.historico.Controller historicoController,
-                          pos.presentation.facturar.Controller facturarController) {
-
-        // Pasa la instancia actual de 'View' (es decir, 'this') al constructor de FacturarCobrar
-        cobrar = new FacturarCobrar(facturarController, historicoController, this, model);
-        buscar = new FacturarBuscar();
     }
 
     public void initialize(JTabbedPane tabbedPane, pos.presentation.cajeros.Model modelCajeros, pos.presentation.clientes.Model modelClientes) {
@@ -272,6 +257,28 @@ public class View implements PropertyChangeListener {
         return panel;
     }
 
+    public Cliente getSelectedCliente(){
+        return (Cliente) comboBoxCli.getSelectedItem();
+    }
+
+    public Cajero getSelectedCajero(){
+        return (Cajero) comboBoxCaj.getSelectedItem();
+    }
+
+    public void actualizarLabels()
+    {
+        cantidadArticulos.setText(Integer.toString(controller.getCantidadArticulos()));
+        subTotal.setText(Float.toString(controller.getSubtotal()));
+        descuentos.setText(Float.toString(controller.getDescuentos()));
+        total.setText(Float.toString(controller.getTotal()));
+    }
+
+    public void subPanels(Controller facturarController)
+    {
+        // Pasa la instancia actual de 'View' (es decir, 'this') al constructor de FacturarCobrar
+        cobrar = new FacturarCobrar(facturarController, this, model);
+        buscar = new FacturarBuscar();
+    }
 
     public void setModel(Model model) {
         this.model = model;
