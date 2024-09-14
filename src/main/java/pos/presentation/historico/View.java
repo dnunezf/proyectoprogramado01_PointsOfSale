@@ -80,28 +80,22 @@ public class View implements PropertyChangeListener {
     @Override
     public void propertyChange(PropertyChangeEvent evt)
     {
-        switch (evt.getPropertyName())
-        {
-            case Model.LIST_BILLS:
-            {
+        switch (evt.getPropertyName()) {
+            case Model.LIST_BILLS: {
+                // Asegúrate de que la tabla se actualiza con la nueva lista de facturas
                 int[] cols = {TableModel.NUMERO, TableModel.CLIENTE, TableModel.CAJERO, TableModel.FECHA, TableModel.IMPORTE};
-
                 listFactura.setModel(new TableModel(cols, model.getListBills()));
                 listFactura.setRowHeight(30);
 
                 TableColumnModel columnModel = listFactura.getColumnModel();
 
-                columnModel.getColumn(0).setPreferredWidth(100);
-                columnModel.getColumn(1).setPreferredWidth(100);
-                columnModel.getColumn(2).setPreferredWidth(100);
-                columnModel.getColumn(3).setPreferredWidth(100);
-                columnModel.getColumn(4).setPreferredWidth(100);
+                columnModel.getColumn(1).setPreferredWidth(150);
+                columnModel.getColumn(3).setPreferredWidth(150);
 
                 break;
             }
 
-            case Model.LIST_LINES:
-            {
+            case Model.LIST_LINES: {
                 int[] cols = {pos.presentation.facturar.TableModel.CODIGO, pos.presentation.facturar.TableModel.ARTICULO, pos.presentation.facturar.TableModel.CATEGORIA, pos.presentation.facturar.TableModel.CANTIDAD, pos.presentation.facturar.TableModel.PRECIO, pos.presentation.facturar.TableModel.DESCUENTO, pos.presentation.facturar.TableModel.NETO, pos.presentation.facturar.TableModel.IMPORTE};
                 if (model.getListLines() != null) {
                     pos.presentation.facturar.TableModel tablaLineas = new pos.presentation.facturar.TableModel(cols, model.getListLines());
@@ -123,13 +117,12 @@ public class View implements PropertyChangeListener {
                 break;
             }
 
-            case Model.FILTER:
-            {
+            case Model.FILTER: {
                 busquedaClienteTxt.setText(model.getFilter().getNombre());
                 break;
             }
         }
 
         this.panel.revalidate();
-    }
+        }
 }

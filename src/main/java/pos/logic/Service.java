@@ -450,8 +450,8 @@ public class Service
         }
     }
 
-    public void delete(Categoria current) throws Exception {
-        Categoria result = this.read(new Categoria());
+    public void delete(Categoria categoria) throws Exception {
+        Categoria result = this.read(categoria);
         data.getCategorias().remove(result);
     }
 }

@@ -32,7 +32,7 @@ public class Controller
     pos.presentation.facturar.FacturarBuscar facturarBuscarView;
 
     /*Inicializa el modelo con una lista de productos obtenida de Servicio*/
-    public Controller(View view, pos.presentation.facturar.FacturarBuscar facturarBuscarView, Model model)
+    public Controller(View view, Model model)
     {
         model.init(Service.getInstance().search(new Producto())); // Inicializa el modelo con todos los productos
 

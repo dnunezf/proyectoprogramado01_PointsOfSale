@@ -21,11 +21,10 @@ public class TableModel extends AbstractTableModel<Linea> implements javax.swing
     public static final int IMPORTE = 7;
 
     /*Constructor que inicializa la tabla con columnas y filas especificadas*/
-    public TableModel(int[] cols, List<Linea> rows) {
-        super(cols, rows);
+    public TableModel(int[] cols, List<Linea> lineas) {
+        super(cols, lineas);
         this.lineas = lineas;
     }
-
 
     /*Obtiene el valor de la propiedad correspondiente a una columna
      * especifica, de un cliente en particular*/
