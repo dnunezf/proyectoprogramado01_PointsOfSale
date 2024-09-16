@@ -56,32 +56,36 @@ public class Model extends AbstractModel
         return list;
     }
 
-    public void setList(List<Categoria> list)
-    {
-        this.list = list;
-        firePropertyChange(LIST);
-    }
+
 
     public Categoria getCurrent()
     {
         return current;
     }
 
-    public void setCurrent(Categoria current)
-    {
-        this.current = current;
-        firePropertyChange(CURRENT);
-    }
+
 
     public Categoria getFilter()
     {
         return filter;
     }
 
-    public void setFilter(Categoria filter)
-    {
+    public void setList(List<Categoria> list) {
+        List<Categoria> oldList = this.list;
+        this.list = list;
+        firePropertyChange(LIST, oldList, list);
+    }
+
+    public void setCurrent(Categoria current) {
+        Categoria oldCurrent = this.current;
+        this.current = current;
+        firePropertyChange(CURRENT, oldCurrent, current);
+    }
+
+    public void setFilter(Categoria filter) {
+        Categoria oldFilter = this.filter;
         this.filter = filter;
-        firePropertyChange(FILTER);
+        firePropertyChange(FILTER, oldFilter, filter);
     }
 
     public int getMode()

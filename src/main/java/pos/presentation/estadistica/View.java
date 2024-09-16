@@ -5,13 +5,14 @@
 
  import javax.swing.*;
  import java.beans.PropertyChangeEvent;
+ import java.beans.PropertyChangeListener;
  import java.util.Arrays;
  import java.util.List;
  import javax.swing.table.TableColumnModel;
 
 
 
- public class View {
+ public class View implements PropertyChangeListener {
      private JComboBox<Integer> comboBox1;
      private JComboBox<Integer> comboBox2;
      private JComboBox<Integer> comboBox3;
@@ -122,37 +123,54 @@
 
 
      // Método que responde a los cambios de propiedades del modelo (MVC)
+     @Override
      public void propertyChange(PropertyChangeEvent evt) {
          switch (evt.getPropertyName()) {
              case Model.LIST: {
-                 // Inicializar el TableModel con la lista de categorías
-                 tableModel = new TableModel(model.getList());
-                 list.setModel(tableModel);
+                 try {
+                     int month1 = (int) comboBox1.getSelectedItem();
+                     int year1 = (int) comboBox2.getSelectedItem();
+                     int month2 = (int) comboBox3.getSelectedItem();
+                     int year2 = (int) comboBox4.getSelectedItem();
 
-                 // Ajustar el ancho de las columnas, puedes modificar según sea necesario
-                 TableColumnModel columnModel = list.getColumnModel();
-                 if (columnModel.getColumnCount() > 1) {
-                     columnModel.getColumn(1).setPreferredWidth(250);
-                 }
-                 if (columnModel.getColumnCount() > 3) {
-                     columnModel.getColumn(3).setPreferredWidth(250);
-                 }
+                     // Verificar que los valores sean válidos
+                     if (month1 < 1 || month1 > 12 || month2 < 1 || month2 > 12 ||
+                             year1 > year2 || (year1 == year2 && month1 > month2)) {
+                         throw new IllegalArgumentException("Rango de fechas no válido");
+                     }
 
+                     tableModel = new TableModel(model.getList());
+                     tableModel.updateDateRange(month1, year1, month2, year2);
+                     list.setModel(tableModel);
+
+                     // Ajustar el ancho de las columnas
+                     TableColumnModel columnModel = list.getColumnModel();
+                     columnModel.getColumn(0).setPreferredWidth(150);
+
+                     for (int i = 1; i < columnModel.getColumnCount(); i++) {
+                         columnModel.getColumn(i).setPreferredWidth(100);
+                     }
+                 } catch (Exception e) {
+                     // Manejar errores
+                     e.printStackTrace();
+                 }
                  break;
              }
 
              case Model.CURRENT: {
-                 // Manejar cambios en el estado actual (si es necesario)
+                 // Manejar cambios en el estado actual si es necesario
                  break;
              }
 
              case Model.FILTER: {
-                 // Manejar filtrado (si es necesario)
+                 // Manejar filtrado si es necesario
                  break;
              }
          }
 
+         // Refrescar la interfaz para reflejar los cambios
          this.panel.revalidate();
+         this.panel.repaint();  // Forzar repintado si es necesario
      }
-     }
+ }
 
