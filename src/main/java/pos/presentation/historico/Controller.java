@@ -35,14 +35,23 @@ public class Controller
     {
         model.setFilter(filter); // Establece el filtro
 
-        // Obtiene facturas y líneas basadas en el cliente
         List<Factura> facturas = Service.getInstance().searchBillsByName(filter);
+        model.setListBills(facturas);
+
         List<Linea> lineas = Service.getInstance().searchLinesByName(filter);
+        model.setListLines(lineas);
 
         model.setMode(Application.MODE_CREATE); // Establece modo de operación en CREAR
         model.setCurrentBill(new Factura()); // Resetea factura actual
-        model.setListBills(facturas); // Actualiza la lista de facturas en el modelo
-        model.setListLines(lineas); // Actualiza la lista de líneas en el modelo
+    }
+
+    public void loadLinesForSelectedBill(Factura factura) throws Exception {
+        // Obtener las líneas de la factura seleccionada
+        List<Linea> lineas = factura.getLineas();
+
+        // Actualizar el modelo con las líneas obtenidas
+        model.setCurrentBill(factura); // Actualizar la factura actual en el modelo
+        model.setListLines(lineas); // Actualizar las líneas de la factura en el modelo
     }
 
     public void addFactura(Factura factura)

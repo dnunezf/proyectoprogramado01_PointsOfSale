@@ -55,6 +55,25 @@ public class View implements PropertyChangeListener {
                 }
             }
         });
+
+        // Agregar MouseListener a la tabla de facturas (listFactura)
+        listFactura.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int selectedRow = listFactura.getSelectedRow();
+                if (selectedRow != -1) {
+                    // Obtener la factura seleccionada desde la tabla
+                    Factura facturaSeleccionada = model.getListBills().get(selectedRow);
+
+                    // Pasar la factura seleccionada al controlador para obtener sus líneas
+                    try {
+                        controller.loadLinesForSelectedBill(facturaSeleccionada);
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(panel, "Error al cargar líneas: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }
+        });
     }
 
     public JPanel getPanel()

@@ -5,16 +5,11 @@ import pos.logic.Cajero;
 import pos.logic.Cliente;
 import pos.logic.Linea;
 import pos.logic.Producto;
-import pos.presentation.historico.*;
-import pos.presentation.productos.*;
 
 import javax.swing.*;
 import javax.swing.table.TableColumnModel;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
