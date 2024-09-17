@@ -1,3 +1,19 @@
+/*Proyecto programado #1 "POS: Points Of Sale"
+
+  17 de septiembre de 2024
+
+  Autores:
+  David Alberto Núñez Franco
+  Cedula: 119080008
+  Jose David Alvarado Guerrero
+  Cedula: 119040654
+  Alejandro Alvarez Chaves
+  Cedula: 118910804
+
+  Universidad Nacional de Costa Rica, Escuela de Informática
+  PROGRAMACIÓN III
+*/
+
 package pos;
 
 import pos.logic.Service;
