@@ -56,7 +56,7 @@ public class Model extends AbstractModel
 
     public List<Cliente> getList()
     {
-        return list;
+        return this.list;
     }
 
     public void setList(List<Cliente> list)

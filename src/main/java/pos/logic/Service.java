@@ -1,12 +1,8 @@
 package pos.logic;
 
-import java.lang.ref.Cleaner;
-import java.util.ArrayList;
 import pos.data.Data;
 import pos.data.XmlPersister;
 
-import javax.sound.sampled.Line;
-import java.text.DecimalFormat;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -325,7 +321,7 @@ public class Service
         return data.getFacturas().stream()
                 .filter(i -> String.valueOf(i.getNumeroDeFactura()).contains(String.valueOf(factura.getNumeroDeFactura())))
                 .sorted(Comparator.comparing(Factura::getFecha))
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()).reversed();
     }
 
     /*Search Bills by Name*/

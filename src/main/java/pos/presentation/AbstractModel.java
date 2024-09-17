@@ -1,7 +1,10 @@
 package pos.presentation;
 
+import pos.logic.Factura;
+
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.List;
 
 /*Clase AbstractModel, base abstracta. Permite a los modelos gestionar y notificar cambios de propiedades a los listeners
 * registrados*/
@@ -38,4 +41,6 @@ public abstract class AbstractModel
     {
         propertyChangeSupport.firePropertyChange(propertyName,oldValue,newValue);
     }
+
+
 }

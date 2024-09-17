@@ -1,14 +1,21 @@
 package pos.presentation.estadistica;
-
+import org.jfree.chart.ChartUtilities;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
 import pos.Application;
 import pos.logic.Categoria;
 
+import java.awt.*;
+import java.io.File;
 import javax.swing.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.table.TableColumnModel;
+import java.io.IOException;
 
 public class View implements PropertyChangeListener {
     private JComboBox<Integer> comboBox1;
@@ -16,11 +23,13 @@ public class View implements PropertyChangeListener {
     private JComboBox<Integer> comboBox3;
     private JComboBox<Integer> comboBox4;
     private JComboBox<Categoria> comboBox5;
-    private JButton button1;
-    private JButton button2;
+    private JButton check;
+    private JButton dobleCheck;
     private JTable table;  // Modificar aquí: asegurarse de usar "table" en lugar de "list"
     private JPanel panel;
     private JPanel panelStat;
+    private JLabel chart;
+    private JPanel panelPrincipal;
 
     // MVC
     private Model model;
@@ -43,7 +52,27 @@ public class View implements PropertyChangeListener {
         List<Categoria> categoriasPredefinidas = Arrays.asList(
                 new Categoria("Dulces"),
                 new Categoria("Bebidas"),
-                // Otras categorías...
+                new Categoria("Abarrotes"),
+                new Categoria("Lácteos"),
+                new Categoria("Congelados"),
+                new Categoria("Panadería"),
+                new Categoria("Carnes"),
+                new Categoria("Frutas y Verduras"),
+                new Categoria("Cereales"),
+                new Categoria("Galletas"),
+                new Categoria("Snacks"),
+                new Categoria("Productos de Limpieza"),
+                new Categoria("Cuidado Personal"),
+                new Categoria("Productos en Conserva"),
+                new Categoria("Salsas y Condimentos"),
+                new Categoria("Comida Rápida"),
+                new Categoria("Pasta y Arroz"),
+                new Categoria("Aceites y Grasas"),
+                new Categoria("Productos para Bebés"),
+                new Categoria("Vinos y Licores"),
+                new Categoria("Ingredientes para Repostería"),
+                new Categoria("Alimentos Internacionales"),
+                new Categoria("Productos Orgánicos"),
                 new Categoria("Café y Té")
         );
 
@@ -52,6 +81,43 @@ public class View implements PropertyChangeListener {
             model.addElement(categoria);
         }
         comboBox5.setModel(model);
+
+
+        // Crear el dataset para el gráfico
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+
+
+        // Crear el gráfico de barras
+        JFreeChart fchart = ChartFactory.createBarChart(
+                "Ventas",   // título del gráfico
+                "Categoria",     // etiqueta de categoría
+                "Valor",        // etiqueta de valor
+                dataset,        // conjunto de datos
+                PlotOrientation.VERTICAL, // orientación
+                false,          // incluir leyenda
+                true,           // incluir tooltips
+                false           // no se requieren URLs
+        );
+
+        // Convertir el gráfico a JPG y guardarlo en un archivo
+        File chartFile = new File("chart.jpg");
+        try {
+            ChartUtilities.saveChartAsJPEG(chartFile, fchart, 300, 550);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Cargar la imagen JPG y asignarla al JLabel
+        ImageIcon chartIcon = new ImageIcon(chartFile.getPath());
+        chart = new JLabel(chartIcon);
+
+        // Asegurarse de añadir el JLabel al panelStat
+        panelStat.setLayout(new BorderLayout());
+        panelStat.removeAll();  // Limpiar el panel si es necesario
+        panelStat.add(chart, BorderLayout.CENTER);  // Añadir el JLabel con el gráfico
+        panelStat.revalidate();  // Actualizar el panel
+        panelStat.repaint();     // Refrescar la interfaz
+
     }
 
     public JPanel getPanel() {
@@ -92,7 +158,7 @@ public class View implements PropertyChangeListener {
                     }
 
                     // Crear el TableModel con la lista de categorías del modelo
-                    tableModel = new TableModel(model.getList());
+                    tableModel = new TableModel(controller.getHistoricoModel().getListBills());
                     tableModel.updateDateRange(this.controller.getHistoricoModel().getListBills(),month1, year1, month2, year2);
 
                     // Asignar el TableModel a la JTable

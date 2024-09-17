@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.List;
 
 public class View implements PropertyChangeListener {
     private JButton cobrarButton;
@@ -46,6 +47,7 @@ public class View implements PropertyChangeListener {
     pos.presentation.facturar.Controller controller;
     pos.presentation.productos.Controller productosController;
     pos.presentation.productos.TableModel tableModelProd;
+    pos.presentation.clientes.Model clientesModel;
 
     public View()
     {
@@ -230,6 +232,8 @@ public class View implements PropertyChangeListener {
         Icon facturaIcon = new ImageIcon(Application.class.getResource("/pos/presentation/icons/bill.png"));
         tabbedPane.addTab("Facturar ", facturaIcon, this.getPanel());
 
+        this.clientesModel = modelClientes;
+
         DefaultComboBoxModel<Cajero> comboBoxCajeros = new DefaultComboBoxModel<>();
 
         // Añade las categorías al modelo del JComboBox
@@ -333,6 +337,14 @@ public class View implements PropertyChangeListener {
                     columnModel.getColumn(7).setPreferredWidth(300);
 
                     tablaLineas.fireTableDataChanged();
+
+                    DefaultComboBoxModel<Cliente> comboBoxClientes = new DefaultComboBoxModel<>();
+
+//                    for (Cliente cliente : clientesModel.getList()) {
+//                        comboBoxClientes.addElement(cliente);
+//                    }
+//                    comboBoxCli.setModel(comboBoxClientes);
+
                 }
                 break;
             }
@@ -358,6 +370,7 @@ public class View implements PropertyChangeListener {
 
         return comboBoxCaj;
     }
+
 }
 
 

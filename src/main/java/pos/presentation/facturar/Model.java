@@ -71,6 +71,7 @@ public class Model extends AbstractModel {
     public void setList(List<Linea> list) {
         this.list = list;
         firePropertyChange(LIST, null, list); // Disparar evento para actualizar la vista
+
     }
 
 

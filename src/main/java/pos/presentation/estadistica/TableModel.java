@@ -6,17 +6,16 @@ import pos.logic.Linea;
 import pos.presentation.AbstractTableModel;
 import pos.logic.Categoria;
 
-import java.time.LocalDate;
 import java.util.*;
 
-public class TableModel extends AbstractTableModel<Categoria> implements javax.swing.table.TableModel {
+public class TableModel extends AbstractTableModel<Factura> implements javax.swing.table.TableModel {
     /* Constantes que representan las columnas fijas */
     public static final int CATEGORIA = 0;
 
     private int month1, year1, month2, year2; // Rango de fechas seleccionado
 
     // Constructor que inicializa la tabla con columnas y filas especificadas
-    public TableModel(List<Categoria> rows) {
+    public TableModel(List<Factura> rows) {
         super(null, rows);  // Las columnas se inicializan en null y luego se establecen dinámicamente
         initColNames(0);    // Inicializar con 0 columnas de fechas
     }
@@ -64,9 +63,9 @@ public class TableModel extends AbstractTableModel<Categoria> implements javax.s
         }
 
         // Añadir las categorías y sus ventas al TableModel
-        for (Map.Entry<Categoria, Double[]> entry : ventasPorCategoria.entrySet()) {
-            this.rows.add(new CategoriaConVentas(entry.getKey(), entry.getValue()).getCategoria());
-        }
+//        for (Map.Entry<Categoria, Double[]> entry : ventasPorCategoria.entrySet()) {
+//            this.rows.add(new CategoriaConVentas(entry.getKey(), entry.getValue()).getCategoria());
+//        }
 
         // Notificar que la estructura de la tabla cambió
         fireTableStructureChanged();
@@ -94,7 +93,6 @@ public class TableModel extends AbstractTableModel<Categoria> implements javax.s
         int currentMonth = month1;
         int currentYear = year1;
 
-        // Generar nombres para las columnas de fechas
         for (int i = 1; i <= numberOfMonths; i++) {
             colNames[i] = getMonthName(currentMonth) + " " + currentYear;
             currentMonth++;
@@ -106,7 +104,7 @@ public class TableModel extends AbstractTableModel<Categoria> implements javax.s
     }
 
     // Obtiene el valor de la propiedad correspondiente a una columna específica de una categoría
-    @Override
+
     protected Object getPropertyAt(Categoria categoria, int col) {
         if (col == CATEGORIA) {
             return categoria.getTipo();
@@ -154,7 +152,12 @@ public class TableModel extends AbstractTableModel<Categoria> implements javax.s
     // Retorna el valor de una celda en la fila y columna especificada
     @Override
     public Object getValueAt(int rowIndex, int colIndex) {
-        Categoria categoria = rows.get(rowIndex);
+        Factura categoria = rows.get(rowIndex);
         return getPropertyAt(categoria, colIndex);
+    }
+
+    @Override
+    protected Object getPropertyAt(Factura factura, int col) {
+        return null;
     }
 }

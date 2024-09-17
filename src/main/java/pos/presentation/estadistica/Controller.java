@@ -1,6 +1,7 @@
 package pos.presentation.estadistica;
 
 import pos.Application;
+import pos.logic.Factura;
 import pos.logic.Producto;
 import pos.logic.Service;
 import pos.logic.Categoria;
