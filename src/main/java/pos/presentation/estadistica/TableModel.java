@@ -1,9 +1,13 @@
 package pos.presentation.estadistica;
 
+import pos.logic.CategoriaConVentas;
+import pos.logic.Factura;
+import pos.logic.Linea;
 import pos.presentation.AbstractTableModel;
 import pos.logic.Categoria;
 
-import java.util.List;
+import java.time.LocalDate;
+import java.util.*;
 
 public class TableModel extends AbstractTableModel<Categoria> implements javax.swing.table.TableModel {
     /* Constantes que representan las columnas fijas */
@@ -18,7 +22,7 @@ public class TableModel extends AbstractTableModel<Categoria> implements javax.s
     }
 
     // Método que actualiza el rango de fechas y ajusta las columnas dinámicamente
-    public void updateDateRange(int month1, int year1, int month2, int year2) {
+    public void updateDateRange(List<Factura> facturas, int month1, int year1, int month2, int year2) {
         this.month1 = month1;
         this.year1 = year1;
         this.month2 = month2;
@@ -32,9 +36,55 @@ public class TableModel extends AbstractTableModel<Categoria> implements javax.s
         // Actualizar los nombres de las columnas
         initColNames(numberOfMonths);
 
+        // Limpiar los datos anteriores
+        this.rows.clear();
+
+        // Agregar categorías y ventas de facturas al TableModel
+        Map<Categoria, Double[]> ventasPorCategoria = new HashMap<>();
+
+        for (Factura factura : facturas) {
+            Date fecha = new Date(factura.getFecha().getYear(),factura.getFecha().getMonthValue(),factura.getFecha().getDayOfMonth());
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(fecha);
+
+            int mesFactura = cal.get(Calendar.MONTH) + 1;
+            int añoFactura = cal.get(Calendar.YEAR);
+
+            if ((añoFactura > year1 || (añoFactura == year1 && mesFactura >= month1)) &&
+                    (añoFactura < year2 || (añoFactura == year2 && mesFactura <= month2))) {
+
+                for (Linea linea : factura.getLineas()) {
+                    Categoria categoria = linea.getProductoVendido().getCategoria();
+                    Double[] ventas = ventasPorCategoria.computeIfAbsent(categoria, k -> new Double[numberOfMonths]);
+                    int mesIndex = calculateMonthIndex(mesFactura, añoFactura);
+
+                    ventas[mesIndex] = (ventas[mesIndex] == null ? 0 : ventas[mesIndex]) + linea.getCantidadVendida();
+                }
+            }
+        }
+
+        // Añadir las categorías y sus ventas al TableModel
+        for (Map.Entry<Categoria, Double[]> entry : ventasPorCategoria.entrySet()) {
+            this.rows.add(new CategoriaConVentas(entry.getKey(), entry.getValue()).getCategoria());
+        }
+
         // Notificar que la estructura de la tabla cambió
         fireTableStructureChanged();
     }
+
+    public int calculateMonthIndex(int mesFactura, int añoFactura) {
+        int añoBase = 2000; // Año desde el que empiezas a contar
+        int mesesPorAño = 12;
+
+        // Calcular la cantidad de años transcurridos desde el año base
+        int añosTranscurridos = añoFactura - añoBase;
+
+        // Calcular el índice del mes
+        int mesIndex = (añosTranscurridos * mesesPorAño) + (mesFactura - 1); // Restas 1 porque enero sería el mes 0
+
+        return mesIndex;
+    }
+
 
     // Inicializa los nombres de las columnas del modelo de la tabla
     protected void initColNames(int numberOfMonths) {

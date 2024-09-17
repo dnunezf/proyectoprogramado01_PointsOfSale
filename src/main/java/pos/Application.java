@@ -66,7 +66,7 @@ public class Application {
         cajerosController = new pos.presentation.cajeros.Controller(cajerosView, cajerosModel);
         productosController = new pos.presentation.productos.Controller(productosView, productosModel);
         facturarController = new pos.presentation.facturar.Controller(facturarView, facturarModel,productosController);
-        estadisticaController = new pos.presentation.estadistica.Controller(estadisticaView, estadisticaModel);
+        estadisticaController = new pos.presentation.estadistica.Controller(estadisticaView, estadisticaModel,historicoModel);
         historicoController = new pos.presentation.historico.Controller(historicoView, historicoModel);
 
         // 4. Pasa los controladores a las vistas ahora que están inicializados

@@ -9,17 +9,21 @@ public class Controller {
 
     View view;
     Model model;
+    pos.presentation.historico.Model historicoModel;
 
-    public Controller(pos.presentation.estadistica.View view, pos.presentation.estadistica.Model model)
+    public Controller(pos.presentation.estadistica.View view, pos.presentation.estadistica.Model model, pos.presentation.historico.Model historicoModel)
     {
         model.init(Service.getInstance().search(new Categoria()));
 
         this.view = view;
         this.model = model;
+        this.historicoModel = historicoModel;
 
         view.setController(this);
         view.setModel(model);
     }
+
+    public pos.presentation.historico.Model getHistoricoModel() {return this.historicoModel;}
 
     /*Metodo para buscar clientes que coincidan con los criterios del filtro especificado.
      * Actualiza el modelo con los resultados de la busqueda*/

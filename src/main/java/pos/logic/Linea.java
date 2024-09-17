@@ -74,6 +74,8 @@ public class Linea
         return numeroDeLinea;
     }
 
+    public Categoria getCategoriaProducto(){return productoVendido.getCategoria();}
+
     public void setNumeroDeLinea(String numeroDeLinea) {
         this.numeroDeLinea = numeroDeLinea;
     }

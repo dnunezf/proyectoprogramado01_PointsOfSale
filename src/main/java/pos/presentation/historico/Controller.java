@@ -16,6 +16,7 @@ public class Controller
     View view;
     Model model;
 
+
     /*Inicializa el modelo con una lista de facturas y líneas obtenidas de Servicio*/
     public Controller(View view, Model model)
     {
@@ -24,6 +25,7 @@ public class Controller
 
         this.view = view;
         this.model = model;
+
 
         view.setController(this);
         view.setModel(model);
