@@ -36,7 +36,8 @@ public class View implements PropertyChangeListener {
     private Controller controller;
     private TableModel tableModel;  // Nuestro TableModel dinámico
 
-    public View() {
+    public View()
+    {
         // Constructor vacío
     }
 

@@ -19,7 +19,6 @@ public class View implements PropertyChangeListener {
     private JPanel busquedaPanel;
     private JLabel busquedaClienteLabel;
     private JTextField busquedaClienteTxt;
-    private JButton report;
     private JButton search;
     private JPanel listadoPanel;
     private JScrollPane listadoScrollPanel;
