@@ -1,6 +1,7 @@
 package pos.presentation.facturar;
 
 import pos.logic.Producto;
+import pos.logic.Service;
 import pos.presentation.productos.Controller;
 import pos.presentation.productos.TableModel;
 import javax.swing.*;
@@ -25,6 +26,7 @@ public class FacturarBuscar extends JDialog {
 //    public void setController(pos.presentation.productos.Controller productosController) {
 //        this.controller = productosController;
 //    }
+    Model model;
 
 
     public FacturarBuscar() {
@@ -64,7 +66,7 @@ public class FacturarBuscar extends JDialog {
                 try {
                     Producto filter = new Producto();
                     filter.setDescripcion(descTxt.getText());
-                    controllerProd.search(filter);
+                    Service.getInstance().search(filter);
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(contentPane, ex.getMessage(), "Informacion", JOptionPane.INFORMATION_MESSAGE);
                 }
@@ -90,11 +92,10 @@ public class FacturarBuscar extends JDialog {
         } else {
             // Si no hay productos, limpiamos la tabla
             //JOptionPane.showMessageDialog(contentPane,"REGISTRO APLICADO", "", JOptionPane.INFORMATION_MESSAGE);
-            productos = controllerProd.getModel().getList();
-            tableModel = new TableModel(new int[]{}, List.of());
+            int[] cols = {TableModel.CODIGO, TableModel.DESCRIPCION, TableModel.UNIDAD, TableModel.PRECIO, TableModel.CATEGORIA, TableModel.EXISTENCIAS};
+            tableModel = new TableModel(cols, productos);  // Actualiza el TableModel con la lista de productos
             list.setModel(tableModel);
             list.repaint();  // Refresca la tabla visualmente
-            productos = controllerProd.getModel().getList();
         }
 
     }
@@ -122,5 +123,9 @@ public class FacturarBuscar extends JDialog {
         dialog.pack();
         dialog.setVisible(true);
         System.exit(0);
+    }
+
+    public void setModel(Model model){
+        this.model = model;
     }
 }

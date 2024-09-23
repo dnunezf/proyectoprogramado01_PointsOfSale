@@ -20,7 +20,7 @@ public class Controller {
 
     public Controller(View view, Model model, pos.presentation.productos.Controller controllerProd)
     {
-        model.init(Service.getInstance().search(new Linea())); // Inicializa el modelo con todas las Facturas
+        model.init(Service.getInstance().search(new Linea()),Service.getInstance().search(new Producto())); // Inicializa el modelo con todas las Facturas
 
         this.view = view;
         this.model = model;

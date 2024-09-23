@@ -22,11 +22,13 @@ public class Model extends AbstractModel {
     List<Linea> list = new ArrayList<>();
     /*Linea actualmente seleccionado o en edicion*/
     Linea current;
+    List<Producto> productos = new ArrayList<>();
     /*Modo de operacion del modelo, ya sea modificar, ingresar, eliminar...*/
     int mode;
 
     /*Constantes que representan los nombres de las propiedades que cambian*/
     public static final String LIST = "list";
+    public static final String LISTPRODUCTOS = "listproductos";
     public static final String CURRENT = "current";
     public static final String FILTER = "filter";
 
@@ -38,6 +40,7 @@ public class Model extends AbstractModel {
         firePropertyChange(LIST);
         firePropertyChange(CURRENT);
         firePropertyChange(FILTER);
+        firePropertyChange(LISTPRODUCTOS);
     }
 
     public Model()
@@ -47,7 +50,7 @@ public class Model extends AbstractModel {
     }
 
     /*Inicializa la vista con una lista de Facturas, un cajero actual vacio y un filtro vacio*/
-    public void init(List<Linea> list) {
+    public void init(List<Linea> list, List<Producto> productos) {
         if (list == null) {
             this.list = new ArrayList<>();  // Inicializa la lista si es nula
         } else {
@@ -58,6 +61,7 @@ public class Model extends AbstractModel {
         this.mode = Application.MODE_CREATE;
         firePropertyChange(LIST, null, this.list);
         firePropertyChange(CURRENT, null, this.current);
+        firePropertyChange(FILTER, null, this.filter);
     }
 
     /*GETTERS AND SETTERS
@@ -107,6 +111,14 @@ public class Model extends AbstractModel {
     public void setMode(int mode)
     {
         this.mode = mode;
+    }
+
+    public List<Producto> getProductos() {
+        return productos;
+    }
+
+    public void setProductos(List<Producto> productos) {
+        this.productos = productos;
     }
 }
 

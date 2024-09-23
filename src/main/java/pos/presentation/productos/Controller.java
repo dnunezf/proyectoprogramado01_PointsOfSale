@@ -52,7 +52,7 @@ public class Controller
         model.setFilter(filter); // Establece el filtro
         model.setMode(Application.MODE_CREATE); //Establece modo de operación en CREAR
         model.setCurrent(new Producto()); // Resetea el producto actual
-        model.setList(Service.getInstance().search(model.getFilter())); // Busca y actualiza la lista en el modelo
+        model.setList(Service.getInstance().search(filter)); // Busca y actualiza la lista en el modelo
 
 //        if (facturarBuscarView != null) {
 //            facturarBuscarView.updateProductList(model.getList());

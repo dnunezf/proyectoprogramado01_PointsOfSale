@@ -67,6 +67,7 @@ public class Controller
         }
         model.setFilter(new Cliente());
         search(model.getFilter());
+
     }
 
     /*Metodo para editar un cliente. Establece el modo en EDITAR, y carga el cliente seleccionado

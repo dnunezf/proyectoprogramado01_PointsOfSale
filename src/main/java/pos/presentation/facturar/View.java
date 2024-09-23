@@ -1,10 +1,7 @@
 package pos.presentation.facturar;
 
 import pos.Application;
-import pos.logic.Cajero;
-import pos.logic.Cliente;
-import pos.logic.Linea;
-import pos.logic.Producto;
+import pos.logic.*;
 
 import javax.swing.*;
 import javax.swing.table.TableColumnModel;
@@ -77,6 +74,7 @@ public class View implements PropertyChangeListener {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                buscar.updateProductList(model.getProductos());
                 buscar.setController(productosController);
                 buscar.setTableModel(tableModelProd);
                 buscar.setSize(400, 400);
@@ -234,22 +232,7 @@ public class View implements PropertyChangeListener {
 
         this.clientesModel = modelClientes;
 
-        DefaultComboBoxModel<Cajero> comboBoxCajeros = new DefaultComboBoxModel<>();
-
-        // Añade las categorías al modelo del JComboBox
-        for (Cajero cajero : modelCajeros.getList()) {
-            comboBoxCajeros.addElement(cajero);
-        }
-
-        DefaultComboBoxModel<Cliente> comboBoxClientes = new DefaultComboBoxModel<>();
-
-        for (Cliente cliente : modelClientes.getList()) {
-            comboBoxClientes.addElement(cliente);
-        }
-
-        // Asigna el modelo al JComboBox
-        comboBoxCaj.setModel(comboBoxCajeros);
-        comboBoxCli.setModel(comboBoxClientes);
+        actualizarComboBoxes();
     }
 
     public JPanel getPanel() {
@@ -369,6 +352,25 @@ public class View implements PropertyChangeListener {
     public JComboBox<Cajero> getComboBoxCaj() {
 
         return comboBoxCaj;
+    }
+
+    public void actualizarComboBoxes(){
+        DefaultComboBoxModel<Cajero> comboBoxCajeros = new DefaultComboBoxModel<>();
+
+        // Añade las categorías al modelo del JComboBox
+        for (Cajero cajero : Service.getInstance().search(new Cajero())) {
+            comboBoxCajeros.addElement(cajero);
+        }
+
+        DefaultComboBoxModel<Cliente> comboBoxClientes = new DefaultComboBoxModel<>();
+
+        for (Cliente cliente : Service.getInstance().search(new Cliente())) {
+            comboBoxClientes.addElement(cliente);
+        }
+
+        // Asigna el modelo al JComboBox
+        comboBoxCaj.setModel(comboBoxCajeros);
+        comboBoxCli.setModel(comboBoxClientes);
     }
 
 }

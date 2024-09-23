@@ -13,6 +13,7 @@ import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
+import java.util.function.Consumer;
 
 public class View implements PropertyChangeListener
 {
@@ -85,6 +86,7 @@ public class View implements PropertyChangeListener
                     {
                         JOptionPane.showMessageDialog(panel, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     }
+
                 }
             }
         });
