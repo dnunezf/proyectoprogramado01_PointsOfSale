@@ -28,13 +28,13 @@ public class Controller {
 
     /*Metodo para buscar clientes que coincidan con los criterios del filtro especificado.
      * Actualiza el modelo con los resultados de la busqueda*/
-    public void search(Categoria filter) throws Exception
-    {
-        model.setFilter(filter); // Establece el filtro
-        model.setMode(Application.MODE_CREATE); //Establece modo de operacion en CREAR
-        model.setCurrent(new Categoria()); // Resetea el cliente actual
-        model.setList(Service.getInstance().search(model.getFilter())); // Busca y actualiza la lista en el modelo
+    public void search(Categoria filter) throws Exception {
+        model.setFilter(filter);
+        model.setMode(Application.MODE_CREATE);
+        model.setCurrent(new Categoria());
+        model.setList(Service.getInstance().search(model.getFilter())); // Asegúrate de que el método search en Service esté preparado para filtrar por las categorías correctas
     }
+
 
     /*Metodo para guardar un cliente. Dependiendo del modo de operacion, crea o actualiza el cliente*/
     public void save(Categoria categoria) throws Exception

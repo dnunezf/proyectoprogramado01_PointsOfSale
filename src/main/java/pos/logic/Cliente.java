@@ -5,7 +5,9 @@ package pos.logic;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlID;
+import jakarta.xml.bind.annotation.XmlIDREF;
 
+import java.util.List;
 import java.util.Objects;
 
 /*Clase diseñada para utilizarse en el contexto de serialización y deserialización XML*/
@@ -77,6 +79,8 @@ public class Cliente
     public void setDescuento(float descuento) {
         this.descuento = descuento;
     }
+
+
 
     /*Compara este objeto Cliente con otro, para saber si son iguales*/
     @Override

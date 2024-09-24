@@ -18,7 +18,7 @@
         <properties/>
         <border type="none" title="Datos"/>
         <children>
-          <component id="29c45" class="javax.swing.JLabel">
+          <component id="29c45" class="javax.swing.JLabel" binding="desdeLabel">
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -34,7 +34,7 @@
               <text value="Hasta"/>
             </properties>
           </component>
-          <component id="f3b5d" class="javax.swing.JLabel">
+          <component id="f3b5d" class="javax.swing.JLabel" binding="categoriaLabel">
             <constraints>
               <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -65,7 +65,7 @@
               </scrollpane>
             </children>
           </grid>
-          <component id="89d41" class="javax.swing.JComboBox" binding="comboBox3" default-binding="true">
+          <component id="89d41" class="javax.swing.JComboBox" binding="anioHastaCombobox">
             <constraints>
               <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -99,7 +99,7 @@
               </model>
             </properties>
           </component>
-          <component id="7c25" class="javax.swing.JComboBox" binding="comboBox1" default-binding="true">
+          <component id="7c25" class="javax.swing.JComboBox" binding="anioDesdeComboBox">
             <constraints>
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -133,7 +133,7 @@
               </model>
             </properties>
           </component>
-          <component id="3045f" class="javax.swing.JComboBox" binding="comboBox2" default-binding="true">
+          <component id="3045f" class="javax.swing.JComboBox" binding="mesDesdeCombobox">
             <constraints>
               <grid row="0" column="2" row-span="1" col-span="44" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -154,7 +154,7 @@
               </model>
             </properties>
           </component>
-          <component id="71caf" class="javax.swing.JComboBox" binding="comboBox4" default-binding="true">
+          <component id="71caf" class="javax.swing.JComboBox" binding="mesHastaCombobox">
             <constraints>
               <grid row="1" column="2" row-span="1" col-span="44" vsize-policy="0" hsize-policy="2" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -175,7 +175,7 @@
               </model>
             </properties>
           </component>
-          <component id="ad78f" class="javax.swing.JComboBox" binding="comboBox5" default-binding="true">
+          <component id="ad78f" class="javax.swing.JComboBox" binding="categoriaCombobox">
             <constraints>
               <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>

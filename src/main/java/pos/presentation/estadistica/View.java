@@ -6,23 +6,24 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 import pos.Application;
 import pos.logic.Categoria;
+import pos.logic.Estadistica;
+import pos.presentation.cajeros.DynamicTableModel;
 
 import java.awt.*;
 import java.io.File;
 import javax.swing.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.Arrays;
-import java.util.List;
 import javax.swing.table.TableColumnModel;
 import java.io.IOException;
+import java.time.LocalDate;
 
 public class View implements PropertyChangeListener {
-    private JComboBox<Integer> comboBox1;
-    private JComboBox<Integer> comboBox2;
-    private JComboBox<Integer> comboBox3;
-    private JComboBox<Integer> comboBox4;
-    private JComboBox<Categoria> comboBox5;
+    private JComboBox<Integer> anioDesdeComboBox;
+    private JComboBox<Integer> mesDesdeCombobox;
+    private JComboBox<Integer> anioHastaCombobox;
+    private JComboBox<Integer> mesHastaCombobox;
+    private JComboBox<Categoria> categoriaCombobox;
     private JButton check;
     private JButton dobleCheck;
     private JTable table;  // Modificar aquí: asegurarse de usar "table" en lugar de "list"
@@ -30,11 +31,13 @@ public class View implements PropertyChangeListener {
     private JPanel panelStat;
     private JLabel chart;
     private JPanel panelPrincipal;
+    private JLabel desdeLabel;
+    private JLabel categoriaLabel;
 
     // MVC
     private Model model;
     private Controller controller;
-    private TableModel tableModel;  // Nuestro TableModel dinámico
+    private DynamicTableModel tableModel;  // Nuestro TableModel dinámico
 
     public View()
     {
@@ -49,39 +52,11 @@ public class View implements PropertyChangeListener {
         // Inicializa JComboBox con categorías predefinidas
         DefaultComboBoxModel<Categoria> model = new DefaultComboBoxModel<>();
 
-        // Lista de categorías predefinidas
-        List<Categoria> categoriasPredefinidas = Arrays.asList(
-                new Categoria("Dulces"),
-                new Categoria("Bebidas"),
-                new Categoria("Abarrotes"),
-                new Categoria("Lácteos"),
-                new Categoria("Congelados"),
-                new Categoria("Panadería"),
-                new Categoria("Carnes"),
-                new Categoria("Frutas y Verduras"),
-                new Categoria("Cereales"),
-                new Categoria("Galletas"),
-                new Categoria("Snacks"),
-                new Categoria("Productos de Limpieza"),
-                new Categoria("Cuidado Personal"),
-                new Categoria("Productos en Conserva"),
-                new Categoria("Salsas y Condimentos"),
-                new Categoria("Comida Rápida"),
-                new Categoria("Pasta y Arroz"),
-                new Categoria("Aceites y Grasas"),
-                new Categoria("Productos para Bebés"),
-                new Categoria("Vinos y Licores"),
-                new Categoria("Ingredientes para Repostería"),
-                new Categoria("Alimentos Internacionales"),
-                new Categoria("Productos Orgánicos"),
-                new Categoria("Café y Té")
-        );
-
         // Añadir las categorías al JComboBox
-        for (Categoria categoria : categoriasPredefinidas) {
+        for (Categoria categoria : this.model.getList()) {
             model.addElement(categoria);
         }
-        comboBox5.setModel(model);
+        categoriaCombobox.setModel(model);
 
 
         // Crear el dataset para el gráfico
@@ -141,16 +116,25 @@ public class View implements PropertyChangeListener {
         return model;
     }
 
+
+    public Estadistica take(){
+
+        return new Estadistica(LocalDate.of((int)this.anioDesdeComboBox.getSelectedItem(),(int)this.mesDesdeCombobox.getSelectedItem(),1) ,LocalDate.of((int)this.anioHastaCombobox.getSelectedItem(),(int)this.mesHastaCombobox.getSelectedItem(),1));
+
+    }
+
+
+
     // Método que responde a los cambios de propiedades del modelo (MVC)
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         switch (evt.getPropertyName()) {
             case Model.LIST: {
                 try {
-                    int month1 = (int) comboBox1.getSelectedItem();
-                    int year1 = (int) comboBox2.getSelectedItem();
-                    int month2 = (int) comboBox3.getSelectedItem();
-                    int year2 = (int) comboBox4.getSelectedItem();
+                    int month1 = (int) anioDesdeComboBox.getSelectedItem();
+                    int year1 = (int) mesDesdeCombobox.getSelectedItem();
+                    int month2 = (int) anioHastaCombobox.getSelectedItem();
+                    int year2 = (int) mesHastaCombobox.getSelectedItem();
 
                     // Verificar que los valores sean válidos
                     if (month1 < 1 || month1 > 12 || month2 < 1 || month2 > 12 ||
@@ -159,8 +143,9 @@ public class View implements PropertyChangeListener {
                     }
 
                     // Crear el TableModel con la lista de categorías del modelo
-                    tableModel = new TableModel(controller.getHistoricoModel().getListBills());
-                    tableModel.updateDateRange(this.controller.getHistoricoModel().getListBills(),month1, year1, month2, year2);
+                    tableModel = new DynamicTableModel(this.model.getList(),this.take());
+
+                    //tableModel.updateDateRange(this.controller.getHistoricoModel().getListBills(),month1, year1, month2, year2);
 
                     // Asignar el TableModel a la JTable
                     table.setModel(tableModel);  // Aquí usamos 'table' en lugar de 'list'

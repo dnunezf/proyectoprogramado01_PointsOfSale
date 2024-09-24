@@ -45,8 +45,9 @@ public class Data
     @XmlElement(name = "linea")
     private List<Linea> lineas;
 
-    @XmlElementWrapper(name = "lineas")
-    @XmlElement(name = "linea")
+
+    @XmlElementWrapper(name = "categorias")
+    @XmlElement(name = "categoria")
     private List<Categoria> categorias;
 
     /*Constructor por defecto que inicializa las listas de Clientes, Cajeros y Productos*/

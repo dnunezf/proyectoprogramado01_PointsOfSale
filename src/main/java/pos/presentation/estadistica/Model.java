@@ -2,6 +2,7 @@ package pos.presentation.estadistica;
 
 import pos.Application;
 import pos.logic.Categoria;
+import pos.logic.Factura;
 import pos.presentation.AbstractModel;
 
 import java.beans.PropertyChangeListener;
@@ -96,5 +97,11 @@ public class Model extends AbstractModel
     public void setMode(int mode)
     {
         this.mode = mode;
+    }
+
+    public void addElement(Categoria categoria) {
+
+        this.list.add(categoria);
+
     }
 }
