@@ -90,8 +90,8 @@ public class Application {
 
         // 5. Inicializa las vistas
         facturarView.initialize(tabbedPane, cajerosModel, clientesModel);
-        clientesView.initialize(tabbedPane);
-        cajerosView.initialize(tabbedPane);
+        clientesView.initialize(tabbedPane,facturarView);
+        cajerosView.initialize(tabbedPane,facturarView);
         productosView.initialize(tabbedPane);
         estadisticaView.initialize(tabbedPane);
         historicoView.initialize(tabbedPane);

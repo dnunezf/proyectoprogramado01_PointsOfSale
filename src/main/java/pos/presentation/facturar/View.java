@@ -48,6 +48,7 @@ public class View implements PropertyChangeListener {
 
     public View()
     {
+
         cobrarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

@@ -40,12 +40,14 @@ public class View implements PropertyChangeListener
     private JPanel busquedaPanel;
     private JPanel listadoPanel;
     private JScrollPane listadoScrollPanel;
+    pos.presentation.facturar.View view;
 
-    public void initialize(JTabbedPane tabbedPane)
+    public void initialize(JTabbedPane tabbedPane, pos.presentation.facturar.View view)
     {
         // Configuración del panel y tab
         Icon clientesIcon = new ImageIcon(Application.class.getResource("/pos/presentation/icons/client.png"));
         tabbedPane.addTab("Clientes  ", clientesIcon, this.getPanel());
+        this.view = view;
     }
 
     public View()
@@ -86,6 +88,7 @@ public class View implements PropertyChangeListener
                     {
                         JOptionPane.showMessageDialog(panel, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     }
+                    view.actualizarComboBoxes();
 
                 }
             }
