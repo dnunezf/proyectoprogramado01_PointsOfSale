@@ -1,6 +1,8 @@
 package pos.logic;
 
-import pos.data.Data;
+import pos.data.CategoriaDao;
+import pos.data.ClienteDao;
+import pos.data.ProductoDao;
 import pos.data.XmlPersister;
 
 import java.util.Comparator;
@@ -9,39 +11,33 @@ import java.util.stream.Collectors;
 
 /*Clase Service, implementa operaciones CRUD+S. Patron singleton*/
 
-public class Service
-{
+public class Service {
     /* SINGLETON APPLY */
 
     private static Service instance = null;
 
-    private Data data;
+    private CategoriaDao categoriaDao;
+    private ProductoDao productoDao;
+    private ClienteDao clienteDao;
 
     /*Constructor privado. carga los datos desde un archivo XML, al inicializarse.
-    * Si no se puede cargar, se inicializa una nueva instancia de Data*/
-    private Service()
-    {
-        try
-        {
-            data = XmlPersister.getInstance().load();
-        }
-        catch (Exception e)
-        {
-            data = new Data();
+     * Si no se puede cargar, se inicializa una nueva instancia de Data*/
+    private Service() {
+        try {
+            categoriaDao = new CategoriaDao();
+            productoDao = new ProductoDao();
+            clienteDao = new ClienteDao();
+        } catch (Exception e) {
         }
     }
 
     /*Obtiene instancia unica*/
-    public static Service getInstance()
-    {
-        if (instance == null)
-        {
+    public static Service getInstance() {
+        if (instance == null) {
             // PERMITE QUE EL BLOQUE NO SEA EJECUTADO AL MISMO TIEMPO
             // POR VARIOS PROCESOS
-            synchronized (Service.class)
-            {
-                if (instance == null)
-                {
+            synchronized (Service.class) {
+                if (instance == null) {
                     instance = new Service();
                 }
             }
@@ -50,17 +46,108 @@ public class Service
     }
 
     /*Detiene el servicio y almacena los datos en el archivo XML*/
-    public void stop()
-    {
-        try
-        {
-            XmlPersister.getInstance().store(data);
-        }
-        catch (Exception e)
-        {
-            System.out.println(e);
+    public void stop() {}
+
+    //CRUDS BASADOS EN DAO's
+
+    //================= PRODUCTOS ============
+    public void create(Producto e) throws Exception {
+        productoDao.create(e);
+    }
+
+    public Producto read(Producto e) throws Exception {
+        return productoDao.read(e.getCodigo());
+    }
+
+    public void update(Producto e) throws Exception {
+        productoDao.update(e);
+    }
+
+    public void delete(Producto e) throws Exception {
+        productoDao.delete(e);
+    }
+
+    public List<Producto> search(Producto e) {
+        try {
+            return productoDao.search(e);
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
         }
     }
+
+    //================= CATEGORIAS ============
+
+    public List<Categoria> search(Categoria e) {
+        try {
+            return categoriaDao.search(e);
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+
+
+
+    //================= CLIENTES ============
+    public void create(Cliente e) throws Exception {
+        clienteDao.create(e);
+    }
+
+    public Cliente read(Cliente e) throws Exception {
+        return clienteDao.read(e.getId());
+    }
+
+    public void update(Cliente e) throws Exception {
+        clienteDao.update(e);
+    }
+
+    public void delete(Cliente e) throws Exception {
+        clienteDao.delete(e);
+    }
+
+    public List<Cliente> search(Cliente e) {
+        try {
+            return clienteDao.search(e);
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+
+
+
+
+
+
+
+
+//Cambiar todo lo que sigue a Dao
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /*Implementación CRUD+S lista de objetos Cliente*/
 

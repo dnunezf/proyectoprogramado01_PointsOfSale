@@ -15,6 +15,9 @@ public class Categoria
 {
     /*Atributo tipo, único. Este campo se utiliza como clave primaria en el XML*/
     @XmlID
+
+    private String id;
+
     private String tipo;
 
     @XmlIDREF
@@ -25,6 +28,7 @@ public class Categoria
 
     public Categoria(String tipo) {
 
+        this.id = null;
         this.tipo = tipo;
         this.productosVinculados = new ArrayList<Producto>();
     }
@@ -60,6 +64,17 @@ public class Categoria
     public String toString() {
 
         return this.getTipo();
+    }
+
+    public String getId() {
+
+        return id;
+
+    }
+
+    public void setId(String id) {
+
+        this.id = id;
     }
 
     public double totalPorFecha(LocalDate fecha){
