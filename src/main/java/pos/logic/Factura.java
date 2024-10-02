@@ -130,4 +130,5 @@ public class Factura
                 .mapToDouble(Linea::getImporte) // Usa el método `getImporte()` de la clase Linea
                 .sum();
     }
+
 }

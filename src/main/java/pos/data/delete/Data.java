@@ -1,4 +1,4 @@
-package pos.data;
+package pos.data.delete;
 
 /*SE IMPORTAN LAS CLASES Y PACKAGES A UTILIZAR*/
 import pos.logic.*;

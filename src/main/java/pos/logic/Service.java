@@ -1,9 +1,6 @@
 package pos.logic;
 
-import pos.data.CategoriaDao;
-import pos.data.ClienteDao;
-import pos.data.ProductoDao;
-import pos.data.XmlPersister;
+import pos.data.*;
 
 import java.util.Comparator;
 import java.util.List;
@@ -19,6 +16,8 @@ public class Service {
     private CategoriaDao categoriaDao;
     private ProductoDao productoDao;
     private ClienteDao clienteDao;
+    private FacturaDao facturaDao;
+    private LineaDao lineaDao;
 
     /*Constructor privado. carga los datos desde un archivo XML, al inicializarse.
      * Si no se puede cargar, se inicializa una nueva instancia de Data*/
@@ -27,6 +26,8 @@ public class Service {
             categoriaDao = new CategoriaDao();
             productoDao = new ProductoDao();
             clienteDao = new ClienteDao();
+            facturaDao = new FacturaDao();
+            lineaDao = new LineaDao();
         } catch (Exception e) {
         }
     }
@@ -115,8 +116,56 @@ public class Service {
 
 
 
+    // ================= FACTURAS ============
+    public void create(Factura e) throws Exception {
+        facturaDao.create(e);
+    }
+
+    public Factura read(Factura e) throws Exception {
+        return facturaDao.read(e.getNumeroDeFactura());
+    }
+
+    public void update(Factura e) throws Exception {
+        facturaDao.update(e);
+    }
+
+    public void delete(Factura e) throws Exception {
+        facturaDao.delete(e);
+    }
+
+    public List<Factura> search(Factura e) {
+        try {
+            return facturaDao.search(e);
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
+    }
 
 
+    // ================= LINEAS ============
+    public void create(Linea e) throws Exception {
+        lineaDao.create(e);
+    }
+
+    public Linea read(Linea e) throws Exception {
+        return lineaDao.read(e.getNumeroDeLinea());
+    }
+
+    public void update(Linea e) throws Exception {
+        lineaDao.update(e);
+    }
+
+    public void delete(Linea e) throws Exception {
+        lineaDao.delete(e);
+    }
+
+    public List<Linea> search(Linea e) {
+        try {
+            return lineaDao.search(e);
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
+    }
 
 
 

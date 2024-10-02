@@ -1,4 +1,4 @@
-package pos.data;
+package pos.data.delete;
 
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.Marshaller;
@@ -6,7 +6,6 @@ import jakarta.xml.bind.Unmarshaller;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 
 /*Clase XmlPersister, se encarga de la persistencia de datos en formato XML, permitiendo la
 * serializacion y deserializacion de objetos de la clase Data.
