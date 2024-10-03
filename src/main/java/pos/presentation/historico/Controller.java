@@ -37,11 +37,11 @@ public class Controller
     {
         model.setFilter(filter); // Establece el filtro
 
-        List<Factura> facturas = Service.getInstance().searchBillsByName(filter);
-        model.setListBills(facturas);
-
-        List<Linea> lineas = Service.getInstance().searchLinesByName(filter);
-        model.setListLines(lineas);
+//        List<Factura> facturas = Service.getInstance().searchBillsByName(filter);
+//        model.setListBills(facturas);
+//
+//        List<Linea> lineas = Service.getInstance().searchLinesByName(filter);
+//        model.setListLines(lineas);
 
         model.setMode(Application.MODE_CREATE); // Establece modo de operación en CREAR
         model.setCurrentBill(new Factura()); // Resetea factura actual

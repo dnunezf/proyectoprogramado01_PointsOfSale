@@ -1,5 +1,6 @@
 package pos.data;
 
+import pos.logic.Categoria;
 import pos.logic.Producto;
 
 import java.sql.PreparedStatement;
@@ -104,5 +105,6 @@ public class ProductoDao {
         e.setPrecioUnitario(rs.getFloat(alias + ".precioUnitario"));
         return e;
     }
+
 
 }

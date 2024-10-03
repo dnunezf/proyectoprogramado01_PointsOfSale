@@ -35,7 +35,7 @@ public class Controller {
     public void add(Producto filter)
     {
         try {
-        Producto prod = Service.getInstance().searchOne(filter);
+        Producto prod = (Producto) Service.getInstance().search(filter);
 
         if (prod != null)
         {

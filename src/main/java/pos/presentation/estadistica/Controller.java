@@ -37,21 +37,21 @@ public class Controller {
 
 
     /*Metodo para guardar un cliente. Dependiendo del modo de operacion, crea o actualiza el cliente*/
-    public void save(Categoria categoria) throws Exception
-    {
-        switch (model.getMode())
-        {
-            case Application.MODE_CREATE:
-                Service.getInstance().create(categoria);
-                break;
-
-            case Application.MODE_EDIT:
-                Service.getInstance().update(categoria);
-                break;
-        }
-        model.setFilter(new Categoria());
-        search(model.getFilter());
-    }
+//    public void save(Categoria categoria) throws Exception
+//    {
+//        switch (model.getMode())
+//        {
+//            case Application.MODE_CREATE:
+//                Service.getInstance().create(categoria);
+//                break;
+//
+//            case Application.MODE_EDIT:
+//                Service.getInstance().update(categoria);
+//                break;
+//        }
+//        model.setFilter(new Categoria());
+//        search(model.getFilter());
+//    }
 
     /*Metodo para editar un cliente. Establece el modo en EDITAR, y carga el cliente seleccionado
      * en el modelo*/

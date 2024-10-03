@@ -2,9 +2,7 @@ package pos.logic;
 
 import pos.data.*;
 
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /*Clase Service, implementa operaciones CRUD+S. Patron singleton*/
 
@@ -14,6 +12,7 @@ public class Service {
     private static Service instance = null;
 
     private CategoriaDao categoriaDao;
+    private CajeroDao cajeroDao;
     private ProductoDao productoDao;
     private ClienteDao clienteDao;
     private FacturaDao facturaDao;
@@ -167,7 +166,37 @@ public class Service {
         }
     }
 
+    public Categoria read(Categoria categoria) throws Exception {
+        return categoriaDao.read(categoria.getId());
+    }
 
+    public void delete(Categoria e) throws Exception {
+        categoriaDao.delete(e);
+    }
+
+    public void create(Cajero e) throws Exception {
+        cajeroDao.create(e);
+    }
+
+    public Cajero read(Cajero e) throws Exception {
+        return cajeroDao.read(e.getId());
+    }
+
+    public void update(Cajero e) throws Exception {
+        cajeroDao.update(e);
+    }
+
+    public void delete(Cajero e) throws Exception {
+        cajeroDao.delete(e);
+    }
+
+    public List<Cajero> search(Cajero e) {
+        try {
+            return cajeroDao.search(e);
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
+    }
 
 
 //Cambiar todo lo que sigue a Dao
