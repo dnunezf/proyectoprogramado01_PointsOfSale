@@ -1,24 +1,25 @@
 package pos.data;
 
 import pos.logic.Cliente;
-import pos.logic.Producto;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClienteDao {
+public class ClienteDao
+{
     Database db;
 
     public ClienteDao() {
         db = Database.instance();
     }
 
-    public void create(Cliente e) throws Exception {
+    public void create(Cliente e) throws Exception
+    {
         String sql = "insert into " +
                 "Cliente " +
-                "(id , nombre, telefono,email,descuento) " +
+                "(id,nombre,telefono,email,descuento) " +
                 "values(?,?,?,?,?)";
         PreparedStatement stm = db.prepareStatement(sql);
         stm.setString(1, e.getId());
@@ -29,30 +30,35 @@ public class ClienteDao {
         db.executeUpdate(stm);
     }
 
-    public Cliente read(String id) throws Exception {
+    public Cliente read(String id) throws Exception
+    {
         String sql = "select " +
                 "* " +
-                "from  Cliente t " +
-                "where t.id=?";
+                "from  Cliente c " +
+                "where c.id=?";
+
         PreparedStatement stm = db.prepareStatement(sql);
         stm.setString(1, id);
         ResultSet rs = db.executeQuery(stm);
 
-        if (rs.next()) {
-
-            Cliente r = from(rs, "t");
-
+        if (rs.next())
+        {
+            Cliente r = from(rs, "c");
             return r;
-        } else {
+        }
+        else
+        {
             throw new Exception("Cliente NO EXISTE");
         }
     }
 
-    public void update(Cliente e) throws Exception {
+    public void update(Cliente e) throws Exception
+    {
         String sql = "update " +
                 "Cliente " +
                 "set nombre=?, telefono=?, email=?, descuento=? " +
                 "where id=?";
+
         PreparedStatement stm = db.prepareStatement(sql);
         stm.setString(1, e.getNombre());
         stm.setString(2, e.getTelefono());
@@ -60,35 +66,44 @@ public class ClienteDao {
         stm.setFloat(4, e.getDescuento());
         stm.setString(5, e.getId());
         int count = db.executeUpdate(stm);
-        if (count == 0) {
+
+        if (count == 0)
+        {
             throw new Exception("Cliente NO EXISTE");
         }
 
     }
 
-    public void delete(Cliente e) throws Exception {
+    public void delete(Cliente e) throws Exception
+    {
         String sql = "delete " +
                 "from Cliente " +
                 "where id=?";
+
         PreparedStatement stm = db.prepareStatement(sql);
         stm.setString(1, e.getId());
         int count = db.executeUpdate(stm);
+
         if (count == 0) {
             throw new Exception("Cliente NO EXISTE");
         }
     }
 
-    public List<Cliente> search(Cliente e) throws Exception {
+    public List<Cliente> search(Cliente e) throws Exception
+    {
         List<Cliente> resultado = new ArrayList<Cliente>();
         String sql = "select * " +
                 "from " +
-                "Cliente t " +
-                "where t.descripcion like ?";
+                "Cliente c " +
+                "where c.nombre like ?";
+
         PreparedStatement stm = db.prepareStatement(sql);
         stm.setString(1, "%" + e.getNombre() + "%");
         ResultSet rs = db.executeQuery(stm);
-        while (rs.next()) {
-            Cliente r = from(rs, "t");
+
+        while (rs.next())
+        {
+            Cliente r = from(rs, "c");
             resultado.add(r);
         }
         return resultado;

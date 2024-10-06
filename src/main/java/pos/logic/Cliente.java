@@ -2,20 +2,10 @@ package pos.logic;
 
 /*CLASE CLIENTE, SE IMPLEMENTA LA LÓGICA DEL OBJETO CLIENTE*/
 
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
-import jakarta.xml.bind.annotation.XmlID;
-import jakarta.xml.bind.annotation.XmlIDREF;
-
-import java.util.List;
 import java.util.Objects;
 
-/*Clase diseñada para utilizarse en el contexto de serialización y deserialización XML*/
-@XmlAccessorType(XmlAccessType.FIELD)
 public class Cliente
 {
-    /*Atributo ID, único. Este campo se utiliza como clave primaria en el XML*/
-    @XmlID
     String id;  //Llave primaria
 
     String nombre;

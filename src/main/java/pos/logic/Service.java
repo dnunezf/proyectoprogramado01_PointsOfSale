@@ -18,8 +18,7 @@ public class Service {
     private FacturaDao facturaDao;
     private LineaDao lineaDao;
 
-    /*Constructor privado. carga los datos desde un archivo XML, al inicializarse.
-     * Si no se puede cargar, se inicializa una nueva instancia de Data*/
+    /*Constructor privado*/
     private Service() {
         try {
             categoriaDao = new CategoriaDao();
@@ -27,6 +26,7 @@ public class Service {
             clienteDao = new ClienteDao();
             facturaDao = new FacturaDao();
             lineaDao = new LineaDao();
+            cajeroDao = new CajeroDao();
         } catch (Exception e) {
         }
     }
@@ -45,10 +45,61 @@ public class Service {
         return instance;
     }
 
-    /*Detiene el servicio y almacena los datos en el archivo XML*/
     public void stop() {}
 
     //CRUDS BASADOS EN DAO's
+
+    //================= CLIENTES ============
+    public void create(Cliente e) throws Exception {
+        clienteDao.create(e);
+    }
+
+    public Cliente read(Cliente e) throws Exception {
+        return clienteDao.read(e.getId());
+    }
+
+    public void update(Cliente e) throws Exception {
+        clienteDao.update(e);
+    }
+
+    public void delete(Cliente e) throws Exception {
+        clienteDao.delete(e);
+    }
+
+    public List<Cliente> search(Cliente e) {
+        try {
+            return clienteDao.search(e);
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    //================ CAJEROS ==============
+
+    public void create(Cajero e) throws Exception {
+        cajeroDao.create(e);
+    }
+
+    public Cajero read(Cajero e) throws Exception {
+        return cajeroDao.read(e.getId());
+    }
+
+    public void update(Cajero e) throws Exception {
+        cajeroDao.update(e);
+    }
+
+    public void delete(Cajero e) throws Exception {
+        cajeroDao.delete(e);
+    }
+
+    public List<Cajero> search(Cajero e)
+    {
+        try {
+            return cajeroDao.search(e);
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
+    }
 
     //================= PRODUCTOS ============
     public void create(Producto e) throws Exception {
@@ -84,36 +135,6 @@ public class Service {
             throw new RuntimeException(ex);
         }
     }
-
-
-
-
-    //================= CLIENTES ============
-    public void create(Cliente e) throws Exception {
-        clienteDao.create(e);
-    }
-
-    public Cliente read(Cliente e) throws Exception {
-        return clienteDao.read(e.getId());
-    }
-
-    public void update(Cliente e) throws Exception {
-        clienteDao.update(e);
-    }
-
-    public void delete(Cliente e) throws Exception {
-        clienteDao.delete(e);
-    }
-
-    public List<Cliente> search(Cliente e) {
-        try {
-            return clienteDao.search(e);
-        } catch (Exception ex) {
-            throw new RuntimeException(ex);
-        }
-    }
-
-
 
     // ================= FACTURAS ============
     public void create(Factura e) throws Exception {
@@ -173,31 +194,6 @@ public class Service {
     public void delete(Categoria e) throws Exception {
         categoriaDao.delete(e);
     }
-
-    public void create(Cajero e) throws Exception {
-        cajeroDao.create(e);
-    }
-
-    public Cajero read(Cajero e) throws Exception {
-        return cajeroDao.read(e.getId());
-    }
-
-    public void update(Cajero e) throws Exception {
-        cajeroDao.update(e);
-    }
-
-    public void delete(Cajero e) throws Exception {
-        cajeroDao.delete(e);
-    }
-
-    public List<Cajero> search(Cajero e) {
-        try {
-            return cajeroDao.search(e);
-        } catch (Exception ex) {
-            throw new RuntimeException(ex);
-        }
-    }
-
 
 //Cambiar todo lo que sigue a Dao
 

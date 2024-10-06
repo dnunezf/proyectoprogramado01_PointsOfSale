@@ -61,40 +61,40 @@ public class Application {
         });
 
         // 1. Inicializa los modelos
-        pos.presentation.facturar.Model facturarModel = new pos.presentation.facturar.Model();
+//        pos.presentation.facturar.Model facturarModel = new pos.presentation.facturar.Model();
         pos.presentation.clientes.Model clientesModel = new pos.presentation.clientes.Model();
         pos.presentation.cajeros.Model cajerosModel = new pos.presentation.cajeros.Model();
-        pos.presentation.productos.Model productosModel = new pos.presentation.productos.Model();
-        pos.presentation.estadistica.Model estadisticaModel = new pos.presentation.estadistica.Model();
-        pos.presentation.historico.Model historicoModel = new pos.presentation.historico.Model();
+//        pos.presentation.productos.Model productosModel = new pos.presentation.productos.Model();
+//        pos.presentation.estadistica.Model estadisticaModel = new pos.presentation.estadistica.Model();
+//        pos.presentation.historico.Model historicoModel = new pos.presentation.historico.Model();
 
         // 2. Inicializa las vistas
-        pos.presentation.facturar.View facturarView = new pos.presentation.facturar.View();
+//        pos.presentation.facturar.View facturarView = new pos.presentation.facturar.View();
         pos.presentation.clientes.View clientesView = new pos.presentation.clientes.View();
         pos.presentation.cajeros.View cajerosView = new pos.presentation.cajeros.View();
-        pos.presentation.productos.View productosView = new pos.presentation.productos.View();
-        pos.presentation.estadistica.View estadisticaView = new pos.presentation.estadistica.View();
-        pos.presentation.historico.View historicoView = new pos.presentation.historico.View();
+//        pos.presentation.productos.View productosView = new pos.presentation.productos.View();
+//        pos.presentation.estadistica.View estadisticaView = new pos.presentation.estadistica.View();
+//        pos.presentation.historico.View historicoView = new pos.presentation.historico.View();
 
         // 3. Inicializa los controladores
-        facturarController = new pos.presentation.facturar.Controller(facturarView, facturarModel,productosController);
+//        facturarController = new pos.presentation.facturar.Controller(facturarView, facturarModel,productosController);
         clientesController = new pos.presentation.clientes.Controller(clientesView, clientesModel);
         cajerosController = new pos.presentation.cajeros.Controller(cajerosView, cajerosModel);
-        productosController = new pos.presentation.productos.Controller(productosView, productosModel);
-        facturarController = new pos.presentation.facturar.Controller(facturarView, facturarModel,productosController);
-        estadisticaController = new pos.presentation.estadistica.Controller(estadisticaView, estadisticaModel,historicoModel);
-        historicoController = new pos.presentation.historico.Controller(historicoView, historicoModel);
+//        productosController = new pos.presentation.productos.Controller(productosView, productosModel);
+//        facturarController = new pos.presentation.facturar.Controller(facturarView, facturarModel,productosController);
+//        estadisticaController = new pos.presentation.estadistica.Controller(estadisticaView, estadisticaModel,historicoModel);
+//        historicoController = new pos.presentation.historico.Controller(historicoView, historicoModel);
+//
+//        // 4. Pasa los controladores a las vistas ahora que están inicializados
+//        facturarView.subPanels(facturarController);
 
-        // 4. Pasa los controladores a las vistas ahora que están inicializados
-        facturarView.subPanels(facturarController);
-
-        // 5. Inicializa las vistas
-        facturarView.initialize(tabbedPane, cajerosModel, clientesModel);
-        clientesView.initialize(tabbedPane,facturarView);
-        cajerosView.initialize(tabbedPane,facturarView);
-        productosView.initialize(tabbedPane);
-        estadisticaView.initialize(tabbedPane);
-        historicoView.initialize(tabbedPane);
+//        // 5. Inicializa las vistas
+//        facturarView.initialize(tabbedPane, cajerosModel, clientesModel);
+        clientesView.initialize(tabbedPane);
+        cajerosView.initialize(tabbedPane);
+//        productosView.initialize(tabbedPane);
+//        estadisticaView.initialize(tabbedPane);
+//        historicoView.initialize(tabbedPane);
 
         // 6. Configuración de la ventana
         window.setSize(790, 700);

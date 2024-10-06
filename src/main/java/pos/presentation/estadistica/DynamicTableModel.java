@@ -1,4 +1,4 @@
-package pos.presentation.cajeros;
+package pos.presentation.estadistica;
 
 import pos.logic.Categoria;
 import pos.logic.Estadistica;
@@ -56,17 +56,19 @@ public class DynamicTableModel extends AbstractTableModel<Categoria> implements 
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Categoria categoria = rows.get(rowIndex); // Obtiene la categoría correspondiente a la fila
-        LocalDate fecha = fechas.get(columnIndex); // Obtiene la fecha correspondiente a la columna
-        Estadistica estadistica = datos.get(categoria).get(fecha); // Obtiene la estadística de esa categoría y fecha
-        return estadistica != null ? estadistica.getResultado(categoria,fecha) : null; // Retorna el resultado de la estadística o null si no existe
+//        Categoria categoria = rows.get(rowIndex); // Obtiene la categoría correspondiente a la fila
+//        LocalDate fecha = fechas.get(columnIndex); // Obtiene la fecha correspondiente a la columna
+//        Estadistica estadistica = datos.get(categoria).get(fecha); // Obtiene la estadística de esa categoría y fecha
+//        return estadistica != null ? estadistica.getResultado(categoria,fecha) : null; // Retorna el resultado de la estadística o null si no existe
+        return null;
     }
 
     @Override
     protected Object getPropertyAt(Categoria categoria, int col) {
-        LocalDate fecha = fechas.get(col); // Obtiene la fecha asociada a la columna
-        Estadistica estadistica = datos.get(categoria).get(fecha); // Obtiene la estadística para esa categoría y fecha
-        return estadistica != null ? estadistica.getResultado(categoria,fecha) : null; // Retorna el resultado o null si no existe
+//        LocalDate fecha = fechas.get(col); // Obtiene la fecha asociada a la columna
+//        Estadistica estadistica = datos.get(categoria).get(fecha); // Obtiene la estadística para esa categoría y fecha
+//        return estadistica != null ? estadistica.getResultado(categoria,fecha) : null; // Retorna el resultado o null si no existe
+        return null;
     }
 
     @Override

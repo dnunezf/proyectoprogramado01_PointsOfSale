@@ -42,7 +42,7 @@ public class View implements PropertyChangeListener
     private JScrollPane listadoScrollPanel;
     pos.presentation.facturar.View view;
 
-    public void initialize(JTabbedPane tabbedPane, pos.presentation.facturar.View view)
+    public void initialize(JTabbedPane tabbedPane)
     {
         // Configuración del panel y tab
         Icon clientesIcon = new ImageIcon(Application.class.getResource("/pos/presentation/icons/client.png"));
@@ -69,8 +69,6 @@ public class View implements PropertyChangeListener
                 }
             }
         });
-
-
 
         save.addActionListener(new ActionListener() {
             @Override

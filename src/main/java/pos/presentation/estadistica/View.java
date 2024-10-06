@@ -7,7 +7,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import pos.Application;
 import pos.logic.Categoria;
 import pos.logic.Estadistica;
-import pos.presentation.cajeros.DynamicTableModel;
+import pos.presentation.estadistica.DynamicTableModel;
 
 import java.awt.*;
 import java.io.File;
@@ -18,7 +18,8 @@ import javax.swing.table.TableColumnModel;
 import java.io.IOException;
 import java.time.LocalDate;
 
-public class View implements PropertyChangeListener {
+public class View implements PropertyChangeListener
+{
     private JComboBox<Integer> anioDesdeComboBox;
     private JComboBox<Integer> mesDesdeCombobox;
     private JComboBox<Integer> anioHastaCombobox;

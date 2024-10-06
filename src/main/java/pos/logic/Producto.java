@@ -110,7 +110,7 @@ public class Producto
     public void setCategoria(Categoria categoria) {
 
         this.categoria = categoria;
-        this.categoria.setProductoVinculado(this);
+//        this.categoria.setProductoVinculado(this);
     }
 
     public String toString(){

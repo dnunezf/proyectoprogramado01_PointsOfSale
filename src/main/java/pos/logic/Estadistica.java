@@ -78,10 +78,4 @@ public class Estadistica {
         return dateList;
     }
 
-    public double getResultado(Categoria categoria, LocalDate date){
-
-        return categoria.totalPorFecha(date);
-
-    }
-
 }

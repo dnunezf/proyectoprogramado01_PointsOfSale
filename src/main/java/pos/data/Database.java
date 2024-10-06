@@ -4,9 +4,11 @@ import java.sql.*;
 import java.util.Properties;
 
 public class Database {
+
     private static Database theInstance;
-    //Aplica el singleton
-    public static Database instance() {
+
+    public static Database instance()
+    {
         if (theInstance == null) {
             theInstance = new Database();
         }
@@ -22,7 +24,7 @@ public class Database {
     }
 
     public void getConnection() {
-        try { //Toma los datos de inicio del database.properties
+        try {
             Properties prop = new Properties();
             prop.load(getClass().getResourceAsStream(PROPERTIES_FILE_NAME));
             String driver = prop.getProperty("database_driver");
@@ -36,7 +38,6 @@ public class Database {
                     database + "?user=" + user + "&password=" + password + "&serverTimezone=UTC";
             Class.forName(driver).newInstance();
             cnx = DriverManager.getConnection(URL_conexion);
-
         } catch (Exception e) {
             System.err.println("FALLÓ CONEXION A BASE DE DATOS");
             System.err.println(e.getMessage());
@@ -44,7 +45,6 @@ public class Database {
         }
     }
 
-    //Retorna el comando que se desea ingresar en el CommandClient
     public PreparedStatement prepareStatement(String statement) throws Exception {
         try {
             return cnx.prepareStatement(statement,Statement.RETURN_GENERATED_KEYS);
@@ -52,7 +52,6 @@ public class Database {
             throw new Exception("ERROR DE BASE DE DATOS");
         }
     }
-
 
     public int executeUpdate(PreparedStatement statement) throws Exception {
         try {
@@ -78,7 +77,6 @@ public class Database {
         }
     }
 
-    // Lanza la consulta a la base de datos
     public ResultSet executeQuery(PreparedStatement statement) throws Exception {
         try {
             return statement.executeQuery();
