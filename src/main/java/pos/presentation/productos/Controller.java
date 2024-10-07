@@ -36,7 +36,7 @@ public class Controller
     public Controller(View view, Model model)
     {
         model.init(Service.getInstance().search(new Producto())); // Inicializa el modelo con todos los productos
-        model.setCategorias(Service.getInstance().search(new Categoria()));
+        model.setCategorias(Service.getInstance().search(new Categoria("")));
         this.view = view;
         this.model = model;
 
