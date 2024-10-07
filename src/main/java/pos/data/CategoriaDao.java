@@ -1,8 +1,6 @@
 package pos.data;
 
 import pos.logic.Categoria;
-import pos.logic.Cliente;
-import pos.logic.Producto;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,13 +18,13 @@ public class CategoriaDao {
         List<Categoria> resultado = new ArrayList<Categoria>();
         String sql = "select * " +
                 "from " +
-                "Categoria t " +
-                "where t.nombre like ?";
+                "Categoria c " +
+                "where c.tipo like ?";
         PreparedStatement stm = db.prepareStatement(sql);
         stm.setString(1, "%" + e.getTipo() + "%");
         ResultSet rs = db.executeQuery(stm);
         while (rs.next()) {
-            Categoria r= from(rs, "t");
+            Categoria r= from(rs, "c");
             resultado.add(r);
         }
         return resultado;
@@ -35,7 +33,7 @@ public class CategoriaDao {
     public Categoria from(ResultSet rs, String alias) throws Exception {
         Categoria e = new Categoria();
         e.setId(rs.getString(alias + ".id"));
-        e.setTipo(rs.getString(alias + ".nombre"));
+        e.setTipo(rs.getString(alias + ".tipo"));
         return e;
     }
 

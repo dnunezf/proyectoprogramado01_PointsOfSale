@@ -16,6 +16,7 @@ import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.properties.HorizontalAlignment;
 import com.itextpdf.layout.properties.TextAlignment;
 import pos.Application;
+import pos.logic.Categoria;
 import pos.logic.Producto;
 import pos.logic.Service;
 
@@ -35,7 +36,7 @@ public class Controller
     public Controller(View view, Model model)
     {
         model.init(Service.getInstance().search(new Producto())); // Inicializa el modelo con todos los productos
-
+        model.setCategorias(Service.getInstance().search(new Categoria()));
         this.view = view;
         this.model = model;
 

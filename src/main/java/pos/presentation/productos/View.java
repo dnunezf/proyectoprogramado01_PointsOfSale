@@ -43,52 +43,13 @@ public class View implements PropertyChangeListener {
     private JButton clear;
     private JTextField existTxt;
     private JLabel catLabel;
-    private JComboBox<Categoria> catComboBox;
+    private JComboBox catComboBox;
 
     public void initialize(JTabbedPane tabbedPane)
     {
         // Configuración del panel y tab
         Icon productosIcon = new ImageIcon(Application.class.getResource("/pos/presentation/icons/product.png"));
         tabbedPane.addTab("Productos  ", productosIcon, this.getPanel());
-
-        // Inicializa JComboBox con categorías predefinidas
-        DefaultComboBoxModel<Categoria> model = new DefaultComboBoxModel<>();
-
-        // Lista de categorías predefinidas
-        List<Categoria> categoriasPredefinidas = Arrays.asList(
-                new Categoria("Dulces"),
-                new Categoria("Bebidas"),
-                new Categoria("Abarrotes"),
-                new Categoria("Lácteos"),
-                new Categoria("Congelados"),
-                new Categoria("Panadería"),
-                new Categoria("Carnes"),
-                new Categoria("Frutas y Verduras"),
-                new Categoria("Cereales"),
-                new Categoria("Galletas"),
-                new Categoria("Snacks"),
-                new Categoria("Productos de Limpieza"),
-                new Categoria("Cuidado Personal"),
-                new Categoria("Productos en Conserva"),
-                new Categoria("Salsas y Condimentos"),
-                new Categoria("Comida Rápida"),
-                new Categoria("Pasta y Arroz"),
-                new Categoria("Aceites y Grasas"),
-                new Categoria("Productos para Bebés"),
-                new Categoria("Vinos y Licores"),
-                new Categoria("Ingredientes para Repostería"),
-                new Categoria("Alimentos Internacionales"),
-                new Categoria("Productos Orgánicos"),
-                new Categoria("Café y Té")
-        );
-
-        // Añade las categorías al modelo del JComboBox
-        for (Categoria categoria : categoriasPredefinidas) {
-            model.addElement(categoria);
-        }
-
-        // Asigna el modelo al JComboBox
-        catComboBox.setModel(model);
     }
 
     public View()
@@ -251,6 +212,15 @@ public class View implements PropertyChangeListener {
             existLabel.setToolTipText("Existencia invalida");
         }
 
+        if (catComboBox.getSelectedItem() == null) {
+            valid = false;
+            catComboBox.setBorder(Application.BORDER_ERROR);
+            catComboBox.setToolTipText("Categoria requerida");
+        } else {
+            catComboBox.setBorder(null);
+            catComboBox.setToolTipText(null);
+        }
+
         return valid;
     }
 
@@ -351,6 +321,10 @@ public class View implements PropertyChangeListener {
                 busquedaNombreTxt.setText(model.getFilter().getDescripcion());
                 break;
             }
+
+            case Model.CATEGORIAS:
+                catComboBox.setModel(new DefaultComboBoxModel(model.getCategorias().toArray()));
+                break;
         }
 
         this.panel.revalidate();

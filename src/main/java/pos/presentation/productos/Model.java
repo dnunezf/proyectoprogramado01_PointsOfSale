@@ -1,6 +1,7 @@
 package pos.presentation.productos;
 
 import pos.Application;
+import pos.logic.Categoria;
 import pos.logic.Producto;
 import pos.presentation.AbstractModel;
 
@@ -18,6 +19,7 @@ public class Model extends AbstractModel
     List<Producto> list;
     /*Producto actualmente seleccionado o en edición*/
     Producto current;
+    List<Categoria> categorias;
     /*Modo de operación del modelo, ya sea modificar, ingresar, eliminar...*/
     int mode;
 
@@ -25,6 +27,7 @@ public class Model extends AbstractModel
     public static final String LIST = "list";
     public static final String CURRENT = "current";
     public static final String FILTER = "filter";
+    public static final String CATEGORIAS="categorias";
 
     /*Añade un listener para recibir notificaciones cuando una propiedad cambia*/
     @Override
@@ -34,6 +37,7 @@ public class Model extends AbstractModel
         firePropertyChange(LIST);
         firePropertyChange(CURRENT);
         firePropertyChange(FILTER);
+        firePropertyChange(CATEGORIAS);
     }
 
     public Model()
@@ -86,6 +90,15 @@ public class Model extends AbstractModel
         firePropertyChange(FILTER);
     }
 
+    public List<Categoria> getCategorias()
+    {
+        return categorias;
+    }
+
+    public void setCategorias(List<Categoria> categorias) {
+        this.categorias = categorias;
+        firePropertyChange(CATEGORIAS);
+    }
     public int getMode()
     {
         return mode;

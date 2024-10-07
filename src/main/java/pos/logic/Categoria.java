@@ -1,26 +1,15 @@
 package pos.logic;
 
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
-import jakarta.xml.bind.annotation.XmlID;
-import jakarta.xml.bind.annotation.XmlIDREF;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-/*Clase diseñada para utilizarse en el contexto de serialización y deserialización XML*/
-@XmlAccessorType(XmlAccessType.FIELD)
 public class Categoria
 {
-    /*Atributo tipo, único. Este campo se utiliza como clave primaria en el XML*/
-    @XmlID
-
     private String id;
 
     private String tipo;
 
-    @XmlIDREF
     private List<Producto> productosVinculados;
 
     public Categoria() {

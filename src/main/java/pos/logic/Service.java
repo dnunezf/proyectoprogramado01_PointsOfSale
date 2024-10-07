@@ -101,7 +101,7 @@ public class Service {
         }
     }
 
-    //================= PRODUCTOS ============
+    //================= PRPODUCTOS ============
     public void create(Producto e) throws Exception {
         productoDao.create(e);
     }
@@ -127,7 +127,6 @@ public class Service {
     }
 
     //================= CATEGORIAS ============
-
     public List<Categoria> search(Categoria e) {
         try {
             return categoriaDao.search(e);

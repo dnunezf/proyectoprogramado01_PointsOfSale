@@ -18,7 +18,7 @@ public class ProductoDao {
     public void create(Producto e) throws Exception {
         String sql = "insert into " +
                 "Producto " +
-                "(codigo ,descripcion, unidadMedida,precioUnitario,categoria) " +
+                "(codigo ,descripcion, unidad,precioUnitario,existencias,categoria) " +
                 "values(?,?,?,?,?)";
         PreparedStatement stm = db.prepareStatement(sql);
         stm.setString(1, e.getCodigo());
@@ -51,14 +51,15 @@ public class ProductoDao {
     public void update(Producto e) throws Exception {
         String sql = "update " +
                 "Producto " +
-                "set descripcion=?, unidadMedida=?, precioUnitario=?, categoria=? " +
+                "set descripcion=?, unidadMedida=?, precioUnitario=?, existencias=?, categoria=? " +
                 "where codigo=?";
         PreparedStatement stm = db.prepareStatement(sql);
         stm.setString(1, e.getDescripcion());
         stm.setString(2, e.getUnidad());
         stm.setDouble(3, e.getPrecioUnitario());
-        stm.setString(4, e.getCategoria().getId());
-        stm.setString(5, e.getCodigo());
+        stm.setInt(4, e.getExistencias());
+        stm.setString(5, e.getCategoria().getId());
+        stm.setString(6, e.getCodigo());
         int count = db.executeUpdate(stm);
         if (count == 0) {
             throw new Exception("Producto NO EXISTE");
@@ -103,6 +104,7 @@ public class ProductoDao {
         e.setDescripcion(rs.getString(alias + ".descripcion"));
         e.setUnidad(rs.getString(alias + ".unidadMedida"));
         e.setPrecioUnitario(rs.getFloat(alias + ".precioUnitario"));
+        e.setExistencias(rs.getInt(alias + ".existencias"));
         return e;
     }
 
