@@ -19,7 +19,6 @@ public class Linea
     @XmlIDREF
     private Factura factura;
 
-
     private float descuento;
     private float descuentoCliente; // Nuevo atributo para el descuento del cliente
 
