@@ -186,30 +186,30 @@ public class View implements PropertyChangeListener {
             unidadLabel.setToolTipText(null);
         }
 
-        try
-        {
-            Double.parseDouble(precioTxt.getText());
+        try {
+            double precio = Double.parseDouble(precioTxt.getText());
+            if (precio < 0) {
+                throw new Exception("El precio no puede ser negativo");
+            }
             precioLabel.setBorder(null);
             precioLabel.setToolTipText(null);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             valid = false;
             precioLabel.setBorder(Application.BORDER_ERROR);
-            precioLabel.setToolTipText("Precio invalido");
+            precioLabel.setToolTipText("Precio invalido o negativo");
         }
 
-        try
-        {
-            Integer.parseInt(existTxt.getText());
+        try {
+            int existencias = Integer.parseInt(existTxt.getText());
+            if (existencias < 0) {
+                throw new Exception("Las existencias no pueden ser negativas");
+            }
             existLabel.setBorder(null);
             existLabel.setToolTipText(null);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             valid = false;
             existLabel.setBorder(Application.BORDER_ERROR);
-            existLabel.setToolTipText("Existencia invalida");
+            existLabel.setToolTipText("Existencia invalida o negativa");
         }
 
         if (catComboBox.getSelectedItem() == null) {
