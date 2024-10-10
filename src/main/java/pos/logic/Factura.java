@@ -1,33 +1,20 @@
 package pos.logic;
 
-import jakarta.xml.bind.annotation.*;
-import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.*;
 
-/*Clase diseñada para utilizarse en el contexto de serialización y deserialización XML*/
-@XmlAccessorType(XmlAccessType.FIELD)
 public class Factura
 {
 
-    /*Atributo tipo, único. Este campo se utiliza como clave primaria en el XML*/
-    @XmlID
     private String numeroDeFactura;
 
-    @XmlJavaTypeAdapter(value = LocalDateAdapter.class)
     private LocalDate fecha;
 
-    @XmlIDREF
     private Cliente cliente;
 
-    @XmlIDREF
     private Cajero cajero;
 
-    @XmlIDREF
-    @XmlElementWrapper(name = "lineas")
-    @XmlElement(name = "linea")
     private List<Linea> lineas;
 
     private int metodoDePago;

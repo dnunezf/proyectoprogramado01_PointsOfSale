@@ -9,7 +9,7 @@ import java.util.List;
 
 public class CategoriaDao {
     Database db;
-
+    
     public CategoriaDao() {
         db = Database.instance();
     }

@@ -1,22 +1,13 @@
 package pos.logic;
 
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;/*Clase diseñada para utilizarse en el contexto de serialización y deserialización XML*/
-import jakarta.xml.bind.annotation.XmlID;
-import jakarta.xml.bind.annotation.XmlIDREF;
-
-@XmlAccessorType(XmlAccessType.FIELD)
 public class Linea
 {
-    @XmlID
     private String numeroDeLinea;
 
-    @XmlIDREF
     private Producto productoVendido;
 
     private int cantidadVendida;
 
-    @XmlIDREF
     private Factura factura;
 
     private float descuento;

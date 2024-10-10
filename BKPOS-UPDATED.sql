@@ -59,7 +59,7 @@ CREATE TABLE `categoria` (
 
 LOCK TABLES `categoria` WRITE;
 /*!40000 ALTER TABLE `categoria` DISABLE KEYS */;
-INSERT INTO `categoria` VALUES ('001','Aguas'),('002','Dulces'),('003','Aceites'),('004','Vinos');
+INSERT INTO `categoria` VALUES ('001','Aguas'),('002','Dulces'),('003','Aceites'),('004','Vinos'),('005','Lácteos'),('006','Panadería'),('007','Frutas'),('008','Verduras'),('009','Carnes'),('010','Pescados'),('011','Bebidas Energéticas'),('012','Cereales'),('013','Limpieza'),('014','Electrónica');
 /*!40000 ALTER TABLE `categoria` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -177,6 +177,7 @@ CREATE TABLE `producto` (
 
 LOCK TABLES `producto` WRITE;
 /*!40000 ALTER TABLE `producto` DISABLE KEYS */;
+INSERT INTO `producto` VALUES ('01','Agua','Botella',1000,3,'001'),('02','Vino','Tinto',30000,10,'004');
 /*!40000 ALTER TABLE `producto` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -189,4 +190,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-10-08 20:44:43
+-- Dump completed on 2024-10-10 10:43:05

@@ -14,8 +14,6 @@ public class Producto
     //Marcar el total de existencias vendidas por pruducto
     //para ayudar a los calculos de las ventas por categoria
 
-    private int cantidadVendida;
-
     private Categoria categoria;
 
     private List<Linea> lineasVinculadas;
@@ -28,7 +26,6 @@ public class Producto
         this.precioUnitario = 0;
         this.existencias = 0;
         this.categoria = new Categoria();
-        this.cantidadVendida = 0;
     }
     public Producto(String cod, String desc, String uni, double precio, int exis, Categoria cat){
 
@@ -38,8 +35,6 @@ public class Producto
         this.precioUnitario = precio;
         this.existencias = exis;
         this.categoria = cat;
-        this.cantidadVendida = 0;
-
     }
 
     public String getCodigo() {

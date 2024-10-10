@@ -16,16 +16,16 @@ public class ProductoDao {
     }
 
     public void create(Producto e) throws Exception {
-        String sql = "insert into " +
-                "Producto " +
-                "(codigo ,descripcion, unidad,precioUnitario,existencias,categoria) " +
-                "values(?,?,?,?,?)";
+        String sql = "INSERT INTO Producto " +
+                "(codigo, descripcion, unidad, precioUnitario, existencias, categoria) " +
+                "VALUES (?, ?, ?, ?, ?, ?)";
         PreparedStatement stm = db.prepareStatement(sql);
         stm.setString(1, e.getCodigo());
         stm.setString(2, e.getDescripcion());
         stm.setString(3, e.getUnidad());
         stm.setDouble(4, e.getPrecioUnitario());
-        stm.setString(5, e.getCategoria().getId());
+        stm.setInt(5, e.getExistencias());
+        stm.setString(6, e.getCategoria().getId());
         db.executeUpdate(stm);
     }
 
@@ -51,7 +51,7 @@ public class ProductoDao {
     public void update(Producto e) throws Exception {
         String sql = "update " +
                 "Producto " +
-                "set descripcion=?, unidadMedida=?, precioUnitario=?, existencias=?, categoria=? " +
+                "set descripcion=?, unidad=?, precioUnitario=?, existencias=?, categoria=? " +
                 "where codigo=?";
         PreparedStatement stm = db.prepareStatement(sql);
         stm.setString(1, e.getDescripcion());
@@ -102,11 +102,9 @@ public class ProductoDao {
         Producto e = new Producto();
         e.setCodigo(rs.getString(alias + ".codigo"));
         e.setDescripcion(rs.getString(alias + ".descripcion"));
-        e.setUnidad(rs.getString(alias + ".unidadMedida"));
+        e.setUnidad(rs.getString(alias + ".unidad"));
         e.setPrecioUnitario(rs.getFloat(alias + ".precioUnitario"));
         e.setExistencias(rs.getInt(alias + ".existencias"));
         return e;
     }
-
-
 }
