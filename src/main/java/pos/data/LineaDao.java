@@ -2,8 +2,6 @@ package pos.data;
 
 import pos.logic.Linea;
 import pos.logic.Producto;
-import pos.logic.Factura;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -17,7 +15,7 @@ public class LineaDao {
     }
 
     public void create(Linea e) throws Exception {
-        String sql = "insert into Linea (numeroDeLinea, productoVendido, cantidadVendida, factura, descuento, descuentoCliente) values (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Linea (numeroDeLinea, productoVendido, cantidadVendida, factura, descuento, descuentoCliente) VALUES (?, ?, ?, ?, ?, ?)";
         PreparedStatement stm = db.prepareStatement(sql);
         stm.setString(1, e.getNumeroDeLinea());
         stm.setString(2, e.getProductoVendido().getCodigo());
@@ -29,7 +27,7 @@ public class LineaDao {
     }
 
     public Linea read(String numeroDeLinea) throws Exception {
-        String sql = "select * from Linea t inner join Producto p on t.productoVendido = p.codigo where t.numeroDeLinea = ?";
+        String sql = "SELECT * FROM Linea t INNER JOIN Producto p ON t.productoVendido = p.codigo WHERE t.numeroDeLinea = ?";
         PreparedStatement stm = db.prepareStatement(sql);
         stm.setString(1, numeroDeLinea);
         ResultSet rs = db.executeQuery(stm);
@@ -44,7 +42,7 @@ public class LineaDao {
     }
 
     public void update(Linea e) throws Exception {
-        String sql = "update Linea set productoVendido = ?, cantidadVendida = ?, factura = ?, descuento = ?, descuentoCliente = ? where numeroDeLinea = ?";
+        String sql = "UPDATE Linea SET productoVendido = ?, cantidadVendida = ?, factura = ?, descuento = ?, descuentoCliente = ? WHERE numeroDeLinea = ?";
         PreparedStatement stm = db.prepareStatement(sql);
         stm.setString(1, e.getProductoVendido().getCodigo());
         stm.setInt(2, e.getCantidadVendida());
@@ -59,7 +57,7 @@ public class LineaDao {
     }
 
     public void delete(Linea e) throws Exception {
-        String sql = "delete from Linea where numeroDeLinea = ?";
+        String sql = "DELETE FROM Linea WHERE numeroDeLinea = ?";
         PreparedStatement stm = db.prepareStatement(sql);
         stm.setString(1, e.getNumeroDeLinea());
         int count = db.executeUpdate(stm);
@@ -70,7 +68,7 @@ public class LineaDao {
 
     public List<Linea> search(Linea e) throws Exception {
         List<Linea> resultado = new ArrayList<>();
-        String sql = "select * from Linea t inner join Producto p on t.productoVendido = p.codigo where t.factura = ?";
+        String sql = "SELECT * FROM Linea t INNER JOIN Producto p ON t.productoVendido = p.codigo WHERE t.factura = ?";
         PreparedStatement stm = db.prepareStatement(sql);
         stm.setString(1, e.getFactura().getNumeroDeFactura());
         ResultSet rs = db.executeQuery(stm);

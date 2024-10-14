@@ -18,7 +18,7 @@ public class FacturaDao {
     }
 
     public void create(Factura e) throws Exception {
-        String sql = "insert into Factura (numeroDeFactura, fecha, cliente, cajero) values (?, ?, ?, ?)";
+        String sql = "INSERT INTO Factura (numeroDeFactura, fecha, cliente, cajero) VALUES (?, ?, ?, ?)";
         PreparedStatement stm = db.prepareStatement(sql);
         stm.setString(1, e.getNumeroDeFactura());
         stm.setDate(2, java.sql.Date.valueOf(e.getFecha()));
@@ -35,7 +35,7 @@ public class FacturaDao {
     }
 
     public Factura read(String numeroDeFactura) throws Exception {
-        String sql = "select * from Factura f inner join Cliente c on f.cliente = c.id inner join Cajero cj on f.cajero = cj.id where f.numeroDeFactura = ?";
+        String sql = "SELECT * FROM Factura f INNER JOIN Cliente c ON f.cliente = c.id INNER JOIN Cajero cj ON f.cajero = cj.id WHERE f.numeroDeFactura = ?";
         PreparedStatement stm = db.prepareStatement(sql);
         stm.setString(1, numeroDeFactura);
         ResultSet rs = db.executeQuery(stm);
@@ -58,12 +58,12 @@ public class FacturaDao {
     }
 
     public void update(Factura e) throws Exception {
-        String sql = "update Factura set fecha = ?, cliente = ?, cajero = ? where numeroDeFactura = ?";
+        String sql = "UPDATE Factura SET fecha = ?, cliente = ?, cajero = ? WHERE numeroDeFactura = ?";
         PreparedStatement stm = db.prepareStatement(sql);
         stm.setDate(1, java.sql.Date.valueOf(e.getFecha()));
         stm.setString(2, e.getCliente().getId());
         stm.setString(3, e.getCajero().getId());
-        stm.setString(5, e.getNumeroDeFactura());
+        stm.setString(4, e.getNumeroDeFactura());
         int count = db.executeUpdate(stm);
         if (count == 0) {
             throw new Exception("Factura NO EXISTE");
@@ -84,7 +84,7 @@ public class FacturaDao {
             lineaDao.delete(linea);
         }
 
-        String sql = "delete from Factura where numeroDeFactura = ?";
+        String sql = "DELETE FROM Factura WHERE numeroDeFactura = ?";
         PreparedStatement stm = db.prepareStatement(sql);
         stm.setString(1, e.getNumeroDeFactura());
         int count = db.executeUpdate(stm);
@@ -95,7 +95,7 @@ public class FacturaDao {
 
     public List<Factura> search(Factura e) throws Exception {
         List<Factura> resultado = new ArrayList<>();
-        String sql = "select * from Factura f inner join Cliente c on f.cliente = c.id inner join Cajero cj on f.cajero = cj.id where f.cliente = ?";
+        String sql = "SELECT * FROM Factura f INNER JOIN Cliente c ON f.cliente = c.id INNER JOIN Cajero cj ON f.cajero = cj.id WHERE f.cliente = ?";
         PreparedStatement stm = db.prepareStatement(sql);
         stm.setString(1, e.getCliente().getId());
         ResultSet rs = db.executeQuery(stm);
