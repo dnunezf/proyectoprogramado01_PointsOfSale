@@ -18,12 +18,13 @@ public class FacturaDao {
     }
 
     public void create(Factura e) throws Exception {
-        String sql = "INSERT INTO Factura (numeroDeFactura, fecha, cliente, cajero) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO Factura (numeroDeFactura, fecha, cliente, cajero, metodoDePago) VALUES (?, ?, ?, ?, ?)";
         PreparedStatement stm = db.prepareStatement(sql);
         stm.setString(1, e.getNumeroDeFactura());
         stm.setDate(2, java.sql.Date.valueOf(e.getFecha()));
         stm.setString(3, e.getCliente().getId());
         stm.setString(4, e.getCajero().getId());
+        stm.setInt(5, e.getMetodoDePago());
         db.executeUpdate(stm);
 
         // Insertar las líneas de la factura
@@ -58,12 +59,13 @@ public class FacturaDao {
     }
 
     public void update(Factura e) throws Exception {
-        String sql = "UPDATE Factura SET fecha = ?, cliente = ?, cajero = ? WHERE numeroDeFactura = ?";
+        String sql = "UPDATE Factura SET fecha = ?, cliente = ?, cajero = ?, metodoDePago = ? WHERE numeroDeFactura = ?";
         PreparedStatement stm = db.prepareStatement(sql);
         stm.setDate(1, java.sql.Date.valueOf(e.getFecha()));
         stm.setString(2, e.getCliente().getId());
         stm.setString(3, e.getCajero().getId());
         stm.setString(4, e.getNumeroDeFactura());
+        stm.setInt(5, e.getMetodoDePago());
         int count = db.executeUpdate(stm);
         if (count == 0) {
             throw new Exception("Factura NO EXISTE");
