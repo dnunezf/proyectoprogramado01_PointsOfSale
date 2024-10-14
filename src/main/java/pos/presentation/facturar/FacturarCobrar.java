@@ -88,7 +88,7 @@ public class FacturarCobrar extends JDialog {
 
     private void realizarPago() {
         try {
-            double totalFactura = calcularTotalFactura();  // Asegurar que estamos trabajando con el total correcto
+            double totalFactura = calcularTotalFactura();
             double pagoEfectivo = obtenerValorDeCampo(textFieldEfectivo);
             double pagoTarjeta = obtenerValorDeCampo(textFieldTarjeta);
             double pagoCheque = obtenerValorDeCampo(textFieldCheque);
@@ -97,18 +97,15 @@ public class FacturarCobrar extends JDialog {
             double totalPagado = pagoEfectivo + pagoTarjeta + pagoCheque + pagoSinpe;
 
             if (validarPago(totalPagado, totalFactura)) {
-                // Crear la factura
                 Factura factura = new Factura(generarNumeroFactura(), view.getSelectedCliente(), view.getSelectedCajero(), model.getList());
-
                 Service.getInstance().create(factura);
-
                 JOptionPane.showMessageDialog(null, "Pago realizado con éxito. Factura creada.");
                 dispose();
             }
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Error en los campos de pago. Asegúrate de que todos los valores sean numéricos.");
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            JOptionPane.showMessageDialog(null, "Error al realizar el pago: " + e.getMessage());
         }
     }
 
