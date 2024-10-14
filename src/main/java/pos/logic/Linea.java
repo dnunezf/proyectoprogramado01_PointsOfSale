@@ -19,7 +19,7 @@ public class Linea
         this.numeroDeLinea = "";
         this.productoVendido = null;
         this.cantidadVendida = 1;
-        this.factura = null;
+        this.factura =  new Factura();
         this.descuento = 0;
         this.descuentoCliente = 0;
     }
@@ -28,7 +28,7 @@ public class Linea
         this.numeroDeLinea = numeroLinea != null ? numeroLinea.toString() : "0";
         this.productoVendido = productoVendido;
         this.cantidadVendida = 1;
-        this.factura = null;
+        this.factura = new Factura();
         this.descuento = 0;
         this.descuentoCliente = 0;
         actualizaExistencia();

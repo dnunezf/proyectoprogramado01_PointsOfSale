@@ -21,7 +21,7 @@ public class Controller
     public Controller(View view, Model model)
     {
         // Inicializa el modelo con listas vacías al principio
-        model.init(Service.getInstance().search(new Factura())); // Inicializa con una lista de facturas vacía
+        //model.init(Service.getInstance().search(new Factura())); // Inicializa con una lista de facturas vacía
 
         this.view = view;
         this.model = model;

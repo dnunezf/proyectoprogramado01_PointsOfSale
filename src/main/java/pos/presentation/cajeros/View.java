@@ -35,7 +35,7 @@ public class View implements PropertyChangeListener {
     private JPanel panelInside;
     pos.presentation.facturar.View view;
 
-    public void initialize(JTabbedPane tabbedPane)
+    public void initialize(JTabbedPane tabbedPane, pos.presentation.facturar.View view)
     {
         // Configuración del panel y tab
         Icon cajerosIcon = new ImageIcon(Application.class.getResource("/pos/presentation/icons/cashier.png"));
@@ -102,6 +102,7 @@ public class View implements PropertyChangeListener {
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(panel, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
+                view.actualizarComboBoxes();
             }
         });
 
