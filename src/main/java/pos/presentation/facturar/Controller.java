@@ -34,22 +34,23 @@ public class Controller {
 
     public void add(Producto filter)
     {
-        try {
-        Producto prod = (Producto) Service.getInstance().search(filter);
-
-        if (prod != null)
+        try
         {
-            // Obtiene cliente actual y descuento
-            Cliente clienteActual = (Cliente) view.getComboBoxCli().getSelectedItem();
-            float descuentoCliente = clienteActual != null ? clienteActual.getDescuento() : 0;
+            Producto prod = Service.getInstance().read(filter);
 
-            // Crea una nueva línea de producto
-            Linea nuevaLinea = new Linea(prod, model.getList().size() + 1);
-            nuevaLinea.setDescuentoCliente(descuentoCliente);
+            if (prod != null)
+            {
+                // Obtiene cliente actual y descuento
+                Cliente clienteActual = (Cliente) view.getComboBoxCli().getSelectedItem();
+                float descuentoCliente = clienteActual != null ? clienteActual.getDescuento() : 0;
 
-            // Añade la nueva línea de producto a la lista en el modelo
-            model.getList().add(nuevaLinea);
-            model.setList(model.getList()); // Notifica a la vista sobre el cambio
+                // Crea una nueva línea de producto
+                Linea nuevaLinea = new Linea(prod, model.getList().size() + 1);
+                nuevaLinea.setDescuentoCliente(descuentoCliente);
+
+                // Añade la nueva línea de producto a la lista en el modelo
+                model.getList().add(nuevaLinea);
+                model.setList(model.getList()); // Notifica a la vista sobre el cambio
 
         } else {
             JOptionPane.showMessageDialog(view.getPanel(), "Producto no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
