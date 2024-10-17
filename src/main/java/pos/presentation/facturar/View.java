@@ -48,6 +48,7 @@ public class View implements PropertyChangeListener {
 
     public View()
     {
+        setTableModelProd();
 
         cobrarButton.addActionListener(new ActionListener() {
             @Override
@@ -74,13 +75,37 @@ public class View implements PropertyChangeListener {
         buscarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                try {
+                    // Crear una instancia de FacturarBuscar
 
-                buscar.updateProductList(model.getProductos());
-                buscar.setController(productosController);
-                buscar.setTableModel(tableModelProd);
-                buscar.setSize(400, 400);
-                buscar.setLocationRelativeTo(null);
-                buscar.setVisible(true);
+                    // Configurar la ventana de búsqueda
+                    buscar.setController(productosController);  // Asignar el controlador
+                    buscar.setTableModel();        // Asignar el TableModel
+                    buscar.setSize(400, 400);                    // Tamaño de la ventana
+                    buscar.setLocationRelativeTo(null);          // Centrar en pantalla
+
+                    // Realizar la búsqueda inicial y pasar los productos encontrados
+                    List<Producto> productos = Service.getInstance().search(new Producto());
+                    buscar.setProductos(productos);              // Establecer productos en la tabla
+                    buscar.updateProductList(productos);         // Actualizar la lista en la tabla
+
+                    // Mostrar la ventana de búsqueda
+                    buscar.setVisible(true);
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null,
+                            "Error al buscar productos: " + ex.getMessage(),
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                if(buscar.buscar) {
+                    if (buscar.getCurrent() != null) {
+                        try {
+                            controller.add(buscar.getCurrent());
+                        } catch (Exception ex) {
+                            JOptionPane.showMessageDialog(panel, "Error al agregar producto: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                        actualizarLabels();
+                    }
+                }
             }
         });
 
@@ -374,6 +399,10 @@ public class View implements PropertyChangeListener {
         comboBoxCli.setModel(comboBoxClientes);
     }
 
+    public void setTableModelProd() {
+        int[] cols = {pos.presentation.productos.TableModel.CODIGO, pos.presentation.productos.TableModel.DESCRIPCION, pos.presentation.productos.TableModel.UNIDAD, pos.presentation.productos.TableModel.PRECIO, pos.presentation.productos.TableModel.EXISTENCIAS, pos.presentation.productos.TableModel.CATEGORIA};
+        this.tableModelProd = new pos.presentation.productos.TableModel(cols, Service.getInstance().search(new Producto()));
+    }
 }
 
 

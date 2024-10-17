@@ -2,51 +2,45 @@ package pos.presentation.facturar;
 
 import pos.logic.Producto;
 import pos.logic.Service;
-import pos.presentation.productos.Controller;
-import pos.presentation.productos.TableModel;
+
 import javax.swing.*;
-import javax.swing.table.TableColumnModel;
 import java.awt.event.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.List;
 
-public class FacturarBuscar extends JDialog {
-    private JPanel contentPane;
+public class FacturarBuscar extends JDialog implements PropertyChangeListener {
+    private JPanel contentPane;  // Panel principal
+    private JPanel busquedaPanel;  // Panel de búsqueda agregado
+    private JPanel listadoPanel;  // Panel para la tabla de productos
     private JButton buttonOK;
     private JButton buttonCancel;
-    private JPanel busquedaPanel;
-    private JLabel descLabel;
     private JTextField descTxt;
-    private JPanel listadoPanel;
-    private JScrollPane listadoScrollPanel;
-    private JTable list;
     private JButton search;
+    private JTable list;
+    private JLabel descLabel;
+    private JScrollPane listadoScrollPanel;
     private pos.presentation.productos.TableModel tableModel;
     private pos.presentation.productos.Controller controllerProd;
+    private List<Producto> productos;
+    private Model model;
+    private Producto current;
+    boolean buscar = true;
 
-//    public void setController(pos.presentation.productos.Controller productosController) {
-//        this.controller = productosController;
-//    }
-    Model model;
 
-
+    // Constructor
     public FacturarBuscar() {
+        buttonOK.setEnabled(false);
+
         setContentPane(contentPane);
         setModal(true);
-        getRootPane().setDefaultButton(buttonOK);
 
-        buttonOK.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onOK();
-            }
-        });
+        buttonOK.addActionListener(e -> onOK());
+        buttonCancel.addActionListener(e -> onCancel());
 
-        buttonCancel.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        });
+        // Evento de búsqueda
+        search.addActionListener(e -> onSearch());
 
-        // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
@@ -54,78 +48,131 @@ public class FacturarBuscar extends JDialog {
             }
         });
 
-        // call onCancel() on ESCAPE
-        contentPane.registerKeyboardAction(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
-        search.addActionListener(new ActionListener() {
+        // Cerrar con ESCAPE
+        contentPane.registerKeyboardAction(e -> onCancel(),
+                KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
+                JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+
+
+        list.addMouseListener(new MouseAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    Producto filter = new Producto();
-                    filter.setDescripcion(descTxt.getText());
-                    Service.getInstance().search(filter);
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(contentPane, ex.getMessage(), "Informacion", JOptionPane.INFORMATION_MESSAGE);
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                int row = list.getSelectedRow();
+                if(row > -1)
+                    buttonOK.setEnabled(true);
+                else
+                    buttonOK.setEnabled(false);
+                // Verifica si hay una fila seleccionada
+                if (row != -1) {
+                    current = productos.get(row); // Asigna el producto seleccionado a current
+
+                    // Verifica si se ha hecho un doble clic
+                    if (e.getClickCount() == 2) {
+                        buscar = true;
+                        dispose(); // Cierra el diálogo
+                    }
                 }
             }
         });
-
-        // Inicializamos el TableModel con columnas específicas
-        int[] cols = {pos.presentation.productos.TableModel.CODIGO, pos.presentation.productos.TableModel.DESCRIPCION,pos.presentation.productos.TableModel.UNIDAD,pos.presentation.productos.TableModel.PRECIO,pos.presentation.productos.TableModel.CATEGORIA,pos.presentation.productos.TableModel.EXISTENCIAS};
-        tableModel = new TableModel(cols, List.of() );  // Lista vacía al inicio
-        list.setModel(tableModel);  // Asociamos el TableModel a la JTable
     }
 
-//
+    // Configuración de la interfaz gráfica
 
-    public void updateProductList(List<Producto> productos)
-    {
-        if (productos != null && !productos.isEmpty()) {
-            int[] cols = {TableModel.CODIGO, TableModel.DESCRIPCION, TableModel.UNIDAD, TableModel.PRECIO, TableModel.CATEGORIA, TableModel.EXISTENCIAS};
-            tableModel = new TableModel(cols, productos);  // Actualiza el TableModel con la lista de productos
-            list.setModel(tableModel);  // Actualiza el JTable con el nuevo TableModel
-            tableModel.fireTableDataChanged();  // Notificar cambios en el modelo
-            list.repaint();  // Refresca la tabla visualmente
-        } else {
-            // Si no hay productos, limpiamos la tabla
-            //JOptionPane.showMessageDialog(contentPane,"REGISTRO APLICADO", "", JOptionPane.INFORMATION_MESSAGE);
-            int[] cols = {TableModel.CODIGO, TableModel.DESCRIPCION, TableModel.UNIDAD, TableModel.PRECIO, TableModel.CATEGORIA, TableModel.EXISTENCIAS};
-            tableModel = new TableModel(cols, productos);  // Actualiza el TableModel con la lista de productos
-            list.setModel(tableModel);
-            list.repaint();  // Refresca la tabla visualmente
-        }
 
+
+    public Producto getCurrent() {
+        return current;
     }
 
-    private void onOK() {
-        // add your code here
+    // Acción al presionar OK
+    public void onOK() {
+        buscar = true;
         dispose();
     }
 
-    public void setController(pos.presentation.productos.Controller controller) {
-        this.controllerProd = controller;
-    }
-
-    public void setTableModel(pos.presentation.productos.TableModel tableModel){
-        this.tableModel = tableModel;
-    }
-
+    // Acción al presionar Cancel
     private void onCancel() {
-        // add your code here if necessary
+        buscar = false;
         dispose();
+
     }
 
+    public boolean isBuscar() {
+        return buscar;
+    }
+
+    // Evento de búsqueda
+    private void onSearch() {
+        try {
+            Producto filtro = new Producto();
+            filtro.setDescripcion(descTxt.getText());
+            List<Producto> resultados = Service.getInstance().search(filtro);
+            updateProductList(resultados);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(contentPane, ex.getMessage(),
+                    "Información", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+
+    // Actualiza la lista de productos en la tabla
+    public void updateProductList(List<Producto> productos) {
+        this.productos = productos;
+
+        int[] cols = {
+                pos.presentation.productos.TableModel.CODIGO,
+                pos.presentation.productos.TableModel.DESCRIPCION,
+                pos.presentation.productos.TableModel.UNIDAD,
+                pos.presentation.productos.TableModel.PRECIO,
+                pos.presentation.productos.TableModel.CATEGORIA,
+                pos.presentation.productos.TableModel.EXISTENCIAS
+        };
+
+        tableModel = new pos.presentation.productos.TableModel(cols, productos);
+        list.setModel(tableModel);
+        tableModel.fireTableDataChanged();
+        list.repaint();
+    }
+
+    // Setea el controlador
+    public void setController(pos.presentation.productos.Controller controllerProd) {
+        this.controllerProd = controllerProd;
+    }
+
+    // Setea el modelo de la tabla
+    public void setTableModel() {
+        int[] cols = {
+                pos.presentation.productos.TableModel.CODIGO,
+                pos.presentation.productos.TableModel.DESCRIPCION,
+                pos.presentation.productos.TableModel.UNIDAD,
+                pos.presentation.productos.TableModel.PRECIO,
+                pos.presentation.productos.TableModel.CATEGORIA,
+                pos.presentation.productos.TableModel.EXISTENCIAS
+        };
+        this.tableModel = new pos.presentation.productos.TableModel(cols,productos);
+        list.setModel(tableModel);
+    }
+
+    // Setea la lista de productos
+    public void setProductos(List<Producto> productos) {
+        this.productos = productos;
+        updateProductList(productos);
+    }
+
+    // Evento de cambio de propiedad
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        if (pos.presentation.productos.Model.LIST.equals(evt.getPropertyName())) {
+            updateProductList((List<Producto>) evt.getNewValue());
+        }
+    }
+
+    // Main para pruebas
     public static void main(String[] args) {
         FacturarBuscar dialog = new FacturarBuscar();
         dialog.pack();
+        dialog.setLocationRelativeTo(null);
         dialog.setVisible(true);
         System.exit(0);
-    }
-
-    public void setModel(Model model){
-        this.model = model;
     }
 }

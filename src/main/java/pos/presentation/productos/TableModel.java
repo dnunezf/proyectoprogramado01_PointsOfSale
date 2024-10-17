@@ -11,6 +11,7 @@ import java.util.List;
 
 public class TableModel extends AbstractTableModel<Producto> implements javax.swing.table.TableModel
 {
+    private List<Producto> productos;
     /*Constantes que representan las columnas de la tabla*/
     public static final int CODIGO = 0;
     public static final int DESCRIPCION = 1;
@@ -61,5 +62,9 @@ public class TableModel extends AbstractTableModel<Producto> implements javax.sw
         colNames[PRECIO] = "Precio";
         colNames[CATEGORIA] = "Categoría";
         colNames[EXISTENCIAS] = "Existencias";
+    }
+
+    public void setProductos(List<Producto> productos) {
+        this.productos = productos;
     }
 }
