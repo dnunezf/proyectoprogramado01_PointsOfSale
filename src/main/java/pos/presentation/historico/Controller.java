@@ -8,6 +8,7 @@ import pos.logic.*;
 import pos.presentation.historico.Model;
 import pos.presentation.historico.View;
 
+import javax.swing.*;
 import java.util.List;
 
 public class Controller
@@ -20,15 +21,29 @@ public class Controller
     /*Inicializa el modelo con una lista de facturas y líneas obtenidas de Servicio*/
     public Controller(View view, Model model)
     {
-        // Inicializa el modelo con listas vacías al principio
-        //model.init(Service.getInstance().search(new Factura())); // Inicializa con una lista de facturas vacía
+        if (model == null || view == null) {
+            throw new IllegalArgumentException("El modelo y la vista no pueden ser nulos.");
+        }
 
-        this.view = view;
         this.model = model;
+        this.view = view;
 
+        // Inicializar el modelo con datos
+        try {
+            model.init(Service.getInstance().search(new Factura()));
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null,
+                    "Error al inicializar el modelo: " + ex.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
 
-        view.setController(this);
+        // Enlazar la vista con el modelo y el controlador
+
         view.setModel(model);
+        view.setController(this);
+
+        this.model = model;
+        this.view = view;
     }
 
     /*Método para buscar clientes que coincidan con los criterios del filtro especificado.

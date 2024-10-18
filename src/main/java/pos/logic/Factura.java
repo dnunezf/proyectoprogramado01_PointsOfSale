@@ -34,7 +34,10 @@ public class Factura
         this.metodoDePago = VARIADO;
     }
 
+
     public Factura() {
+        this.cajero = new Cajero();
+        this.cliente = new Cliente();
         this.lineas = new ArrayList<>();
     }
 

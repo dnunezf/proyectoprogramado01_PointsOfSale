@@ -66,7 +66,7 @@ public class Application {
         pos.presentation.cajeros.Model cajerosModel = new pos.presentation.cajeros.Model();
         pos.presentation.productos.Model productosModel = new pos.presentation.productos.Model();
       //  pos.presentation.estadistica.Model estadisticaModel = new pos.presentation.estadistica.Model();
-//        pos.presentation.historico.Model historicoModel = new pos.presentation.historico.Model();
+        pos.presentation.historico.Model historicoModel = new pos.presentation.historico.Model();
 
         // 2. Inicializa las vistas
         pos.presentation.facturar.View facturarView = new pos.presentation.facturar.View();
@@ -74,7 +74,7 @@ public class Application {
         pos.presentation.cajeros.View cajerosView = new pos.presentation.cajeros.View();
         pos.presentation.productos.View productosView = new pos.presentation.productos.View();
       //  pos.presentation.estadistica.View estadisticaView = new pos.presentation.estadistica.View();
-//        pos.presentation.historico.View historicoView = new pos.presentation.historico.View();
+        pos.presentation.historico.View historicoView = new pos.presentation.historico.View();
 
         // 3. Inicializa los controladores
         facturarController = new pos.presentation.facturar.Controller(facturarView, facturarModel,productosController);
@@ -83,9 +83,9 @@ public class Application {
         productosController = new pos.presentation.productos.Controller(productosView, productosModel);
         facturarController = new pos.presentation.facturar.Controller(facturarView, facturarModel,productosController);
        // estadisticaController = new pos.presentation.estadistica.Controller(estadisticaView, estadisticaModel,historicoModel);
-//        historicoController = new pos.presentation.historico.Controller(historicoView, historicoModel);
+       historicoController = new pos.presentation.historico.Controller(historicoView, historicoModel);
 //
-//        // 4. Pasa los controladores a las vistas ahora que están inicializados
+        // 4. Pasa los controladores a las vistas ahora que están inicializados
         facturarView.subPanels(facturarController);
 
 //        // 5. Inicializa las vistas
@@ -94,7 +94,7 @@ public class Application {
         cajerosView.initialize(tabbedPane,facturarView);
         productosView.initialize(tabbedPane);
        // estadisticaView.initialize(tabbedPane);
-//        historicoView.initialize(tabbedPane);
+        historicoView.initialize(tabbedPane);
 
         // 6. Configuración de la ventana
         window.setSize(790, 700);

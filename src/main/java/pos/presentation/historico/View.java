@@ -143,4 +143,54 @@ public class View implements PropertyChangeListener {
 
         this.panel.revalidate();
         }
+
+    public void update() {
+        // Refrescar la tabla de facturas
+        int[] facturaCols = {
+                TableModel.NUMERO, TableModel.CLIENTE, TableModel.CAJERO,
+                TableModel.FECHA, TableModel.IMPORTE
+        };
+        listFactura.setModel(new TableModel(facturaCols, model.getListBills()));
+        listFactura.setRowHeight(30);
+
+        // Ajustar el ancho de columnas para la tabla de facturas
+        TableColumnModel facturaColumnModel = listFactura.getColumnModel();
+        facturaColumnModel.getColumn(1).setPreferredWidth(150); // Cliente
+        facturaColumnModel.getColumn(3).setPreferredWidth(150); // Fecha
+
+        // Refrescar la tabla de líneas si existen líneas disponibles
+        if (model.getListLines() != null) {
+            int[] lineaCols = {
+                    pos.presentation.facturar.TableModel.CODIGO,
+                    pos.presentation.facturar.TableModel.ARTICULO,
+                    pos.presentation.facturar.TableModel.CATEGORIA,
+                    pos.presentation.facturar.TableModel.CANTIDAD,
+                    pos.presentation.facturar.TableModel.PRECIO,
+                    pos.presentation.facturar.TableModel.DESCUENTO,
+                    pos.presentation.facturar.TableModel.NETO,
+                    pos.presentation.facturar.TableModel.IMPORTE
+            };
+
+            pos.presentation.facturar.TableModel lineasModel =
+                    new pos.presentation.facturar.TableModel(lineaCols, model.getListLines());
+
+            listLineas.setModel(lineasModel);
+            listLineas.setRowHeight(30);
+
+            // Ajustar el ancho de columnas para la tabla de líneas
+            TableColumnModel lineasColumnModel = listLineas.getColumnModel();
+            for (int i = 0; i < lineasColumnModel.getColumnCount(); i++) {
+                lineasColumnModel.getColumn(i).setPreferredWidth(300);
+            }
+
+            lineasModel.fireTableDataChanged(); // Notificar cambios
+        }
+
+        // Sincronizar el texto del filtro con el modelo
+        busquedaClienteTxt.setText(model.getFilter().getNombre());
+
+        // Asegurarse de que la interfaz gráfica se actualice completamente
+        panel.revalidate();
+        panel.repaint();
+    }
 }
