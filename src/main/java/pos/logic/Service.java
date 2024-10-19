@@ -207,7 +207,9 @@ public class Service {
         if (!clientes.isEmpty()) {
             // Usar el primer cliente que coincida (puedes ajustar la lógica si es necesario)
             Cliente cliente = clientes.get(0);
-            return facturaDao.search(new Factura()); // Esto debería filtrar las facturas por el cliente
+            Factura filtroFactura = new Factura();
+            filtroFactura.setCliente(cliente); // Asignar el cliente como filtro
+            return facturaDao.search(filtroFactura); // Ahora filtramos facturas por cliente
         } else {
             throw new Exception("No se encontró ningún cliente con el nombre especificado.");
         }
