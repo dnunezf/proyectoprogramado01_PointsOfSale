@@ -43,32 +43,24 @@ public class Model extends AbstractModel
         firePropertyChange(LIST_LINES);
     }
 
-    public Model()
-    {
-
+    public Model() {
+        this.listBills = new ArrayList<>(); // Inicializar la lista de facturas
+        this.listLines = new ArrayList<>();  // Inicializar la lista de líneas
+        this.filter = new Cliente();           // Filtro inicial vacío
+        this.mode = Application.MODE_CREATE;   // Modo de operación
     }
 
-    /*Inicializa la vista con una lista de facturas, lista de lineas, factura actual vacio y un filtro vacio*/
-    public void init(List<Factura> listBills)
-    {
-        if (listBills == null || listBills.isEmpty()) {
-//            // Mostrar mensaje de información si no hay facturas disponibles
-//            JOptionPane.showMessageDialog(null,
-//                    "No hay facturas disponibles.",
-//                    "Información", JOptionPane.INFORMATION_MESSAGE);
-            this.currentBill = new Factura();  // Factura vacía por defecto
-        } else {
-            // Mostrar mensaje con el número de facturas cargadas
+    public void init(List<Factura> listBills) {
+        this.listBills.clear(); // Limpiar la lista antes de inicializar
+        if (listBills != null && !listBills.isEmpty()) {
+            this.listBills.addAll(listBills);
+            this.currentBill = listBills.get(0);  // Usar la primera factura
             JOptionPane.showMessageDialog(null,
                     "Facturas cargadas: " + listBills.size(),
                     "Información", JOptionPane.INFORMATION_MESSAGE);
-            this.currentBill = listBills.get(0);  // Usar la primera factura
+        } else {
+            this.currentBill = new Factura(); // Factura vacía por defecto
         }
-
-        this.listBills = listBills;
-        this.listLines = new ArrayList<>();  // Inicializar lista de líneas vacía
-        this.filter = new Cliente();         // Filtro inicial vacío
-        this.mode = Application.MODE_CREATE; // Modo de operación
     }
 
     /*GETTERS AND SETTERS

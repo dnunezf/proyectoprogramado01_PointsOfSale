@@ -40,35 +40,28 @@ public class View implements PropertyChangeListener {
         search.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try
-                {
+                try {
                     Cliente filter = new Cliente();
-
-                    filter.setNombre(busquedaClienteTxt.getText());
-
+                    filter.setNombre(busquedaClienteTxt.getText().trim()); // Asegúrate de eliminar espacios en blanco
                     controller.search(filter);
-                }
-                catch (Exception ex)
-                {
-                    JOptionPane.showMessageDialog(panel, ex.getMessage(), "Informacion", JOptionPane.INFORMATION_MESSAGE);
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(panel, ex.getMessage(), "Información", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         });
 
-        // Agregar MouseListener a la tabla de facturas (listFactura)
         listFactura.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 int selectedRow = listFactura.getSelectedRow();
                 if (selectedRow != -1) {
-                    // Obtener la factura seleccionada desde la tabla
                     Factura facturaSeleccionada = model.getListBills().get(selectedRow);
-
-                    // Pasar la factura seleccionada al controlador para obtener sus líneas
-                    try {
-                        controller.loadLinesForSelectedBill(facturaSeleccionada);
-                    } catch (Exception ex) {
-                        JOptionPane.showMessageDialog(panel, "Error al cargar líneas: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    if (facturaSeleccionada != null) {
+                        try {
+                            controller.loadLinesForSelectedBill(facturaSeleccionada);
+                        } catch (Exception ex) {
+                            JOptionPane.showMessageDialog(panel, "Error al cargar líneas: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                        }
                     }
                 }
             }
@@ -142,7 +135,7 @@ public class View implements PropertyChangeListener {
         }
 
         this.panel.revalidate();
-        }
+    }
 
     public void update() {
         // Refrescar la tabla de facturas

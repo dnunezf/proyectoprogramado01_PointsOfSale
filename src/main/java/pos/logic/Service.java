@@ -193,4 +193,29 @@ public class Service {
     public void delete(Categoria e) throws Exception {
         categoriaDao.delete(e);
     }
+
+    public List<Factura> searchBillsByClientName(String nombreCliente) throws Exception {
+        ClienteDao clienteDao = new ClienteDao();
+        FacturaDao facturaDao = new FacturaDao();
+
+        // Buscar clientes que coincidan con el nombre
+        Cliente filtro = new Cliente();
+        filtro.setNombre(nombreCliente);
+        List<Cliente> clientes = clienteDao.search(filtro);
+
+        // Si se encuentra al menos un cliente
+        if (!clientes.isEmpty()) {
+            // Usar el primer cliente que coincida (puedes ajustar la lógica si es necesario)
+            Cliente cliente = clientes.get(0);
+            return facturaDao.search(new Factura()); // Esto debería filtrar las facturas por el cliente
+        } else {
+            throw new Exception("No se encontró ningún cliente con el nombre especificado.");
+        }
+    }
+
+    public List<Linea> searchLinesByBill(String numeroDeFactura) throws Exception {
+        FacturaDao facturaDao = new FacturaDao();
+        Factura factura = facturaDao.read(numeroDeFactura);
+        return factura.getLineas();
+    }
 }

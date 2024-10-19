@@ -17,10 +17,7 @@ public class Controller
     View view;
     Model model;
 
-
-    /*Inicializa el modelo con una lista de facturas y líneas obtenidas de Servicio*/
-    public Controller(View view, Model model)
-    {
+    public Controller(View view, Model model) {
         if (model == null || view == null) {
             throw new IllegalArgumentException("El modelo y la vista no pueden ser nulos.");
         }
@@ -30,56 +27,49 @@ public class Controller
 
         // Inicializar el modelo con datos
         try {
-            model.init(Service.getInstance().search(new Factura()));
+            List<Factura> facturas = Service.getInstance().search(new Factura());
+            model.init(facturas);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null,
                     "Error al inicializar el modelo: " + ex.getMessage(),
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
 
-        // Enlazar la vista con el modelo y el controlador
-
         view.setModel(model);
         view.setController(this);
-
-        this.model = model;
-        this.view = view;
     }
 
-    /*Método para buscar clientes que coincidan con los criterios del filtro especificado.
-     * Actualiza el modelo con los resultados de la búsqueda*/
-    public void search(Cliente filter) throws Exception
-    {
+    public void search(Cliente filter) throws Exception {
         model.setFilter(filter); // Establece el filtro
+        List<Factura> facturas = Service.getInstance().searchBillsByClientName(filter.getNombre()); // Asegúrate de que estás usando el nombre del cliente
+        model.setListBills(facturas);
 
-//        List<Factura> facturas = Service.getInstance().searchBillsByName(filter);
-//        model.setListBills(facturas);
-//
-//        List<Linea> lineas = Service.getInstance().searchLinesByName(filter);
-//        model.setListLines(lineas);
+        if (!facturas.isEmpty()) {
+            loadLinesForSelectedBill(facturas.get(0));
+        }
 
-        model.setMode(Application.MODE_CREATE); // Establece modo de operación en CREAR
-        model.setCurrentBill(new Factura()); // Resetea factura actual
+        model.setMode(Application.MODE_CREATE);
+        model.setCurrentBill(new Factura());
     }
 
     public void loadLinesForSelectedBill(Factura factura) throws Exception {
         // Obtener las líneas de la factura seleccionada
-        List<Linea> lineas = factura.getLineas();
-
-        // Actualizar el modelo con las líneas obtenidas
-        model.setCurrentBill(factura); // Actualizar la factura actual en el modelo
-        model.setListLines(lineas); // Actualizar las líneas de la factura en el modelo
+        if (factura != null) {
+            List<Linea> lineas = factura.getLineas();
+            model.setCurrentBill(factura); // Actualizar la factura actual en el modelo
+            if (lineas != null) {
+                model.setListLines(lineas); // Actualizar las líneas de la factura en el modelo
+            }
+        }
     }
 
-    public void addFactura(Factura factura)
-    {
+    public void addFactura(Factura factura) {
         List<Factura> facturas = model.getListBills();
         facturas.add(factura);
         model.setListBills(facturas);
     }
 
     public Model getModel() {
-
         return model;
     }
 }
