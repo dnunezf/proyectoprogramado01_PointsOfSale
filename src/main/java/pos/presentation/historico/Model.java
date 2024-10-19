@@ -52,10 +52,10 @@ public class Model extends AbstractModel
     public void init(List<Factura> listBills)
     {
         if (listBills == null || listBills.isEmpty()) {
-            // Mostrar mensaje de información si no hay facturas disponibles
-            JOptionPane.showMessageDialog(null,
-                    "No hay facturas disponibles.",
-                    "Información", JOptionPane.INFORMATION_MESSAGE);
+//            // Mostrar mensaje de información si no hay facturas disponibles
+//            JOptionPane.showMessageDialog(null,
+//                    "No hay facturas disponibles.",
+//                    "Información", JOptionPane.INFORMATION_MESSAGE);
             this.currentBill = new Factura();  // Factura vacía por defecto
         } else {
             // Mostrar mensaje con el número de facturas cargadas
