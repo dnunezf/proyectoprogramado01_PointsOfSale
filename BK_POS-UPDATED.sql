@@ -35,7 +35,7 @@ CREATE TABLE `cajero` (
 
 LOCK TABLES `cajero` WRITE;
 /*!40000 ALTER TABLE `cajero` DISABLE KEYS */;
-INSERT INTO `cajero` VALUES ('19980569','Mario Nunez');
+INSERT INTO `cajero` VALUES ('19980569','Mario Nunez'),('XXXXX','PRUEBA');
 /*!40000 ALTER TABLE `cajero` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -86,7 +86,7 @@ CREATE TABLE `cliente` (
 
 LOCK TABLES `cliente` WRITE;
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
-INSERT INTO `cliente` VALUES ('119080008','David','85581706','david.a.nunez27@outlook.com',1000);
+INSERT INTO `cliente` VALUES ('111','XXX','XXX','XXX',0),('111130569','Karla Franco','85581706','karla@gmail.com',15),('119080008','David','85581706','david.a.nunez27@outlook.com',10);
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -117,6 +117,7 @@ CREATE TABLE `factura` (
 
 LOCK TABLES `factura` WRITE;
 /*!40000 ALTER TABLE `factura` DISABLE KEYS */;
+INSERT INTO `factura` VALUES ('FAC-1729355296629','2024-10-19','119080008','19980569',4),('FAC-1729358497695','2024-10-19','111130569','19980569',4),('FAC-1729361154626','2024-10-19','111130569','19980569',4),('FAC-1729370595670','2024-10-19','119080008','19980569',4),('FAC-1729370856497','2024-10-19','111130569','19980569',4),('FAC-1729371144987','2024-10-19','111130569','19980569',4),('FAC-1729371755042','2024-10-19','111','19980569',4);
 /*!40000 ALTER TABLE `factura` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -134,7 +135,6 @@ CREATE TABLE `linea` (
   `factura` varchar(50) DEFAULT NULL,
   `descuento` float DEFAULT '0',
   `descuentoCliente` float DEFAULT '0',
-  PRIMARY KEY (`numeroDeLinea`),
   KEY `productoVendido` (`productoVendido`),
   KEY `factura` (`factura`),
   CONSTRAINT `linea_ibfk_1` FOREIGN KEY (`productoVendido`) REFERENCES `producto` (`codigo`),
@@ -148,6 +148,7 @@ CREATE TABLE `linea` (
 
 LOCK TABLES `linea` WRITE;
 /*!40000 ALTER TABLE `linea` DISABLE KEYS */;
+INSERT INTO `linea` VALUES ('1','03',1,'FAC-1729371755042',0,0);
 /*!40000 ALTER TABLE `linea` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -177,8 +178,32 @@ CREATE TABLE `producto` (
 
 LOCK TABLES `producto` WRITE;
 /*!40000 ALTER TABLE `producto` DISABLE KEYS */;
-INSERT INTO `producto` VALUES ('01','Agua','Botella',1000,3,'001'),('02','Vino','Tinto',30000,10,'004');
+INSERT INTO `producto` VALUES ('01','Agua','Botella',1000,3,'001'),('02','Vino','Tinto',30000,10,'004'),('03','XXX','XXX',1000,10,'006');
 /*!40000 ALTER TABLE `producto` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `user`
+--
+
+DROP TABLE IF EXISTS `user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `user` (
+  `id` varchar(45) NOT NULL,
+  `password` varchar(200) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user`
+--
+
+LOCK TABLES `user` WRITE;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES ('dnunezf','david012');
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -190,4 +215,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-10-10 10:43:05
+-- Dump completed on 2024-10-19 18:06:22

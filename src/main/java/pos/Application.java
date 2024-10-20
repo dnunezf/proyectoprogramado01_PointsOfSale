@@ -17,6 +17,8 @@
 package pos;
 
 import pos.logic.Service;
+import pos.logic.User;
+import pos.presentation.Login;
 import pos.presentation.facturar.FacturarBuscar;
 
 import javax.swing.*;
@@ -48,6 +50,17 @@ public class Application {
         }
         ;
 
+        // 1. Mostrar el formulario de inicio de sesión
+        Login loginDialog = new Login(window); // Crear el dialogo de login
+        User authenticatedUser = loginDialog.user; // Obtener el usuario autenticado
+
+        // 2. Verificar si el usuario se autenticó correctamente
+        if (authenticatedUser == null) {
+            // Si no se autenticó, salir de la aplicación
+            System.exit(0);
+        }
+
+        // 3. Si la autenticación fue exitosa, inicializar la ventana principal
         window = new JFrame();
         JTabbedPane tabbedPane = new JTabbedPane();
         window.setContentPane(tabbedPane);
