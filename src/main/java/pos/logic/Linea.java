@@ -55,10 +55,11 @@ public class Linea
     }
 
 
-    public void actualizaExistencia() {
+    public void actualizaExistencia() throws Exception {
         int nuevasExistencias = productoVendido.getExistencias() - cantidadVendida;
         if (nuevasExistencias >= 0) {
             productoVendido.setExistencias(nuevasExistencias);
+            Service.getInstance().update(productoVendido);
         } else {
             throw new IllegalArgumentException("No hay suficientes existencias para la cantidad vendida");
         }

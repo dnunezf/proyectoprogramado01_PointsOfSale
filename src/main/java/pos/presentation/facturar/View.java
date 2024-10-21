@@ -58,11 +58,11 @@ public class View implements PropertyChangeListener {
                     cobrar.setLocationRelativeTo(null);
                     cobrar.setVisible(true);
 
-//                    // Limpiar la lista de productos
-//                    model.getList().clear();
-//
-//                    // Actualizar el modelo para reflejar los cambios
-//                    model.setList(model.getList());
+                    // Limpiar la lista de productos
+                    model.getList().clear();
+
+                    // Actualizar el modelo para reflejar los cambios
+                    model.setList(model.getList());
 
                     // Actualizar las etiquetas
                     actualizarLabels();

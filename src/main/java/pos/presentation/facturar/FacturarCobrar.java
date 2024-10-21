@@ -1,9 +1,6 @@
 package pos.presentation.facturar;
 
-import pos.logic.Cajero;
-import pos.logic.Cliente;
-import pos.logic.Factura;
-import pos.logic.Service;
+import pos.logic.*;
 import pos.presentation.historico.*;
 import pos.presentation.facturar.*;
 import javax.swing.*;
@@ -99,6 +96,9 @@ public class FacturarCobrar extends JDialog {
             if (validarPago(totalPagado, totalFactura)) {
                 Factura factura = new Factura(generarNumeroFactura(), view.getSelectedCliente(), view.getSelectedCajero(), model.getList());
                 Service.getInstance().create(factura);
+                for(Linea linea : model.getList()){
+                    linea.actualizaExistencia();
+                }
                 JOptionPane.showMessageDialog(null, "Pago realizado con éxito. Factura creada.");
                 dispose();
             }
