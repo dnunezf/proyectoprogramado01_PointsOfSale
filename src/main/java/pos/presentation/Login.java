@@ -15,9 +15,9 @@ public class Login extends JDialog{
     private JLabel idLabel;
     private JTextField idTxt;
     private JLabel claveLabel;
-    private JTextField claveTxt;
     private JButton loginButton;
     private JPanel buttonPanel;
+    private JPasswordField claveTxt;
 
     public Login(JFrame frame)
     {
