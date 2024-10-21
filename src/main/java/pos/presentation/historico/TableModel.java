@@ -27,8 +27,7 @@ public class TableModel extends AbstractTableModel<Factura> implements javax.swi
     /*Obtiene el valor de la propiedad correspondiente a una columna
      * especifica, de datos de una factura en particular*/
     @Override
-    protected Object getPropertyAt(Factura factura, int col)
-    {
+    protected Object getPropertyAt(Factura factura, int col) throws Exception {
         switch (cols[col])
         {
             case NUMERO: return factura.getNumeroDeFactura();

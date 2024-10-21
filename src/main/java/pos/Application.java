@@ -50,13 +50,13 @@ public class Application {
         }
         ;
 
-        Login loginDialog = new Login(window);
-        User authenticatedUser = loginDialog.user;
-
-        if (authenticatedUser == null) {
-            // Si no se autenticó, salir de la aplicación
-            System.exit(0);
-        }
+//        Login loginDialog = new Login(window);
+//        User authenticatedUser = loginDialog.user;
+//
+//        if (authenticatedUser == null) {
+//            // Si no se autenticó, salir de la aplicación
+//            System.exit(0);
+//        }
 
         // 3. Si la autenticación fue exitosa, inicializar la ventana principal
         window = new JFrame();

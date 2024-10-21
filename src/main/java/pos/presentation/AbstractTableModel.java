@@ -54,11 +54,15 @@ public abstract class AbstractTableModel<E> extends javax.swing.table.AbstractTa
     {
         E e = rows.get(row);
 
-        return getPropertyAt(e, col);
+        try {
+            return getPropertyAt(e, col);
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     /*Obtiene el valor de la propiedad de un objeto, en una columna especifica*/
-    protected abstract Object getPropertyAt(E e, int col);
+    protected abstract Object getPropertyAt(E e, int col) throws Exception;
 
     /*Devuelve el objeto en la fila especificada*/
     public E getRowAt(int row)

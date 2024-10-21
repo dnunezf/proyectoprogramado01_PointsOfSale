@@ -115,8 +115,9 @@ public class Factura
         lineas.clear();
     }
 
-    public double calcularTotal() {
-        return lineas.stream()
+    public double calcularTotal() throws Exception {
+        List<Linea> lineas1 = Service.getInstance().searchLinesByBill(numeroDeFactura);
+        return lineas1.stream()
                 .mapToDouble(Linea::getImporte) // Usa el método `getImporte()` de la clase Linea
                 .sum();
     }
