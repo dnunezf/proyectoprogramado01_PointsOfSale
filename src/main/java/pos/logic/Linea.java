@@ -17,7 +17,7 @@ public class Linea
     {
         // Inicialización por defecto
         this.numeroDeLinea = "";
-        this.productoVendido = null;
+        this.productoVendido = new Producto();
         this.cantidadVendida = 1;
         this.factura =  new Factura();
         this.descuento = 0;
@@ -31,7 +31,7 @@ public class Linea
         this.factura = new Factura();
         this.descuento = 0;
         this.descuentoCliente = 0;
-        actualizaExistencia();
+       // actualizaExistencia();
     }
 
     public Linea(Producto productoVendido, Factura factura) {
@@ -42,7 +42,11 @@ public class Linea
         this.cantidadVendida = 1;
         this.descuento = 0;
         this.descuentoCliente = 0; // Inicializa el descuento del cliente
-        actualizaExistencia();
+       // actualizaExistencia();
+    }
+
+    public Linea(Factura r) {
+        this.factura = r;
     }
 
     public float getMontoPendiente(){
@@ -91,7 +95,7 @@ public class Linea
             throw new IllegalArgumentException("La cantidad vendida debe ser mayor que 0");
         }
         this.cantidadVendida = cantidadVendida;
-        actualizaExistencia();
+        //actualizaExistencia();
     }
 
     public int getCantidadVendida() {

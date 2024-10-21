@@ -1,9 +1,6 @@
 package pos.data;
 
-import pos.logic.Factura;
-import pos.logic.Cliente;
-import pos.logic.Cajero;
-import pos.logic.Linea;
+import pos.logic.*;
 
 import javax.swing.*;
 import java.sql.PreparedStatement;
@@ -59,7 +56,7 @@ public class FacturaDao {
 
             // Leer las líneas de la factura
             LineaDao lineaDao = new LineaDao();
-            List<Linea> lineas = lineaDao.search(new Linea(null, r));
+            List<Linea> lineas = lineaDao.search(new Linea(r));
             r.setLineas(lineas);
 
             return r;
