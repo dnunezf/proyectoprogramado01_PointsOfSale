@@ -78,6 +78,8 @@ public class Controller
         search(model.getFilter());
     }
 
+
+
     /*Método para editar un producto. Establece el modo en EDITAR, y carga el producto seleccionado
      * en el modelo*/
     public void edit(int row)

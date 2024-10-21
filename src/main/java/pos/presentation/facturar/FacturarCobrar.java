@@ -16,14 +16,13 @@ public class FacturarCobrar extends JDialog {
     private JTextField textFieldCheque;
     private JTextField textFieldSinpe;
 
-    private pos.presentation.facturar.Controller facturarController;
-    private pos.presentation.historico.Controller historicoController;
-    private View view;
-    private Model model;
 
-    public FacturarCobrar(pos.presentation.facturar.Controller facturarController,
+    pos.presentation.productos.Model productosModel;
+    private final View view;
+    private final Model model;
+
+    public FacturarCobrar(
                           View view, Model model) {
-        this.facturarController = facturarController;
         this.view = view;
         this.model = model;
 
@@ -99,6 +98,7 @@ public class FacturarCobrar extends JDialog {
                 for(Linea linea : model.getList()){
                     linea.actualizaExistencia();
                 }
+                productosModel.list();
                 JOptionPane.showMessageDialog(null, "Pago realizado con éxito. Factura creada.");
                 dispose();
             }
@@ -140,11 +140,7 @@ public class FacturarCobrar extends JDialog {
         }
     }
 
-    public void setFacturarController(pos.presentation.facturar.Controller controller) {
-        this.facturarController = controller;
-    }
-
-    public void setHistoricoController(pos.presentation.historico.Controller controller) {
-        this.historicoController = controller;
+    public void setViewProductos(pos.presentation.productos.Model productosModel) {
+        this.productosModel = productosModel;
     }
 }

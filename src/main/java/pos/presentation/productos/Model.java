@@ -68,6 +68,10 @@ public class Model extends AbstractModel
         firePropertyChange(LIST);
     }
 
+    public void list(){
+        firePropertyChange(LIST);
+    }
+
     public Producto getCurrent()
     {
         return current;

@@ -281,10 +281,11 @@ public class View implements PropertyChangeListener {
         total.setText(Float.toString(controller.getTotal()));
     }
 
-    public void subPanels(Controller facturarController)
+    public void subPanels(pos.presentation.productos.Model productosModel)
     {
         // Pasa la instancia actual de 'View' (es decir, 'this') al constructor de FacturarCobrar
-        cobrar = new FacturarCobrar(facturarController, this, model);
+        cobrar = new FacturarCobrar(this, model);
+        cobrar.setViewProductos(productosModel);
         buscar = new FacturarBuscar();
     }
 

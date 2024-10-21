@@ -97,7 +97,7 @@ public class Application {
        historicoController = new pos.presentation.historico.Controller(historicoView, historicoModel);
 //
         // 4. Pasa los controladores a las vistas ahora que están inicializados
-        facturarView.subPanels(facturarController);
+        facturarView.subPanels(productosModel);
 
 //        // 5. Inicializa las vistas
         facturarView.initialize(tabbedPane, cajerosModel, clientesModel);
