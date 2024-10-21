@@ -9,6 +9,7 @@ import pos.presentation.historico.Model;
 import pos.presentation.historico.View;
 
 import javax.swing.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Controller
@@ -53,12 +54,11 @@ public class Controller
     }
 
     public void loadLinesForSelectedBill(Factura factura) throws Exception {
-        // Obtener las líneas de la factura seleccionada
         if (factura != null) {
-            List<Linea> lineas = factura.getLineas();
-            model.setCurrentBill(factura); // Actualizar la factura actual en el modelo
+            List<Linea> lineas = Service.getInstance().searchLinesByBill(factura.getNumeroDeFactura()); // Obtén las líneas asociadas a la factura
+            model.setCurrentBill(factura); // Actualiza la factura actual en el modelo
             if (lineas != null) {
-                model.setListLines(lineas); // Actualizar las líneas de la factura en el modelo
+                model.setListLines(lineas); // Actualiza las líneas de la factura en el modelo
             }
         }
     }

@@ -58,7 +58,7 @@ public class View implements PropertyChangeListener {
                     Factura facturaSeleccionada = model.getListBills().get(selectedRow);
                     if (facturaSeleccionada != null) {
                         try {
-                            controller.loadLinesForSelectedBill(facturaSeleccionada);
+                            controller.loadLinesForSelectedBill(facturaSeleccionada); // Cargar líneas para la factura seleccionada
                         } catch (Exception ex) {
                             JOptionPane.showMessageDialog(panel, "Error al cargar líneas: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                         }

@@ -114,8 +114,9 @@ public class Model extends AbstractModel
         return listLines;
     }
 
-    public void setListLines(List<Linea> listLines) {
-        this.listLines = listLines;
-        firePropertyChange(LIST_LINES);
+    public void setListLines(List<Linea> lineas) {
+        List<Linea> oldListLines = this.listLines;
+        this.listLines = lineas;
+        firePropertyChange(LIST_LINES, oldListLines, this.listLines);
     }
 }

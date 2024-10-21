@@ -216,8 +216,17 @@ public class Service {
     }
 
     public List<Linea> searchLinesByBill(String numeroDeFactura) throws Exception {
+        // Leer la factura usando el número de factura proporcionado
         FacturaDao facturaDao = new FacturaDao();
         Factura factura = facturaDao.read(numeroDeFactura);
-        return factura.getLineas();
+
+        // Verificar si la factura fue encontrada
+        if (factura != null) {
+            // Retornar las líneas asociadas a esa factura
+            return factura.getLineas();
+        } else {
+            // Lanzar una excepción si no se encuentra la factura
+            throw new Exception("No se encontró ninguna factura con el número especificado.");
+        }
     }
 }
