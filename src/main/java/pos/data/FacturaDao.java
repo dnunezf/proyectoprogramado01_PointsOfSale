@@ -121,11 +121,6 @@ public class FacturaDao {
             stm.setString(1, e.getCliente().getId());
 
             try (ResultSet rs = db.executeQuery(stm)) {
-                if (!rs.isBeforeFirst()) {
-                    JOptionPane.showMessageDialog(null, "No se encontraron facturas.", "Información", JOptionPane.INFORMATION_MESSAGE);
-                    return resultado;
-                }
-
                 ClienteDao clienteDao = new ClienteDao();
                 CajeroDao cajeroDao = new CajeroDao();
 
@@ -136,7 +131,7 @@ public class FacturaDao {
 
                     // Leer las líneas de la factura
                     LineaDao lineaDao = new LineaDao();
-                    List<Linea> lineas = lineaDao.search(new Linea(null, r));
+                    List<Linea> lineas = lineaDao.search(new Linea());
                     r.setLineas(lineas);
 
                     resultado.add(r);
